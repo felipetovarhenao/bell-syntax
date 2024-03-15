@@ -3,18 +3,57 @@
 	"name": "bell",
 	"patterns": [
 		{
+			"include": "#comments"
+		},
+		{
 			"include": "#keywords"
 		},
 		{
 			"include": "#strings"
+		},
+		{
+			"include": "#functions"
+		},
+		{
+			"include": "#variables"
+		},
+		{
+			"include": "#numeric"
 		}
 	],
 	"repository": {
+		"comments": {
+			"patterns": [
+				{
+					"name": "comment.line.number-sign.bell",
+					"match": "##.*"
+				},
+				{
+					"name": "comment.block.bell",
+					"begin": "#\\(",
+					"end": "\\)#"
+				}
+			]
+		},
 		"keywords": {
-			"patterns": [{
-				"name": "keyword.control.bell",
-				"match": "\\b(if|while|for|return)\\b"
-			}]
+			"patterns": [
+				{
+					"name": "keyword.control.bell",
+					"match": "\\b(if|while|for|do|collect|in|then)\\b"
+				},
+				{
+					"name": "keyword.control.bell",
+					"match": "->"
+				},
+				{
+					"name": "support.type.bell",
+					"match": "@\\w+\\b"
+				},
+				{
+					"name": "support.function.bell",
+					"match": "\\$?\\w+\\("
+				}
+			]
 		},
 		"strings": {
 			"name": "string.quoted.double.bell",
@@ -26,6 +65,45 @@
 					"match": "\\\\."
 				}
 			]
+		},
+		"variables": {
+			"patterns": [
+				{
+					"name": "storage.type.variable.bell",
+					"match": "\\b\\$(\\w)+"
+				},
+				{
+					"name": "keyword.operator.bell",
+					"match": "(\\+|\\-[^>]|%|\\*|/|(_|\\!)?\\=|\\|\\|\\|?|&&|\\.\\.\\.|\\:|\\<|\\>)"
+				},
+				{
+					"name": "support.constant.bell",
+					"match": "\\$do(\\d)|null"
+				},
+				{
+					"name": "constant.character.escape.bell",
+					"match": "(?<!\\$)\\b[A-Z_]+\\b"
+				},
+				{
+					"name": "variable.parameter",
+					"match": "\\$"
+				}
+			]
+		},
+		"functions": {
+			"patterns": [
+				{
+					"name": "entity.name.function.bell",
+					"begins": "\\w+\\(",
+					"ends": "\\)"
+				}
+			]
+		},
+		"numeric": {
+			"patterns": [{
+				"name": "constant.numeric.bell",
+				"match": "\\b\\d+"
+			}]
 		}
 	},
 	"scopeName": "source.bell"
