@@ -39,10 +39,10 @@
 			"patterns": [
 				{
 					"name": "keyword.control.bell",
-					"match": "\\b(if|while|for|do|collect|in|then)\\b"
+					"match": "\\b(if|while|for|do|collect|in|then|else)\\b"
 				},
 				{
-					"name": "support.function",
+					"name": "keyword.operator.bell",
 					"match": "->"
 				},
 				{
@@ -77,15 +77,19 @@
 					"match": "(\\+|\\-[^>]|%|\\*|/|(_|\\!)?\\=|\\|\\|\\|?|&&|\\.\\.\\.|\\:|\\<|\\>)"
 				},
 				{
-					"name": "support.constant.bell",
-					"match": "\\$do(\\d)|null"
+					"name": "constant.other.bell",
+					"match": "null"
 				},
 				{
-					"name": "constant.character.escape.bell",
+					"name": "support.constant.bell",
+					"match": "\\$do(\\d)"
+				},
+				{
+					"name": "support.constant.bell",
 					"match": "(?<!\\$)\\b[A-Z_]+\\b"
 				},
 				{
-					"name": "variable.parameter",
+					"name": "variable.parameter.bell",
 					"match": "\\$"
 				}
 			]
