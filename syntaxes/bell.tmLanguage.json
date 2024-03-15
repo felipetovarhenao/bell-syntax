@@ -42,7 +42,7 @@
 					"match": "\\b(if|while|for|do|collect|in|then)\\b"
 				},
 				{
-					"name": "keyword.control.bell",
+					"name": "support.function",
 					"match": "->"
 				},
 				{
@@ -100,10 +100,12 @@
 			]
 		},
 		"numeric": {
-			"patterns": [{
-				"name": "constant.numeric.bell",
-				"match": "\\b\\d+"
-			}]
+			"patterns": [
+				{
+					"name": "constant.numeric.bell",
+					"match": "\\b\\d+"
+				}
+			]
 		}
 	},
 	"scopeName": "source.bell"
