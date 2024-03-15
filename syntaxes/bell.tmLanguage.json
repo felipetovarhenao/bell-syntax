@@ -32,6 +32,10 @@
 					"name": "comment.block.bell",
 					"begin": "#\\(",
 					"end": "\\)#"
+				},
+				{
+					"name": "comment.bell",
+					"match": ";"
 				}
 			]
 		},

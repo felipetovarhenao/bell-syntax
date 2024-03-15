@@ -3,6 +3,8 @@
   "displayName": "bell",
   "description": "bach evaluation language for lllls",
   "version": "0.0.1",
+  "icon": "images/brackets.png",
+  "publisher": "Felipe Tovar-Henao",
   "engines": {
     "vscode": "^1.87.0"
   },
