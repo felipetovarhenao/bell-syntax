@@ -1,0 +1,25 @@
+{
+  "name": "bell",
+  "displayName": "bell",
+  "description": "bach evaluation language for lllls",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.87.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "bell",
+      "aliases": ["bell", "bell"],
+      "extensions": [".bell"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "bell",
+      "scopeName": "source.bell",
+      "path": "./syntaxes/bell.tmLanguage.json"
+    }]
+  }
+}
