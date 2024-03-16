@@ -61,7 +61,7 @@
 				},
 				{
 					"name": "support.function.bell",
-					"match": "\\$?\\w+\\("
+					"match": "\\w+\\("
 				}
 			]
 		},
@@ -95,7 +95,7 @@
 				},
 				{
 					"name": "keyword.operator.bell",
-					"match": "(\\+|\\-[^>]|%|\\*|/|(_|\\!)?\\=|\\|\\|\\|?|&&|\\.\\.\\.|\\:|\\<|\\>)"
+					"match": "#?(\\+|-|%|\\*|/|(_|\\!)?\\=|\\|\\|\\|?|&&|\\.\\.\\.|\\:|\\<|\\>|!)"
 				},
 				{
 					"name": "constant.other.bell",
@@ -136,7 +136,15 @@
 			"patterns": [
 				{
 					"name": "constant.numeric.bell",
-					"match": "\\b\\d+"
+					"match": "\\b\\d+\\.\\d+"
+				},
+				{
+					"name": "constant.numeric.bell",
+					"match": "\\b\\.\\d+"
+				},
+				{
+					"name": "constant.numeric.bell",
+					"match": "\\b\\d+(\\.[^\\.])?"
 				}
 			]
 		}
