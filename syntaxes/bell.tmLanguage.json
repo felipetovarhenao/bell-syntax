@@ -129,6 +129,10 @@
 					"name": "entity.name.function.bell",
 					"begins": "\\w+\\(",
 					"ends": "\\)"
+				},
+				{
+					"name": "entity.name.function.bell",
+					"match": "\\w+(?=(\\s*=\\s*\\([^;]*->))"
 				}
 			]
 		},
