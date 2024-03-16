@@ -12,6 +12,12 @@
 			"include": "#strings"
 		},
 		{
+			"include": "#literals"
+		},
+		{
+			"include": "#ticks"
+		},
+		{
 			"include": "#functions"
 		},
 		{
@@ -70,6 +76,17 @@
 				}
 			]
 		},
+		"literals": {
+			"name": "string.quoted.single.bell",
+			"begin": "'",
+			"end": "'",
+			"patterns": [
+				{
+					"name": "constant.character.escape.bell",
+					"match": "\\\\."
+				}
+			]
+		},
 		"variables": {
 			"patterns": [
 				{
@@ -95,6 +112,14 @@
 				{
 					"name": "variable.parameter.bell",
 					"match": "\\$"
+				}
+			]
+		},
+		"ticks": {
+			"patterns": [
+				{
+					"name": "string.quoted.other",
+					"match": "`\\w+"
 				}
 			]
 		},
