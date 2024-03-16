@@ -3,7 +3,7 @@
   "displayName": "bell",
   "description": "bach evaluation language for lllls",
   "version": "0.0.1",
-  "icon": "images/brackets.png",
+  "icon": "./images/brackets.png",
   "publisher": "Felipe Tovar-Henao",
   "engines": {
     "vscode": "^1.87.0"
@@ -14,7 +14,12 @@
   "contributes": {
     "languages": [{
       "id": "bell",
-      "aliases": ["bell", "bell"],
+      "icon": {
+        "light": "./images/bell.svg",
+        "dark": "./images/bell.svg",
+        "*": "./images/bell.svg"
+      },
+      "aliases": ["bell"],
       "extensions": [".bell"],
       "configuration": "./language-configuration.json"
     }],
