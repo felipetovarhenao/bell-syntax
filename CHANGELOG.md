@@ -1,9 +1,6 @@
 # Change Log
 
-All notable changes to the "bell" extension will be documented in this file.
-
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
-
-## [Unreleased]
+## [v0.0.0]
 
 - Initial release
+- Basic syntax highlighting for almost every token.
