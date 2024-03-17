@@ -4,7 +4,7 @@
   "description": "syntax highlighting support for bell, the bach evaluation language for lllls",
   "version": "0.0.1",
   "icon": "./images/bell-icon.png",
-  "publisher": "felipetovarhenao",
+  "publisher": "tovarhenao",
   "engines": {
     "vscode": "^1.87.0"
   },
