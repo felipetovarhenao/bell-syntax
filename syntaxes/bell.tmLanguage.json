@@ -123,7 +123,7 @@
 			"patterns": [
 				{
 					"match": "#\\+|#-|#u-|#\\*|#/|#//|#%|#==|#!=|#<|#>|#<=|#>=|#&|#\\^|#\\||#&&|#\\^\\^|#\\|\\||#&&&|#\\|\\|\\||#<<|#>>",
-					"name": "support.function.general.bell"
+					"name": "entity.name.function.bell"
 				},
 				{
 					"name": "entity.name.function.bell",
@@ -131,7 +131,7 @@
 					"ends": "\\)"
 				},
 				{
-					"name": "support.function.bell",
+					"name": "entity.name.function.bell",
 					"match": "\\w+\\("
 				},
 				{
