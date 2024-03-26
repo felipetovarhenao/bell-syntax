@@ -49,19 +49,15 @@
 			"patterns": [
 				{
 					"name": "keyword.control.bell",
-					"match": "\\b(if|while|for|do|collect|in|then|else|init|keep)\\b"
+					"match": "\\b(for|in|do|collect|if|while|then|else|init|keep|unkeep|with|as)\\b"
 				},
 				{
-					"name": "keyword.operator.bell",
-					"match": "->"
+					"match": "<\\.\\.\\.>|-\\^",
+					"name": "keyword.other.bell"
 				},
 				{
 					"name": "support.type.bell",
 					"match": "@\\w+\\b"
-				},
-				{
-					"name": "support.function.bell",
-					"match": "\\w+\\("
 				}
 			]
 		},
@@ -95,11 +91,11 @@
 				},
 				{
 					"name": "keyword.operator.bell",
-					"match": "#?(\\+|-\\^?|%|\\*|/|(_|\\!|\\.)?\\=|\\|\\|\\|?|&&?&?|\\.\\.\\.|\\:|\\<|\\>|!)"
+					"match": "\\+=|-=|->|\\+|-|\\*=|\\*|\\*\\*=|\\*\\*|/=|/|//=|//|%=|%|=|==|!|~|!=|<|>|<=|>=|&=|&|\\^=|\\^|\\|=|\\||&&=|&&|&&&=|&&&|\\^\\^=|\\^\\^|\\|\\|=|\\|\\||\\|\\|\\|=|\\|\\|\\|<<=|<<|>>=|>>|:=|::|:|\\.=|_=|!_=|\\.\\.\\.|:\\*|\\.(?!\\.)"
 				},
 				{
 					"name": "constant.other.bell",
-					"match": "null"
+					"match": "\\b(null|nil)"
 				},
 				{
 					"name": "support.constant.bell",
@@ -111,7 +107,7 @@
 				},
 				{
 					"name": "variable.parameter.bell",
-					"match": "\\$"
+					"match": "(\\$|#)"
 				}
 			]
 		},
@@ -126,9 +122,17 @@
 		"functions": {
 			"patterns": [
 				{
+					"match": "#\\+|#-|#u-|#\\*|#/|#//|#%|#==|#!=|#<|#>|#<=|#>=|#&|#\\^|#\\||#&&|#\\^\\^|#\\|\\||#&&&|#\\|\\|\\||#<<|#>>",
+					"name": "support.function.general.bell"
+				},
+				{
 					"name": "entity.name.function.bell",
 					"begins": "\\w+\\(",
 					"ends": "\\)"
+				},
+				{
+					"name": "support.function.bell",
+					"match": "\\w+\\("
 				},
 				{
 					"name": "entity.name.function.bell",
@@ -138,6 +142,10 @@
 		},
 		"numeric": {
 			"patterns": [
+				{
+					"name": "constant.numeric.bell",
+					"match": "\\bpi\\b"
+				},
 				{
 					"name": "constant.numeric.bell",
 					"match": "\\b\\d+\\.\\d+"
