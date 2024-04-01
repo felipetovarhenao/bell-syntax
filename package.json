@@ -3,7 +3,7 @@
   "displayName": "bell syntax",
   "description": "syntax highlighting support for bell, the bach evaluation language for lllls",
   "version": "0.0.3",
-  "icon": "./images/bell-icon.png",
+  "icon": "./images/bell.png",
   "publisher": "tovarhenao",
   "engines": {
     "vscode": "^1.87.0"
@@ -16,9 +16,9 @@
       {
         "id": "bell",
         "icon": {
-          "light": "./images/bell-icon.svg",
-          "dark": "./images/bell-icon.svg",
-          "*": "./images/bell-icon.svg"
+          "light": "./images/bell.svg",
+          "dark": "./images/bell.svg",
+          "*": "./images/bell.svg"
         },
         "aliases": [
           "bell"
@@ -29,19 +29,19 @@
         "configuration": "./language-configuration.json"
       },
       {
-				"id": "llll",
-				"icon": {
-					"light": "./images/bach.svg",
-					"dark": "./images/bach.svg",
-					"*": "./images/bach.svg"
-				},
-				"aliases": [
-					"llll"
-				],
-				"extensions": [
-					".llll"
-				]
-			}
+        "id": "llll",
+        "icon": {
+          "light": "./images/llll.svg",
+          "dark": "./images/llll.svg",
+          "*": "./images/llll.svg"
+        },
+        "aliases": [
+          "llll"
+        ],
+        "extensions": [
+          ".llll"
+        ]
+      }
     ],
     "grammars": [
       {
