@@ -31,9 +31,9 @@
       {
 				"id": "llll",
 				"icon": {
-					"light": "./images/nodes.svg",
-					"dark": "./images/nodes.svg",
-					"*": "./images/nodes.svg"
+					"light": "./images/bach.svg",
+					"dark": "./images/bach.svg",
+					"*": "./images/bach.svg"
 				},
 				"aliases": [
 					"llll"
