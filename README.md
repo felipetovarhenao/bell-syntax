@@ -1,5 +1,7 @@
 # bell syntax
 
+<img height="90px" src="./images/bell.png"/>
+
 ## Description 
 
 This is a basic extension for `bell` syntax highligthing in Visual Studio Code.
