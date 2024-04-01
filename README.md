@@ -4,7 +4,12 @@
 
 ## Description 
 
-This is a basic extension for `bell` syntax highligthing in Visual Studio Code.
+This is a basic extension for `bell` syntax highligthing in Visual Studio Code. 
+
+`bell` (_bach evaluation language for lllls_) is a text-based programming language developed by Andrea Agostini and Jean-Louis Giavitto for the bach library in MaxMSP. To learn more, please read its introductory publication:
+
+> Jean-Louis Giavitto, Andrea Agostini. Bell, a textual language for the bach library. ICMC 2019 -
+International Computer Music Conference, Jun 2019, New York, United States. ffhal-02348176f
 
 ## Installation
 
