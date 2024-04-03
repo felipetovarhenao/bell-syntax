@@ -147,6 +147,10 @@
 		"numeric": {
 			"patterns": [
 				{
+					"name": "entity.name.function.bell",
+					"match": "\\{\\w+(\\.\\w+)?\\}"
+				},
+				{
 					"name": "constant.numeric.bell",
 					"match": "\\bpi\\b"
 				},
