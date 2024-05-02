@@ -30,6 +30,36 @@
         "configuration": "./language-configuration.json"
       },
       {
+        "id": "midi",
+        "icon": {
+          "light": "./images/midi.svg",
+          "dark": "./images/midi.svg",
+          "*": "./images/midi.svg"
+        },
+        "aliases": [
+          "mid", "midi"
+        ],
+        "extensions": [
+          ".mid",
+          ".midi"
+        ]
+      },
+      {
+        "id": "max",
+        "icon": {
+          "light": "./images/max.svg",
+          "dark": "./images/max.svg",
+          "*": "./images/max.svg"
+        },
+        "aliases": [
+          "maxpat", "maxproj"
+        ],
+        "extensions": [
+          ".maxpat",
+          ".maxproj"
+        ]
+      },
+      {
         "id": "llll",
         "icon": {
           "light": "./images/llll.svg",
