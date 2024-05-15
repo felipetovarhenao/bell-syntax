@@ -160,7 +160,7 @@
 				},
 				{
 					"name": "constant.numeric.bell",
-					"match": "\\b\\d+(\\.[^\\.])?"
+					"match": "\\b\\d+(\\.(?!\\.))?"
 				}
 			]
 		}
