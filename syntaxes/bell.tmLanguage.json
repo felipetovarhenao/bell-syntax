@@ -57,7 +57,7 @@
 				},
 				{
 					"name": "support.type.bell",
-					"match": "(?<!\\w+)@[a-zA-Z]+\\b"
+					"match": "(?<!\\w+)(?<!@)@[a-zA-Z]+(?=\\s)"
 				}
 			]
 		},
@@ -86,10 +86,6 @@
 		"variables": {
 			"patterns": [
 				{
-					"name": "storage.type.variable.bell",
-					"match": "(?<=\\b)\\$(\\w)+"
-				},
-				{
 					"name": "support.constant.bell",
 					"match": "(?<=include\\().*(?=\\))"
 				},
@@ -103,7 +99,7 @@
 				},
 				{
 					"name": "support.constant.bell",
-					"match": "\\$do(\\d)"
+					"match": "\\$d?o(\\d)"
 				},
 				{
 					"name": "support.constant.bell",
@@ -111,7 +107,7 @@
 				},
 				{
 					"name": "variable.parameter.bell",
-					"match": "(\\$|#)"
+					"match": "(?<![a-zA-Z$])(\\$|#)(?!(\\$|#))(?=\\w+)\\b"
 				}
 			]
 		},
