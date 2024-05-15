@@ -57,7 +57,7 @@
 				},
 				{
 					"name": "support.type.bell",
-					"match": "@\\w+\\b"
+					"match": "(?<!\\w+)@[a-zA-Z]+\\b"
 				}
 			]
 		},
@@ -87,7 +87,7 @@
 			"patterns": [
 				{
 					"name": "storage.type.variable.bell",
-					"match": "\\b\\$(\\w)+"
+					"match": "(?<=\\b)\\$(\\w)+"
 				},
 				{
 					"name": "support.constant.bell",
