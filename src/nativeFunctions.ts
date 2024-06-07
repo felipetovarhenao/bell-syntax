@@ -401,7 +401,7 @@ const nativeFunctionsCompletions = nativeFunctions.map((x) => {
     x.args.forEach((arg) => (description += `\n\t- ${arg.name}`));
   }
   description += `\n${x.description}\n\n`;
-  const item = new vscode.CompletionItem(x.name);
+  const item = new vscode.CompletionItem(x.name, vscode.CompletionItemKind.Function);
   item.insertText = new vscode.SnippetString(`${x.name}(\${1})`);
   const docs: any = new vscode.MarkdownString(description);
   item.documentation = docs;
