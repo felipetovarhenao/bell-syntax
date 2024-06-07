@@ -13,6 +13,12 @@
     "Programming Languages"
   ],
   "contributes": {
+    "snippets": [
+      {
+        "language": "bell",
+        "path": "./snippets/bell.json"
+      }
+    ],
     "languages": [
       {
         "id": "bell",
@@ -37,7 +43,8 @@
           "*": "./images/midi.svg"
         },
         "aliases": [
-          "mid", "midi"
+          "mid",
+          "midi"
         ],
         "extensions": [
           ".mid",
@@ -52,7 +59,8 @@
           "*": "./images/max.svg"
         },
         "aliases": [
-          "maxpat", "maxproj"
+          "maxpat",
+          "maxproj"
         ],
         "extensions": [
           ".maxpat",
