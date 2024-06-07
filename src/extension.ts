@@ -6,7 +6,6 @@ import * as vscode from "vscode";
 import { nativeFunctionsCompletions } from "./nativeFunctions";
 
 export function activate(context: vscode.ExtensionContext) {
-  console.log("**** activating");
   const provider1 = vscode.languages.registerCompletionItemProvider("bell", {
     provideCompletionItems(
       document: vscode.TextDocument,
