@@ -2,4 +2,9 @@ node_modules
 *.vsix
 **/*.js
 **/*.js.map
+.*
+!.gitignore
+!.vscode
+!.gitattributes
+!.eslintrc.js
 **/.DS_Store
