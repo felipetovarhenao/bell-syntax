@@ -3,9 +3,24 @@
  *--------------------------------------------------------*/
 
 import * as vscode from "vscode";
-import { nativeFunctionsCompletions } from "./nativeFunctions";
+import { nativeFunctionsCompletions, nativeFunctionsLookup } from "./nativeFunctions";
 
 export function activate(context: vscode.ExtensionContext) {
+
+  const hoverProvider = vscode.languages.registerHoverProvider("bell", {
+    provideHover(document, position, token) {
+      const range = document.getWordRangeAtPosition(position);
+      const word = document.getText(range);
+      const result = nativeFunctionsLookup[word];
+      if (!result) {
+        return undefined;
+      }
+      return {
+        contents: [result.documentation],
+      };
+    },
+  });
+
   const provider1 = vscode.languages.registerCompletionItemProvider("bell", {
     provideCompletionItems(
       document: vscode.TextDocument,
@@ -21,5 +36,5 @@ export function activate(context: vscode.ExtensionContext) {
     },
   });
 
-  context.subscriptions.push(provider1);
+  context.subscriptions.push(provider1, hoverProvider);
 }
