@@ -7,12 +7,12 @@ const nativeFunctions = [
       "The `apply()` function calls another function by passing it individual parameters expressed as two lllls, one for arguments passed by position, the other for arguments passed by name.",
     args: [{ name: "function" }, { name: "arguments by position" }, { name: "arguments by name" }],
   },
-  {
-    name: "$args",
-    description:
-      "The `$args()` function returns one or more arguments passed to the function that calls it, based on their indices. If called from the main function, it returns the corresponding input lllls. Arguments after the ellipsis can't be returned by $args.",
-    args: [{ name: "indices" }],
-  },
+  // {
+  //   name: "$args",
+  //   description:
+  //     "The `$args()` function returns one or more arguments passed to the function that calls it, based on their indices. If called from the main function, it returns the corresponding input lllls. Arguments after the ellipsis can't be returned by $args.",
+  //   args: [{ name: "indices" }],
+  // },
   {
     name: "arithmser",
     description: "The `arithmser()` function return an arithmetic series, like the `bach.arithmser` object.",

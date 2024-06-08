@@ -6,7 +6,6 @@ import * as vscode from "vscode";
 import { nativeFunctionsCompletions, nativeFunctionsLookup } from "./nativeFunctions";
 
 export function activate(context: vscode.ExtensionContext) {
-
   const hoverProvider = vscode.languages.registerHoverProvider("bell", {
     provideHover(document, position, token) {
       const range = document.getWordRangeAtPosition(position);
@@ -21,20 +20,25 @@ export function activate(context: vscode.ExtensionContext) {
     },
   });
 
-  const provider1 = vscode.languages.registerCompletionItemProvider("bell", {
-    provideCompletionItems(
-      document: vscode.TextDocument,
-      position: vscode.Position,
-      token: vscode.CancellationToken,
-      context: vscode.CompletionContext
-    ) {
-      const forLoopCompletion = new vscode.CompletionItem("For loop");
-      forLoopCompletion.insertText = new vscode.SnippetString("for $${1|i|} in $${2} ${3|collect,do|} (${4});");
+  const completionProvider = vscode.languages.registerCompletionItemProvider("bell", {
+    provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
+      const range = document.getWordRangeAtPosition(position);
 
-      // return all completion items as array
-      return [...nativeFunctionsCompletions, forLoopCompletion];
+      if (!range) {
+        return undefined;
+      }
+
+      const start = range.start.character;
+      const prefix = document.lineAt(position).text.slice(start - 1, start);
+
+      // stop early if token is not a global variable
+      if (/[$#@]/.test(prefix)) {
+        return undefined;
+      }
+
+      return [...nativeFunctionsCompletions];
     },
   });
 
-  context.subscriptions.push(provider1, hoverProvider);
+  context.subscriptions.push(completionProvider, hoverProvider);
 }
