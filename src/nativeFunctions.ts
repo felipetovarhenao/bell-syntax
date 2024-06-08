@@ -1,22 +1,393 @@
 import * as vscode from "vscode";
 
 export const nativeFunctions = [
-  // {
-  //   name: "apply",
-  //   description:
-  //     "The `apply()` function calls another function by passing it individual parameters expressed as two lllls, one for arguments passed by position, the other for arguments passed by name.",
-  //   args: [
-  //     {
-  //       name: "function",
-  //     },
-  //     {
-  //       name: "arguments",
-  //     },
-  //     {
-  //       name: "arguments",
-  //     },
-  //   ],
-  // },
+  {
+    name: "apply",
+    description:
+      "The `apply()` function calls another function by passing it individual parameters expressed as two lllls, one for arguments passed by position, the other for arguments passed by name.",
+    args: [
+      {
+        name: "function",
+      },
+      {
+        name: "argsbyposition",
+      },
+      {
+        name: "argsbyname",
+      },
+    ],
+  },
+  {
+    name: "abs",
+    description: "The `abs()` function returns the absolute value of `@x`.",
+    args: [
+      {
+        name: "x",
+      },
+    ],
+  },
+  {
+    name: "acos",
+    description: "The `acos()` function returns the arc cosine value of `@x`.",
+    args: [
+      {
+        name: "x",
+      },
+    ],
+  },
+  {
+    name: "acosh",
+    description: "The `acosh()` function returns the inverse hyperbolic cosine of `@x`",
+    args: [
+      {
+        name: "x",
+      },
+    ],
+  },
+  {
+    name: "alter",
+    description: "The `alter()` function returns the difference, in tones, between the pitch value of `@x` and its diatonic pitch name. For instance:\n\n```bell\nalter(Db4) -> -1/2\n```",
+    args: [
+      {
+        name: "x",
+      },
+    ],
+  },
+  {
+    name: "asin",
+    description: "The `asin()` function returns the arc sine value of `@x`.",
+    args: [
+      {
+        name: "x",
+      },
+    ],
+  },
+  {
+    name: "asinh",
+    description: "The `asinh()` function returns the hyperbolic arc sine value of `@x`.",
+    args: [
+      {
+        name: "x",
+      },
+    ],
+  },
+  {
+    name: "atan",
+    description: "The `atan()` function returns the arc tangent value of `@x`.",
+    args: [
+      {
+        name: "x",
+      },
+    ],
+  },
+  {
+    name: "atanh",
+    description: "The `atanh()` function returns the hyperbolic arc tangent value of `@x`.",
+    args: [
+      {
+        name: "x",
+      },
+    ],
+  },
+  {
+    name: "ceil",
+    description: "The `ceil()` function rounds up the value of `@x` to the nearest integer.",
+    args: [
+      {
+        name: "x",
+      },
+    ],
+  },
+  {
+    name: "cents",
+    description: "The `cents()` function converts the value of `@x` to midicents.",
+    args: [
+      {
+        name: "x",
+      },
+    ],
+  },
+  {
+    name: "cos",
+    description: "The `cos()` function returns the cosine value of `@x`.",
+    args: [
+      {
+        name: "x",
+      },
+    ],
+  },
+  {
+    name: "cosh",
+    description: "The `cosh()` function returns the hyperbolic cosine value of `@x`.",
+    args: [
+      {
+        name: "x",
+      },
+    ],
+  },
+  {
+    name: "degree",
+    description: "Midicents to C-based diatonic scale degree conversion.",
+    args: [
+      {
+        name: "x",
+      },
+    ],
+  },
+  {
+    name: "den",
+    description: "The `den()` function returns the denominator of `@x`",
+    args: [
+      {
+        name: "x",
+      },
+    ],
+  },
+  {
+    name: "exp",
+    description: "Natural exponent",
+    args: [
+      {
+        name: "x",
+      },
+    ],
+  },
+  {
+    name: "exp2",
+    description: "Natural exponent",
+    args: [
+      {
+        name: "x",
+      },
+    ],
+  },
+  {
+    name: "float",
+    description: "The `float()` function casts value of `@x` as a `float`.",
+    args: [
+      {
+        name: "x",
+      },
+    ],
+  },
+  {
+    name: "floor",
+    description: "The `floor()` function rounds down the value of `@x` to the nearest integer.",
+    args: [
+      {
+        name: "x",
+      },
+    ],
+  },
+  {
+    name: "int",
+    description: "The `int()` function casts value of `@x` as an `int`.",
+    args: [
+      {
+        name: "x",
+      },
+    ],
+  },
+  {
+    name: "log",
+    description: "Natural logarithm",
+    args: [
+      {
+        name: "x",
+      },
+    ],
+  },
+  {
+    name: "log10",
+    description: "Logarithm base 10",
+    args: [
+      {
+        name: "x",
+      },
+    ],
+  },
+  {
+    name: "log2",
+    description: "Logarithm base 2",
+    args: [
+      {
+        name: "x",
+      },
+    ],
+  },
+  {
+    name: "num",
+    description: "The `num()` function returns the numerator of `@x`.",
+    args: [
+      {
+        name: "x",
+      },
+    ],
+  },
+  {
+    name: "octave",
+    description: "The `octave()` function returns the pitch octave level of `@x`.",
+    args: [
+      {
+        name: "x",
+      },
+    ],
+  },
+  {
+    name: "pitch",
+    description: "The `pitch()` function casts value of `@x` as `pitch`.",
+    args: [
+      {
+        name: "x",
+      },
+    ],
+  },
+  {
+    name: "rat",
+    description: "The `rat()` function casts value of `@x` as `rat`.",
+    args: [
+      {
+        name: "x",
+      },
+    ],
+  },
+  {
+    name: "round",
+    description: "The `round()` function rounds the value of `@x` to the nearest integer.",
+    args: [
+      {
+        name: "x",
+      },
+    ],
+  },
+  {
+    name: "sgn",
+    description: "The `sgn` function returns the sign of `@x`.",
+    args: [
+      {
+        name: "x",
+      },
+    ],
+  },
+  {
+    name: "sin",
+    description: "The `sin()` function returns the sine value of `@x`.",
+    args: [
+      {
+        name: "x",
+      },
+    ],
+  },
+  {
+    name: "sinh",
+    description: "The `sin()` function returns the hyperbolic sine of `@x`.",
+    args: [
+      {
+        name: "x",
+      },
+    ],
+  },
+  {
+    name: "sqrt",
+    description: "The `sqrt()` function returns the square root of `@x`.",
+    args: [
+      {
+        name: "x",
+      },
+    ],
+  },
+  {
+    name: "tan",
+    description: "The `tan()` function returns the tangent of `@x`.",
+    args: [
+      {
+        name: "x",
+      },
+    ],
+  },
+  {
+    name: "tanh",
+    description: "The `tan()` function returns the hyperbolic tangent of `@x`.",
+    args: [
+      {
+        name: "x",
+      },
+    ],
+  },
+  {
+    name: "trunc",
+    description: "The `trunc()` function truncates the value of `@x`.",
+    args: [
+      {
+        name: "x",
+      },
+    ],
+  },
+  {
+    name: "atan2",
+    description: "The `atan2()` function returns the arctangent of `@x` and `@y`.",
+    args: [{ name: "x" }, { name: "y" }],
+  },
+  {
+    name: "enharm",
+    description: "`enharm()` function",
+    args: [{ name: "x" }, { name: "y" }],
+  },
+  {
+    name: "fmod",
+    description: "The `fmod()` function returns `@x` modulo `@y`",
+    args: [{ name: "x" }, { name: "y" }],
+  },
+  {
+    name: "hypot",
+    description: "The `hypot()` returns the hypotenuse of `@x` and `@y`",
+    args: [{ name: "x" }, { name: "y" }],
+  },
+  {
+    name: "max",
+    description: "The `max()` function returns the maximum value between `@x` an `@y`. ",
+    args: [{ name: "x" }, { name: "y" }],
+  },
+  {
+    name: "min",
+    description: "The `min()` function returns the minimum value between `@x` an `@y`. ",
+    args: [{ name: "x" }, { name: "y" }],
+  },
+  {
+    name: "mod",
+    description: "The `mod()` function returns `@x` modulo `@y`",
+    args: [{ name: "x" }, { name: "y" }],
+  },
+  {
+    name: "random",
+    description: "The `random()` function generates a random integer between `@x` and `@y`.",
+    args: [{ name: "x" }, { name: "y" }],
+  },
+  {
+    name: "approx",
+    description: "The `approx()` function approximates a pitch value to the nearest tone division",
+    args: [{ name: "pitch" }, { name: "tonedivision" }],
+  },
+  {
+    name: "bessel",
+    description: "`bessel()` function",
+    args: [{ name: "x" }, { name: "order" }],
+  },
+  {
+    name: "makepitchsc",
+    description: "The `makepitchsc()` function generates a pitch, given a number of `@steps` along the C-based diatonic scale, and the desired midicent value.",
+    args: [{ name: "steps" }, { name: "cents" }],
+  },
+  {
+    name: "pow",
+    description: "The `pow()` function returns the value of `@base` to the power of `@exponent`.",
+    args: [{ name: "base" }, { name: "exponent" }],
+  },
+  {
+    name: "makepitch",
+    description: "The `makepitch()` generates a `pitch` value, given a `@degree`, `@octave`, and `@alter`",
+    args: [{ name: "degree" }, { name: "octave" }, { name: "alter" }],
+  },
   {
     name: "arithmser",
     description: "The `arithmser()` function return an arithmetic series, like the `bach.arithmser` object.",
@@ -157,7 +528,7 @@ export const nativeFunctions = [
   {
     name: "directout",
     description:
-      "The `directout()` function outputs data from one or more direct outlets. The data are output as the function is evaluated. The return value of `directout()` is the last llll output. Unlike what happens with its corresponding pseudovariables `$do<n>`, providing code containing the `directout()` function does not create automatically the direct outlets. For this reason, it is generally necessary to set the @directouts object argument.",
+      "The `directout()` function outputs data from one or more direct outlets. The data are output as the function is evaluated. The return value of `directout()` is the last llll output. Unlike what happens with its corresponding pseudovariables `$do<n>`, providing code containing the `directout()` function does not create automatically the direct outlets. For this reason, it is generally necessary to set the `@directouts` object argument.",
     args: [
       {
         name: "outlets",
@@ -493,7 +864,7 @@ export const nativeFunctions = [
   {
     name: "is",
     description:
-      "The `is()` function returns the data type of the input, as one of the following symbols:\n\n- `integer`\n- `real`\n- `rational`\n- `symbol`\n- `llll`\n- `function`",
+      "The `is()` function returns the data type of the input, as one of the following symbols:\n\n- `integer`\n- `real`\n- `rational`\n- `symbol`\n- `llll`\n- `pitch`\n- `function`",
     args: [{ name: "llll" }],
   },
   {
