@@ -7,7 +7,7 @@ import { nativeFunctionsCompletions, nativeFunctionsLookup } from "./nativeFunct
 
 export function activate(context: vscode.ExtensionContext) {
   const hoverProvider = vscode.languages.registerHoverProvider("bell", {
-    provideHover(document, position, token) {
+    provideHover(document: vscode.TextDocument, position: vscode.Position) {
       const range = document.getWordRangeAtPosition(position);
       const word = document.getText(range);
       const result = nativeFunctionsLookup[word];
