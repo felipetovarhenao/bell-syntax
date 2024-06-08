@@ -145,7 +145,7 @@ export const nativeFunctions = [
   },
   {
     name: "exp",
-    description: "Natural exponent",
+    description: "The `exp()` function raises the constant `e` (`~2.71828`) to the power of `@x`.",
     args: [
       {
         name: "x",
@@ -154,7 +154,7 @@ export const nativeFunctions = [
   },
   {
     name: "exp2",
-    description: "Natural exponent",
+    description: "The `exp2()` function raises 2 to the power of `@x`.",
     args: [
       {
         name: "x",
