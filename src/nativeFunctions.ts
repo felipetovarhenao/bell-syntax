@@ -406,7 +406,7 @@ export const nativeFunctions = [
   },
   {
     name: "geomser",
-    description: "The geomser() function return a geomethric series, like the `bach.arithmser` object.",
+    description: "The `geomser()` function return a geomethric series, like the `bach.arithmser` object.",
     args: [
       {
         name: "start",
@@ -653,7 +653,7 @@ export const nativeFunctions = [
   {
     name: "outlet",
     description:
-      "The `outlet()` function assigns values to extra outlets, and returns the last (or only) value assigned. The order of the assigned values has no influence on the order in which they will be output, which will always be right-to-left, except if the same outlet is assigned more than one llll—in this case, the last assignment is the one that is retained. The same goes if the outlet() function is called more than once. If the outlet() function is called from a non-main function, it produces no effect besides returning the last argument's value.",
+      "The `outlet()` function assigns values to extra outlets, and returns the last (or only) value assigned. The order of the assigned values has no influence on the order in which they will be output, which will always be right-to-left, except if the same outlet is assigned more than one llll—in this case, the last assignment is the one that is retained. The same goes if the `outlet()` function is called more than once. If the `outlet()` function is called from a non-main function, it produces no effect besides returning the last argument's value.",
     args: [
       {
         name: "outlets",
@@ -755,7 +755,7 @@ export const nativeFunctions = [
       "The `rev()` function reverses the contents of an llll, like the `bach.rev` object. By default, only the root level is changed. This can be changed with the `@mindepth` and `@maxdepth` arguments.",
     args: [
       {
-        name: "outlets",
+        name: "llll",
       },
       {
         name: "depth",
@@ -936,7 +936,7 @@ export const nativeFunctions = [
   },
   {
     name: "trans",
-    description: "The trans() function returns the matrix transposition of an llll, like the `bach.trans` object.",
+    description: "The `trans()` function returns the matrix transposition of an llll, like the `bach.trans` object.",
     args: [
       {
         name: "llll",
@@ -998,6 +998,7 @@ const nativeFunctionsCompletions = nativeFunctions.map((x) => {
   // we set code-style function name as a header
   let description = `\`\`\`c\n${x.name}()\n\`\`\`\n`;
 
+  const argCompletions: vscode.CompletionItem[] = [];
   // parse arguments
   if (x.args.length > 0) {
     // argument list
@@ -1013,6 +1014,11 @@ const nativeFunctionsCompletions = nativeFunctions.map((x) => {
 
       // concat to description
       description += argname;
+
+      // create arg completion
+      const argCompletion = new vscode.CompletionItem(arg.name, vscode.CompletionItemKind.Field);
+      argCompletion.insertText = `${arg.name} `;
+      argCompletions.push(argCompletion);
     });
   }
 
@@ -1022,9 +1028,15 @@ const nativeFunctionsCompletions = nativeFunctions.map((x) => {
   // instantiate completion item
   const item = new vscode.CompletionItem(x.name, vscode.CompletionItemKind.Function);
   item.insertText = new vscode.SnippetString(`${x.name}(\${1})`);
+  item.detail = "bell function";
   const docs = new vscode.MarkdownString(description);
   item.documentation = docs;
-  nativeFunctionsLookup[x.name] = item;
+
+  nativeFunctionsLookup[x.name] = {
+    completion: item,
+    args: argCompletions,
+  };
+
   return item;
 });
 

@@ -15,30 +15,56 @@ export function activate(context: vscode.ExtensionContext) {
         return undefined;
       }
       return {
-        contents: [result.documentation],
+        contents: [result.completion.documentation],
       };
     },
   });
 
-  const completionProvider = vscode.languages.registerCompletionItemProvider("bell", {
-    provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
-      const range = document.getWordRangeAtPosition(position);
+  const completionProvider = vscode.languages.registerCompletionItemProvider(
+    "bell",
+    {
+      provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
+        const range = document.getWordRangeAtPosition(position);
 
-      if (!range) {
-        return undefined;
-      }
+        if (!range) {
+          return undefined;
+        }
 
-      const start = range.start.character;
-      const prefix = document.lineAt(position).text.slice(start - 1, start);
+        const start = range.start.character;
+        const prefix = document.lineAt(position).text.slice(start - 1, start);
 
-      // stop early if token is not a global variable
-      if (/[$#@]/.test(prefix)) {
-        return undefined;
-      }
+        // stop early if token is not a global variable
+        if (/[$#@]/.test(prefix)) {
+          return undefined;
+        }
 
-      return [...nativeFunctionsCompletions];
+        return [...nativeFunctionsCompletions];
+      },
     },
-  });
+    "."
+  );
 
-  context.subscriptions.push(completionProvider, hoverProvider);
+  const attrCompletionProvider = vscode.languages.registerCompletionItemProvider(
+    "bell",
+    {
+      provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
+        const linePrefix = document.lineAt(position).text.slice(0, position.character);
+        const regex = /(?<=\()\w+/;
+        const match = linePrefix.split("").reverse().join("").match(regex);
+
+        if (match && match[0]) {
+          const token = match[0].split("").reverse().join("");
+          const result = nativeFunctionsLookup[token];
+          if (!result) {
+            return undefined;
+          }
+          return result.args;
+        }
+        return undefined;
+      },
+    },
+    "@"
+  );
+
+  context.subscriptions.push(completionProvider, hoverProvider, attrCompletionProvider);
 }
