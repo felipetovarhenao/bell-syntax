@@ -49,16 +49,35 @@ export function activate(context: vscode.ExtensionContext) {
     {
       provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
         const linePrefix = document.lineAt(position).text.slice(0, position.character);
-        const regex = /(?<=\()\w+/;
+
+        /* 
+        we use regex pattern for a reversed function, so as to catch the most recent function.
+        this might cause some issues but in general works well
+        */
+        const regex = /(?<=\()\w+\.?/;
+
+        // reverse line prefix and apply regex
         const match = linePrefix.split("").reverse().join("").match(regex);
 
         if (match && match[0]) {
-          const token = match[0].split("").reverse().join("");
+          // if matched, reverse back
+          let token = match[0].split("").reverse().join("");
+          let isDotted = false;
+
+          // check if function is using dotted syntax and remove dot
+          if (token.startsWith(".")) {
+            token = token.slice(1);
+            isDotted = true;
+          }
+
+          // check if it exists
           const result = nativeFunctionsLookup[token];
           if (!result) {
             return undefined;
           }
-          return result.args;
+
+          // remove first argument for dotted syntax
+          return isDotted ? result.args.slice(1) : result.args;
         }
         return undefined;
       },

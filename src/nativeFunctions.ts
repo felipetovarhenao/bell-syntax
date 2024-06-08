@@ -1007,17 +1007,31 @@ const nativeFunctionsCompletions = nativeFunctions.map((x) => {
       // argument as a list item, prepended with @ when not variadic
       let argname = `\n\t- ${arg.name === "<...>" ? arg.name : `@${arg.name}`}`;
 
-      // provide default value, if any
+      let defaultValue = undefined;
+
+      // append default value, if any
       if (arg.default != undefined || arg.default === null) {
-        argname += ` ${arg.default === null ? "null" : arg.default}`;
+        defaultValue = arg.default === null ? "null" : arg.default;
+        argname += ` ${defaultValue}`;
       }
 
       // concat to description
       description += argname;
 
+      // stop early if arg is variadic
+      if (arg.name === "<...>") {
+        return;
+      }
       // create arg completion
-      const argCompletion = new vscode.CompletionItem(arg.name, vscode.CompletionItemKind.Field);
-      argCompletion.insertText = `${arg.name} `;
+      const argCompletion = new vscode.CompletionItem(`@${arg.name}`, vscode.CompletionItemKind.Field);
+      argCompletion.insertText = new vscode.SnippetString(`${arg.name} `);
+      argCompletion.filterText = arg.name;
+
+      if (defaultValue != undefined) {
+        argCompletion.label += ` ${defaultValue}`;
+        argCompletion.insertText.appendVariable("1", `${defaultValue}`);
+      }
+
       argCompletions.push(argCompletion);
     });
   }
