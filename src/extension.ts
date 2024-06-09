@@ -5,6 +5,7 @@
 import * as vscode from "vscode";
 import { nativeFunctionsCompletions, nativeFunctionsLookup } from "./nativeFunctions";
 import { loopSnippets, loopSnippetLookup } from "./loopSnippets";
+import { withClauseAttrCompletions } from "./withClauseAttributes";
 
 export function activate(context: vscode.ExtensionContext) {
   const hoverProvider = vscode.languages.registerHoverProvider("bell", {
@@ -51,8 +52,25 @@ export function activate(context: vscode.ExtensionContext) {
       provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
         const linePrefix = document.lineAt(position).text.slice(0, position.character);
 
+        // we only want to show completions if @ is preceded by spaces or alpha + parens
+        const cleanAttrPattern = /(?<=(\w+\(|\s+))@$/;
+        const isCleanAttr = cleanAttrPattern.test(linePrefix);
+
+        // stop early
+        if (!isCleanAttr) {
+          return;
+        }
+
+        const withPattern = /(?<=with\s+.*)@$/;
+        const isWithAttr = withPattern.test(linePrefix);
+        
+        if (isWithAttr) {
+          // show with clause attributes
+          return withClauseAttrCompletions;
+        }
+
         /* 
-        we use regex pattern for a reversed function, so as to catch the most recent function.
+        if it's not clean, or a with clause attribute we use regex pattern for a reversed function, so as to catch the most recent function.
         this might cause some issues but in general works well
         */
         const regex = /(?<=\()\w+\.?/;
