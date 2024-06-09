@@ -46,7 +46,8 @@ export const nativeFunctions = [
   },
   {
     name: "alter",
-    description: "The `alter()` function returns the difference, in tones, between the pitch value of `@x` and its diatonic pitch name. For instance:\n\n```bell\nalter(Db4) -> -1/2\n```",
+    description:
+      "The `alter()` function returns the difference, in tones, between the pitch value of `@x` and its diatonic pitch name. For instance:\n\n```bell\nalter(Db4) -> -1/2\n```",
     args: [
       {
         name: "x",
@@ -375,7 +376,8 @@ export const nativeFunctions = [
   },
   {
     name: "makepitchsc",
-    description: "The `makepitchsc()` function generates a pitch, given a number of `@steps` along the C-based diatonic scale, and the desired midicent value.",
+    description:
+      "The `makepitchsc()` function generates a pitch, given a number of `@steps` along the C-based diatonic scale, and the desired midicent value.",
     args: [{ name: "steps" }, { name: "cents" }],
   },
   {
@@ -1374,7 +1376,7 @@ const nativeFunctionsCompletions = nativeFunctions.map((x) => {
   if (x.args.length > 0) {
     // argument list
     description += `\nArguments:\n`;
-    x.args.forEach((arg) => {
+    x.args.forEach((arg, index) => {
       // argument as a list item, prepended with @ when not variadic
       let argname = `\n\t- ${arg.name === "<...>" ? arg.name : `@${arg.name}`}`;
 
@@ -1397,7 +1399,7 @@ const nativeFunctionsCompletions = nativeFunctions.map((x) => {
       const argCompletion = new vscode.CompletionItem(`@${arg.name}`, vscode.CompletionItemKind.Field);
       argCompletion.insertText = new vscode.SnippetString(`${arg.name} `);
       argCompletion.filterText = arg.name;
-
+      argCompletion.sortText = `${index}`;
       if (defaultValue != undefined) {
         argCompletion.label += ` ${defaultValue}`;
         argCompletion.insertText.appendVariable("1", `${defaultValue}`);
