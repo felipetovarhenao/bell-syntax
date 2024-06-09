@@ -19,7 +19,7 @@ export const loopSnippets: vscode.CompletionItem[] = [
   {
     name: "for loop",
     filter: "for",
-    snippet: "for ${1|$i|} in ${2|1...10|} ${3|collect,do|} (${4});\n",
+    snippet: "for \$${1|i|} in ${2|1...10|} ${3|collect,do|} (${4});\n",
     docs: "`for` loops iterate over lllls. Typical examples of `for` loop syntax include:\n" + "```bell\n\n" + forLoopExamples + "\n```",
   },
   {
