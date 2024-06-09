@@ -2,7 +2,7 @@
   "name": "bell-syntax",
   "displayName": "bell syntax",
   "description": "syntax highlighting support for bell, the bach evaluation language for lllls",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "icon": "./images/bell.png",
   "publisher": "tovarhenao",
   "repository": {
