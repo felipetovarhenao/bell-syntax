@@ -4,13 +4,14 @@
 
 import * as vscode from "vscode";
 import { nativeFunctionsCompletions, nativeFunctionsLookup } from "./nativeFunctions";
+import { loopSnippets, loopSnippetLookup } from "./loopSnippets";
 
 export function activate(context: vscode.ExtensionContext) {
   const hoverProvider = vscode.languages.registerHoverProvider("bell", {
     provideHover(document: vscode.TextDocument, position: vscode.Position) {
       const range = document.getWordRangeAtPosition(position);
       const word = document.getText(range);
-      const result = nativeFunctionsLookup[word];
+      const result = nativeFunctionsLookup[word] || loopSnippetLookup[word];
       if (!result) {
         return undefined;
       }
@@ -38,7 +39,7 @@ export function activate(context: vscode.ExtensionContext) {
           return undefined;
         }
 
-        return [...nativeFunctionsCompletions];
+        return [...nativeFunctionsCompletions, ...loopSnippets];
       },
     },
     "."
