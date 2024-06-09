@@ -1,6 +1,6 @@
 # bell syntax
 
-<img height="90px" src="./images/bell.png"/>
+<img height="90px" src="./images/logo.png"/>
 
 ## Description 
 
