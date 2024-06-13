@@ -6,7 +6,7 @@ import * as vscode from "vscode";
 import { nativeFunctionsCompletions, nativeFunctionsLookup } from "./nativeFunctions";
 import { loopSnippets, loopSnippetLookup } from "./loopSnippets";
 import { withClauseAttrCompletions } from "./withClauseAttributes";
-import parseCode, { replaceTree } from "./parser";
+import parseCode, { replaceTree } from "./bellParser";
 
 export function activate(context: vscode.ExtensionContext) {
   const hoverProvider = vscode.languages.registerHoverProvider("bell", {
