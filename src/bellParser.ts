@@ -37,14 +37,13 @@ export default function parseSubstrings(input: string): TreeNode {
 
       if (!match) {
         // push leftover as substring
-        const startIndex = i;
-        i = end + 1;
         nodes.push({
           type: NodeType.EXPRESSION,
-          start: startIndex,
+          start: i,
           end: end,
-          substring: input.slice(startIndex),
+          substring: input.slice(i, end + 1),
         });
+        break
       } else {
         // if opener is not at the beginning, push substring into tree
         if (match.index > 0) {
