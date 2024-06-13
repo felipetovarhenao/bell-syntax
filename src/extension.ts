@@ -107,18 +107,17 @@ export function activate(context: vscode.ExtensionContext) {
 
   const formatter = vscode.languages.registerDocumentFormattingEditProvider("bell", {
     provideDocumentFormattingEdits(document: vscode.TextDocument): vscode.TextEdit[] {
-      const rawText = document
-        .getText()
-        .trim()
-        .replace(/((?<!†)##.*(?!†))/g, "†$1†")
-        .replace(/((\\r|\\n)+)/g, " ")
-        .replace(/(?<!†)((#\(([\s\S]*?)\)#)|("([\s\S]*?)")|('([\s\S]*?)'))(?!†)/gm, "†$1†");
+      const rawText = document.getText().trim();
+      // .trim()
+      // .replace(/((?<!†)##.*(?!†))/g, "†$1†")
+      // .replace(/((\\r|\\n)+)/g, " ")
+      // .replace(/(?<!†)((#\(([\s\S]*?)\)#)|("([\s\S]*?)")|('([\s\S]*?)'))(?!†)/gm, "†$1†");
       const tree = parseCode(rawText);
       const start = new vscode.Position(0, 0);
       const end = new vscode.Position(document.lineCount, document.lineAt(document.lineCount - 1).range.end.character);
       const range = new vscode.Range(start, end);
-      const replace = replaceTree(tree);
-      return [vscode.TextEdit.replace(range, replace)];
+      // const replace = replaceTree(tree);
+      return [vscode.TextEdit.replace(range, JSON.stringify(tree, null, 2))];
     },
   });
 

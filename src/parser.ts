@@ -16,13 +16,26 @@ export default function parseSubstrings(input: string): TreeNode {
     let i = start;
 
     while (i <= end) {
-      if (input[i] === "{" || input[i] === "[" || input[i] === "(" || input[i] === '"' || input[i] === "'" || input[i] == "†") {
+      if (input[i] === "{" || input[i] === "[" || input[i] === "(" || input[i] === '"' || input[i] === "'" || input[i] == "#") {
         let type: NodeType = "substring";
         let closeChar: string = "";
+        let closeRegex: RegExp = /./;
+        const openIndex = i;
         switch (input[i]) {
-          case "†":
-            type = "deadcode";
-            closeChar = "†";
+          case "#":
+            if (input[i + 1] === "(" || input[i + 1] === "#") {
+              type = "deadcode";
+              closeChar = "";
+              i++;
+              switch (input[i]) {
+                case "(":
+                  closeRegex = /\)#/m;
+                  break;
+                case "#":
+                  closeRegex = /.$/m;
+                  break;
+              }
+            }
             break;
           case "{":
             type = "curly";
@@ -37,17 +50,17 @@ export default function parseSubstrings(input: string): TreeNode {
             closeChar = ")";
             break;
           case '"':
-            type = "doublequote";
+            type = "deadcode";
             closeChar = '"';
+            closeRegex = /(?<!\\)"/;
             break;
           case "'":
-            type = "singlequote";
+            type = "deadcode";
             closeChar = "'";
+            closeRegex = /(?<!\\)'/;
             break;
         }
-
-        const openIndex = i;
-        let closeIndex = findMatchingBracket(i, closeChar);
+        let closeIndex = type === "deadcode" ? findEnd(i + 1, closeRegex) : findMatchingBracket(i, closeChar);
 
         if (closeIndex !== -1) {
           let children = undefined;
@@ -55,7 +68,7 @@ export default function parseSubstrings(input: string): TreeNode {
           if (type !== "deadcode") {
             children = parse(openIndex + 1, closeIndex - 1);
           } else {
-            substring = input.slice(openIndex + 1, closeIndex);
+            substring = input.slice(openIndex, closeIndex);
           }
           nodes.push({
             type,
@@ -85,6 +98,14 @@ export default function parseSubstrings(input: string): TreeNode {
     }
 
     return nodes;
+  }
+
+  function findEnd(startIndex: number, regex: RegExp) {
+    const match = input.slice(startIndex).match(regex);
+    if (!match?.index) {
+      return input.length - 1;
+    }
+    return match.index + startIndex + match[0].length;
   }
 
   function findMatchingBracket(startIndex: number, closeChar: string): number {
