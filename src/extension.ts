@@ -117,7 +117,7 @@ export function activate(context: vscode.ExtensionContext) {
       const end = new vscode.Position(document.lineCount, document.lineAt(document.lineCount - 1).range.end.character);
       const range = new vscode.Range(start, end);
       const replace = replaceTree(tree);
-      return [vscode.TextEdit.replace(range, replace)];
+      return [vscode.TextEdit.replace(range, JSON.stringify(tree, null, 2))];
     },
   });
 
