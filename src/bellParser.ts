@@ -201,59 +201,6 @@ export function replaceTree(tree: TreeNode, depth = 0): string {
     tree.children.forEach((child) => (str += replaceTree(child)));
   }
   str += closer;
-  //   let open = "";
-  //   let close = "";
-  //   let indent = false;
-  //   switch (tree.type) {
-  //     case "deadcode":
-  //       if (tree.substring?.startsWith("#")) {
-  //         str += "\n";
-  //       }
-  //       str += tree.substring;
-  //       if (tree.substring?.startsWith("#")) {
-  //         str += "\n";
-  //       }
-  //       return str;
-  //     case "bracket":
-  //       open = "[";
-  //       close = "]";
-  //       break;
-  //     case "curly":
-  //       open = "{";
-  //       close = "}";
-  //       break;
-  //     case "parens":
-  //       open = "(";
-  //       close = ")";
-  //       indent = tree.children?.some((x) => x.type === "parens") || false;
-  //       break;
-  //     case "doublequote":
-  //       open = '"';
-  //       close = open;
-  //       break;
-  //     case "singlequote":
-  //       open = "'";
-  //       close = open;
-  //       break;
-  //   }
-  //   str += open;
-  //   let tab = "";
-  //   if (indent) {
-  //     tab = " ".repeat((depth + 1) * 4);
-  //     str += "\n" + tab;
-  //   }
-  //   if (tree.children) {
-  //     tree.children.forEach((x) => (str += replaceTree(x, depth + Number(indent))));
-  //   } else if (tree.substring) {
-  //     str += tree.substring
-  //       .trim()
-  //       .replace(/\s+/, " ")
-  //       .replace(/;\s*/g, `;\n${" ".repeat((depth + 1) * 4)}`)
-  //       .replace(/;$/, "");
-  //   }
-  //   if (indent) {
-  //     str += "\n" + " ".repeat(depth * 4);
-  //   }
-  //   str += close;
+
   return str;
 }
