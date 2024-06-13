@@ -30,7 +30,7 @@ export default function parseSubstrings(input: string): TreeNode {
 
     while (i <= end) {
       // unscanned substring
-      const slice = input.slice(i);
+      const slice = input.slice(i, end + 1);
 
       // check for openers
       const match = openingPattern.exec(slice);
@@ -41,7 +41,7 @@ export default function parseSubstrings(input: string): TreeNode {
           type: NodeType.EXPRESSION,
           start: i,
           end: end,
-          substring: input.slice(i, end + 1),
+          substring: slice,
         });
         break;
       } else {
