@@ -83,7 +83,7 @@ export default function parseSubstrings(input: string): TreeNode {
         }
       } else {
         let startIndex = i;
-        while (i <= end && input[i] !== "{" && input[i] !== "[" && input[i] !== "(" && input[i] !== "'" && input[i] !== '"' && input[i] !== "†") {
+        while (i <= end && input[i] !== "{" && input[i] !== "[" && input[i] !== "(" && input[i] !== "'" && input[i] !== '"' && input[i] !== "#") {
           i++;
         }
         if (startIndex < i) {
