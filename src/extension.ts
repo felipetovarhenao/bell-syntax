@@ -107,7 +107,12 @@ export function activate(context: vscode.ExtensionContext) {
 
   const formatter = vscode.languages.registerDocumentFormattingEditProvider("bell", {
     provideDocumentFormattingEdits(document: vscode.TextDocument): vscode.TextEdit[] {
-      const rawText = document.getText().trim().replace(/(\s+)/g, " ");
+      const rawText = document
+        .getText()
+        .trim()
+        .replace(/((?<!†)##.*(?!†))/g, "†$1†")
+        .replace(/((\\r|\\n)+)/g, " ")
+        .replace(/(?<!†)((#\(([\s\S]*?)\)#)|("([\s\S]*?)")|('([\s\S]*?)'))(?!†)/gm, "†$1†");
       const tree = parseCode(rawText);
       const start = new vscode.Position(0, 0);
       const end = new vscode.Position(document.lineCount, document.lineAt(document.lineCount - 1).range.end.character);
