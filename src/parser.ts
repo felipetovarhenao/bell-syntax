@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 
-type NodeType = "singlequote" | "doublequote" | "bracket" | "parens" | "curly" | "substring" | "root" | "deadcode";
+type NodeType = "singlequote" | "doublequote" | "bracket" | "parens" | "curly" | "substring" | "root" | "deadcode" | "block" | "comment";
 
 interface TreeNode {
   type: NodeType;
@@ -18,6 +18,7 @@ export default function parseSubstrings(input: string): TreeNode {
     while (i <= end) {
       if (input[i] === "{" || input[i] === "[" || input[i] === "(" || input[i] === '"' || input[i] === "'" || input[i] == "#") {
         let type: NodeType = "substring";
+        let deadType: NodeType = "substring";
         let closeChar: string = "";
         let closeRegex: RegExp = /./;
         const openIndex = i;
@@ -29,10 +30,12 @@ export default function parseSubstrings(input: string): TreeNode {
               i++;
               switch (input[i]) {
                 case "(":
+                  deadType = "block";
                   closeRegex = /\)#/m;
                   break;
                 case "#":
                   closeRegex = /.$/m;
+                  deadType = "comment";
                   break;
               }
             }
@@ -51,11 +54,13 @@ export default function parseSubstrings(input: string): TreeNode {
             break;
           case '"':
             type = "deadcode";
+            deadType = "doublequote";
             closeChar = '"';
             closeRegex = /(?<!\\)"/;
             break;
           case "'":
             type = "deadcode";
+            deadType = "singlequote";
             closeChar = "'";
             closeRegex = /(?<!\\)'/;
             break;
@@ -68,6 +73,7 @@ export default function parseSubstrings(input: string): TreeNode {
           if (type !== "deadcode") {
             children = parse(openIndex + 1, closeIndex - 1);
           } else {
+            type = deadType;
             substring = input.slice(openIndex, closeIndex);
           }
           nodes.push({
