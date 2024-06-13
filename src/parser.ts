@@ -122,6 +122,9 @@ export function replaceTree(tree: TreeNode, depth = 0): string {
   let indent = false;
   switch (tree.type) {
     case "deadcode":
+      if (tree.substring?.startsWith("#")) {
+        str += "\n";
+      }
       str += tree.substring;
       if (tree.substring?.startsWith("#")) {
         str += "\n";
