@@ -6,6 +6,7 @@ import * as vscode from "vscode";
 import { nativeFunctionsCompletions, nativeFunctionsLookup } from "./nativeFunctions";
 import { loopSnippets, loopSnippetLookup } from "./loopSnippets";
 import { withClauseAttrCompletions } from "./withClauseAttributes";
+import parseCode, { replaceTree } from "./parser";
 
 export function activate(context: vscode.ExtensionContext) {
   const hoverProvider = vscode.languages.registerHoverProvider("bell", {
@@ -63,7 +64,7 @@ export function activate(context: vscode.ExtensionContext) {
 
         const withPattern = /(?<=with\s+.*)@$/;
         const isWithAttr = withPattern.test(linePrefix);
-        
+
         if (isWithAttr) {
           // show with clause attributes
           return withClauseAttrCompletions;
@@ -104,5 +105,17 @@ export function activate(context: vscode.ExtensionContext) {
     "@"
   );
 
-  context.subscriptions.push(completionProvider, hoverProvider, attrCompletionProvider);
+  const formatter = vscode.languages.registerDocumentFormattingEditProvider("bell", {
+    provideDocumentFormattingEdits(document: vscode.TextDocument): vscode.TextEdit[] {
+      const rawText = document.getText().trim().replace(/(\s+)/g, " ");
+      const tree = parseCode(rawText);
+      const start = new vscode.Position(0, 0);
+      const end = new vscode.Position(document.lineCount, document.lineAt(document.lineCount - 1).range.end.character);
+      const range = new vscode.Range(start, end);
+      const replace = replaceTree(tree);
+      return [vscode.TextEdit.replace(range, replace)];
+    },
+  });
+
+  context.subscriptions.push(completionProvider, hoverProvider, attrCompletionProvider, formatter);
 }
