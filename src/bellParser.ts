@@ -43,7 +43,7 @@ export default function parseSubstrings(input: string): TreeNode {
           end: end,
           substring: input.slice(i, end + 1),
         });
-        break
+        break;
       } else {
         // if opener is not at the beginning, push substring into tree
         if (match.index > 0) {
@@ -171,6 +171,36 @@ export default function parseSubstrings(input: string): TreeNode {
 
 export function replaceTree(tree: TreeNode, depth = 0): string {
   let str = "";
+  let opener = "";
+  let closer = "";
+  switch (tree.type) {
+    case NodeType.COMMENT:
+      closer = "\n";
+      break;
+    case NodeType.BRACKET:
+      opener = "[";
+      closer = "]";
+      break;
+    case NodeType.CURLY:
+      opener = "{";
+      closer = "}";
+      break;
+    case NodeType.PARENS:
+      opener = "(";
+      closer = ")";
+      break;
+    case NodeType.SYMBOL:
+      if (tree.substring?.startsWith("`")) {
+        closer = " ";
+      }
+  }
+  str += opener;
+  if (tree.substring) {
+    str += tree.substring;
+  } else if (tree.children) {
+    tree.children.forEach((child) => (str += replaceTree(child)));
+  }
+  str += closer;
   //   let open = "";
   //   let close = "";
   //   let indent = false;
