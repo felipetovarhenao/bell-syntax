@@ -125,7 +125,7 @@ export default function replaceTree(tree: TreeNode, parent: TreeNode | null = nu
         opener = "";
       } else {
         ending = replaced.match(/\b(?<!@)\w+\s*$/);
-        if (ending && !ending[0].match(/\b(do|collect|then|else|if|null|nil)\b/)) {
+        if (ending && !ending[0].match(/\b(for|in|do|collect|if|while|then|else|init|keep|unkeep|with|as)\b/)) {
           opener = "";
         }
       }
