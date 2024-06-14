@@ -1,10 +1,14 @@
 import { TreeNode, NodeType } from "./bellParser";
 
 function cleanSubstring(substring: string): string {
-  return substring
-    .trim()
-    .replace(/(\s|\\n|\\r)+/g, " ")
-    .replace(/;\s*/, ";\n");
+  return substring.trim().replace(/\s+/g, " ").replace(/;\s*/, ";\n");
+}
+
+function applyIndentation(substring: string, indent: number) {
+  if (indent <= 0) {
+    return substring;
+  }
+  return substring.replace(/\n/g, `\n${" ".repeat(indent * 4)}`);
 }
 
 export default function replaceTree(tree: TreeNode, parent: TreeNode | null = null, index: number = -1, indent = 0): string {
@@ -14,10 +18,12 @@ export default function replaceTree(tree: TreeNode, parent: TreeNode | null = nu
   let formatter = (x: string) => x;
   switch (tree.type) {
     case NodeType.COMMENT:
+      // formatter = (x: string) => `\n${x}\n`;
+      opener = "\n";
       closer = "\n";
       break;
     case NodeType.BRACKET:
-      opener = "[";
+      opener = " [";
       closer = "]";
       break;
     case NodeType.EXPRESSION:
@@ -28,21 +34,25 @@ export default function replaceTree(tree: TreeNode, parent: TreeNode | null = nu
       closer = "}";
       break;
     case NodeType.PARENS:
-      opener = "(";
-      closer = ")";
+      opener = "(\n";
+      closer = "\n)";
+      indent++;
       break;
     case NodeType.SYMBOL:
       if (tree.substring?.startsWith("`")) {
         closer = " ";
       }
   }
-  str += opener;
+  str += applyIndentation(opener, indent);
   if (tree.substring) {
-    str += formatter(tree.substring);
+    str += applyIndentation(formatter(tree.substring), indent);
   } else if (tree.children) {
-    tree.children.forEach((child, index) => (str += replaceTree(child, tree, index)));
+    tree.children.forEach((child, index) => (str += replaceTree(child, tree, index, indent)));
   }
-  str += closer;
+  if (tree.type === NodeType.PARENS) {
+    indent--;
+  }
+  str += applyIndentation(closer, indent);
 
   return str;
 }
