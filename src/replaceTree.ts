@@ -90,9 +90,13 @@ export default function replaceTree(tree: TreeNode, parent: TreeNode | null = nu
       break;
     case NodeType.PARENS:
       opener = " ";
-      ending = replaced.match(/\b(?<!@)\w+\s*$/);
-      if (ending && !ending[0].match(/(do|collect|then|else|if|null|nil)/)) {
+      if (replaced.match(concatenables)) {
         opener = "";
+      } else {
+        ending = replaced.match(/\b(?<!@)\w+\s*$/);
+        if (ending && !ending[0].match(/(do|collect|then|else|if|null|nil)/)) {
+          opener = "";
+        }
       }
       if (indentTest) {
         opener += "(\n";
