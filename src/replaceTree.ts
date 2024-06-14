@@ -1,7 +1,11 @@
 import { TreeNode, NodeType } from "./bellParser";
 
-function cleanSubstring(substring: string): string {
-  return substring.trim().replace(/\s+/g, " ").replace(/;\s*/g, ";\n");
+function cleanSubstring(substring: string, isLast: boolean = false): string {
+  let clean = substring.trim().replace(/\s+/g, " ").replace(/;+\s*/g, ";\n");
+  if (isLast) {
+    return clean.replace(/;+\s*$/, "");
+  }
+  return clean;
 }
 
 function applyIndentation(substring: string, indent: number) {
@@ -9,6 +13,21 @@ function applyIndentation(substring: string, indent: number) {
     return substring;
   }
   return substring.replace(/\n/g, `\n${" ".repeat(indent * 4)}`);
+}
+
+function isLastExpression(tree: TreeNode, parent: TreeNode | null, index: number): boolean {
+  if (tree.type !== NodeType.EXPRESSION || !parent) {
+    return false;
+  }
+  if (!parent.children) {
+    return false;
+  }
+  for (let i = index + 1; i < parent.children.length; i++) {
+    if (parent.children[i].type === NodeType.EXPRESSION) {
+      return false;
+    }
+  }
+  return true;
 }
 
 function shouldIndent(tree: TreeNode, parent: TreeNode | null, index: number): boolean {
@@ -92,7 +111,7 @@ export default function replaceTree(tree: TreeNode, parent: TreeNode | null = nu
       if (ending && !ending[0].match(concatenables) && !tree.substring!.match(/^\s*(;|\.|:|,)/)) {
         opener = " ";
       }
-      formatter = cleanSubstring;
+      formatter = (x: string) => cleanSubstring(x, isLastExpression(tree, parent, index));
       break;
     case NodeType.CURLY:
       ending = replaced.match(/\S$/);
