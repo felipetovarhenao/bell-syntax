@@ -78,8 +78,8 @@ export default function parseSubstrings(input: string): TreeNode {
               type = NodeType.EXPRESSION;
               isDead = true;
               closeRegex = /(!|~|u-|-|!=|\*|\/{1,2}|&{1,2}|\^{1,2}|\+|<=|==|>=|>{1,2}|<{1,2}|\|{1,3}|.)/;
-              break;
             }
+            break;
           case "{":
             type = NodeType.CURLY;
             isDead = true;
