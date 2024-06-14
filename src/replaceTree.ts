@@ -95,8 +95,10 @@ export default function replaceTree(tree: TreeNode, parent: TreeNode | null = nu
       formatter = cleanSubstring;
       break;
     case NodeType.CURLY:
-      opener = "{";
-      closer = "}";
+      ending = replaced.match(/\S$/);
+      if (ending && !ending[0].match(concatenables)) {
+        opener = " ";
+      }
       break;
     case NodeType.PARENS:
       opener = " ";

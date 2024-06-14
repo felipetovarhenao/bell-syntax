@@ -78,7 +78,8 @@ export default function parseSubstrings(input: string): TreeNode {
             break;
           case "{":
             type = NodeType.CURLY;
-            closeChar = "}";
+            isDead = true;
+            closeRegex = /\}/;
             break;
           case "[":
             type = NodeType.BRACKET;
