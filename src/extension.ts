@@ -6,7 +6,8 @@ import * as vscode from "vscode";
 import { nativeFunctionsCompletions, nativeFunctionsLookup } from "./nativeFunctions";
 import { loopSnippets, loopSnippetLookup } from "./loopSnippets";
 import { withClauseAttrCompletions } from "./withClauseAttributes";
-import parseCode, { replaceTree } from "./bellParser";
+import parseCode from "./bellParser";
+import replaceTree from "./replaceTree";
 
 export function activate(context: vscode.ExtensionContext) {
   const hoverProvider = vscode.languages.registerHoverProvider("bell", {
@@ -108,16 +109,12 @@ export function activate(context: vscode.ExtensionContext) {
   const formatter = vscode.languages.registerDocumentFormattingEditProvider("bell", {
     provideDocumentFormattingEdits(document: vscode.TextDocument): vscode.TextEdit[] {
       const rawText = document.getText().trim();
-      // .trim()
-      // .replace(/((?<!†)##.*(?!†))/g, "†$1†")
-      // .replace(/((\\r|\\n)+)/g, " ")
-      // .replace(/(?<!†)((#\(([\s\S]*?)\)#)|("([\s\S]*?)")|('([\s\S]*?)'))(?!†)/gm, "†$1†");
       const tree = parseCode(rawText);
       const start = new vscode.Position(0, 0);
       const end = new vscode.Position(document.lineCount, document.lineAt(document.lineCount - 1).range.end.character);
       const range = new vscode.Range(start, end);
       const replace = replaceTree(tree);
-      return [vscode.TextEdit.replace(range, JSON.stringify(tree, null, 2))];
+      return [vscode.TextEdit.replace(range, replace)];
     },
   });
 
