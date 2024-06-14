@@ -57,7 +57,7 @@ export default function replaceTree(tree: TreeNode, parent: TreeNode | null = nu
   let closer = "";
   let level = indent;
   let ending = null;
-  const concatenables = /(\(|\[|\{|:|\.)\s*$/;
+  const concatenables = /(\(|\[|\{|:|\.|;)\s*$/;
   const closers = /(\}|\]|\))\s*$/;
   let formatter = (x: string) => x;
   const indentTest = shouldIndent(tree, parent, index);
