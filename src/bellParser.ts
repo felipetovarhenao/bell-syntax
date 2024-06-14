@@ -112,7 +112,7 @@ export default function parseSubstrings(input: string): TreeNode {
           if (!isDead) {
             children = parse(openIndex + 1, closeIndex - 1);
           } else {
-            substring = input.slice(openIndex, closeIndex);
+            substring = input.slice(openIndex, closeIndex + 1);
           }
           nodes.push({
             type,
@@ -136,7 +136,7 @@ export default function parseSubstrings(input: string): TreeNode {
     if (!match?.index) {
       return input.length - 1;
     }
-    return match.index + startIndex + match[0].length;
+    return match.index + startIndex + match[0].length - 1;
   }
 
   function findMatchingBracket(startIndex: number, closeChar: string): number {
