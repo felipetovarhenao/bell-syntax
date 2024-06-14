@@ -81,7 +81,7 @@ export default function replaceTree(tree: TreeNode, parent: TreeNode | null = nu
       break;
     case NodeType.PARENS:
       opener = " ";
-      if (replaced.match(/(?<!@)\w+\s*$/)) {
+      if (replaced.match(/\b(?<!@)\w+\s*$/)) {
         opener = "";
       }
       // const leftNode = getNeighbor(parent, index - 1);
