@@ -1,7 +1,7 @@
 import { TreeNode, NodeType } from "./bellParser";
 
 function cleanSubstring(substring: string): string {
-  return substring.trim().replace(/\s+/g, " ").replace(/;\s*/, ";\n");
+  return substring.trim().replace(/\s+/g, " ").replace(/;\s*/g, ";\n");
 }
 
 function applyIndentation(substring: string, indent: number) {
@@ -56,21 +56,30 @@ export default function replaceTree(tree: TreeNode, parent: TreeNode | null = nu
   let opener = "";
   let closer = "";
   let level = indent;
+  let ending = null;
+  const concatenables = /(\(|\[|\{|:|\.)$/;
   let formatter = (x: string) => x;
   const indentTest = shouldIndent(tree, parent, index);
   switch (tree.type) {
     case NodeType.COMMENT:
-      if (!replaced.match(/(\n|\r|\r\n)\s*$/)) {
+      const last = getNeighbor(parent, index - 1);
+      if (!replaced.match(/(\n|\r|\r\n)\s*$/) || (last?.type === NodeType.EXPRESSION && last.substring !== "\n")) {
         opener = "\n";
       }
       closer = "\n";
       break;
     case NodeType.BRACKET:
-      opener = " [";
-      closer = "]";
+      opener = " ";
+      ending = replaced.match(/\S$/);
+      if (ending && !ending[0].match(concatenables)) {
+        opener = " ";
+      }
+      opener += "[";
+      closer += "]";
       break;
     case NodeType.EXPRESSION:
-      if (replaced.match(/\S$/)) {
+      ending = replaced.match(/\S$/);
+      if (ending && !ending[0].match(concatenables) && !tree.substring!.match(/^\s*(;|\.|:|,)/)) {
         opener = " ";
       }
       formatter = cleanSubstring;
@@ -81,13 +90,10 @@ export default function replaceTree(tree: TreeNode, parent: TreeNode | null = nu
       break;
     case NodeType.PARENS:
       opener = " ";
-      if (replaced.match(/\b(?<!@)\w+\s*$/)) {
+      ending = replaced.match(/\b(?<!@)\w+\s*$/);
+      if (ending && !ending[0].match(/(do|collect|then|else|if|null|nil)/)) {
         opener = "";
       }
-      // const leftNode = getNeighbor(parent, index - 1);
-      // if (leftNode && leftNode.type === NodeType.EXPRESSION && !leftNode.substring!.match(/(?<!@)\w+\s*$/)) {
-      //   opener += " ";
-      // }
       if (indentTest) {
         opener += "(\n";
         closer += "\n)";
@@ -98,7 +104,8 @@ export default function replaceTree(tree: TreeNode, parent: TreeNode | null = nu
       }
       break;
     case NodeType.SYMBOL:
-      if (replaced.match(/\S$/)) {
+      ending = replaced.match(/\S$/);
+      if (ending && !ending[0].match(concatenables)) {
         opener = " ";
       }
       if (tree.substring?.startsWith("`")) {
