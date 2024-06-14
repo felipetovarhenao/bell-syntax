@@ -15,7 +15,7 @@ function shouldIndent(tree: TreeNode, parent: TreeNode | null, index: number): b
   if (tree.type !== NodeType.PARENS) {
     return false;
   }
-  if (tree.children && tree.children.length > 1) {
+  if (tree.children && tree.children.length > 3) {
     return true;
   }
   const depth = getTreeDepth(tree);
