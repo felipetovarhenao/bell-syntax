@@ -58,6 +58,7 @@ export default function replaceTree(tree: TreeNode, parent: TreeNode | null = nu
   let level = indent;
   let ending = null;
   const concatenables = /(\(|\[|\{|:|\.)$/;
+  const closers = /(\}|\]|\))\s*$/;
   let formatter = (x: string) => x;
   const indentTest = shouldIndent(tree, parent, index);
   switch (tree.type) {
@@ -96,11 +97,11 @@ export default function replaceTree(tree: TreeNode, parent: TreeNode | null = nu
       break;
     case NodeType.PARENS:
       opener = " ";
-      if (replaced.match(concatenables)) {
+      if (replaced.match(concatenables) || replaced.match(closers)) {
         opener = "";
       } else {
         ending = replaced.match(/\b(?<!@)\w+\s*$/);
-        if (ending && !ending[0].match(/(do|collect|then|else|if|null|nil)/)) {
+        if (ending && !ending[0].match(/\b(do|collect|then|else|if|null|nil)\b/)) {
           opener = "";
         }
       }
