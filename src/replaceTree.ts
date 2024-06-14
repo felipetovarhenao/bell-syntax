@@ -85,6 +85,9 @@ export default function replaceTree(tree: TreeNode, parent: TreeNode | null = nu
       }
       break;
     case NodeType.EXPRESSION:
+      if (tree.substring?.trim() === "") {
+        return "";
+      }
       ending = replaced.match(/\S$/);
       if (ending && !ending[0].match(concatenables) && !tree.substring!.match(/^\s*(;|\.|:|,)/)) {
         opener = " ";
