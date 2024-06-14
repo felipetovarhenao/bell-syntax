@@ -51,16 +51,18 @@ function getNeighbor(parent: TreeNode | null, index: number): null | TreeNode {
   return null;
 }
 
-export default function replaceTree(tree: TreeNode, parent: TreeNode | null = null, index: number = -1, indent = 0): string {
+export default function replaceTree(tree: TreeNode, parent: TreeNode | null = null, index: number = -1, indent = 0, replaced: string = ""): string {
   let str = "";
   let opener = "";
   let closer = "";
+  let level = indent;
   let formatter = (x: string) => x;
   const indentTest = shouldIndent(tree, parent, index);
   switch (tree.type) {
     case NodeType.COMMENT:
-      // formatter = (x: string) => `\n${x}\n`;
-      opener = "\n";
+      if (!replaced.match(/(\n|\r|\r\n)\s*$/)) {
+        opener = "\n";
+      }
       closer = "\n";
       break;
     case NodeType.BRACKET:
@@ -68,6 +70,9 @@ export default function replaceTree(tree: TreeNode, parent: TreeNode | null = nu
       closer = "]";
       break;
     case NodeType.EXPRESSION:
+      if (replaced.match(/\S$/)) {
+        opener = " ";
+      }
       formatter = cleanSubstring;
       break;
     case NodeType.CURLY:
@@ -75,37 +80,41 @@ export default function replaceTree(tree: TreeNode, parent: TreeNode | null = nu
       closer = "}";
       break;
     case NodeType.PARENS:
-      const leftNode = getNeighbor(parent, index - 1);
-      if (leftNode && leftNode.type === NodeType.EXPRESSION && !leftNode.substring!.match(/(?<!@)\w+\s*$/)) {
-        opener += " ";
+      opener = " ";
+      if (replaced.match(/(?<!@)\w+\s*$/)) {
+        opener = "";
       }
+      // const leftNode = getNeighbor(parent, index - 1);
+      // if (leftNode && leftNode.type === NodeType.EXPRESSION && !leftNode.substring!.match(/(?<!@)\w+\s*$/)) {
+      //   opener += " ";
+      // }
       if (indentTest) {
         opener += "(\n";
         closer += "\n)";
-        indent++;
+        level++;
       } else {
         opener += "(";
         closer += ")";
       }
       break;
     case NodeType.SYMBOL:
-      if (index > 0) {
+      if (replaced.match(/\S$/)) {
         opener = " ";
       }
       if (tree.substring?.startsWith("`")) {
         closer = " ";
       }
   }
-  str += applyIndentation(opener, indent);
+  str += applyIndentation(opener, level);
   if (tree.substring) {
-    str += applyIndentation(formatter(tree.substring), indent);
+    str += applyIndentation(formatter(tree.substring), level);
   } else if (tree.children) {
-    tree.children.forEach((child, index) => (str += replaceTree(child, tree, index, indent)));
+    tree.children.forEach((child, index) => (str += replaceTree(child, tree, index, level, str)));
   }
   if (indentTest) {
-    indent--;
+    level--;
   }
-  str += applyIndentation(closer, indent);
+  str += applyIndentation(closer, level);
 
   return str;
 }
