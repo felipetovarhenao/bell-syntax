@@ -12,7 +12,7 @@ function applyIndentation(substring: string, indent: number) {
 }
 
 function shouldIndent(tree: TreeNode, parent: TreeNode | null, index: number): boolean {
-  if (tree.type !== NodeType.PARENS) {
+  if (tree.type !== NodeType.PARENS && tree.type !== NodeType.BRACKET) {
     return false;
   }
   if (tree.children && tree.children.length > 3) {
@@ -69,13 +69,19 @@ export default function replaceTree(tree: TreeNode, parent: TreeNode | null = nu
       closer = "\n";
       break;
     case NodeType.BRACKET:
-      opener = " ";
+      opener = "";
       ending = replaced.match(/\S$/);
       if (ending && !ending[0].match(concatenables)) {
         opener = " ";
       }
-      opener += "[";
-      closer += "]";
+      if (indentTest) {
+        opener += "[\n";
+        closer += "\n]";
+        level++;
+      } else {
+        opener += "[";
+        closer += "]";
+      }
       break;
     case NodeType.EXPRESSION:
       ending = replaced.match(/\S$/);
