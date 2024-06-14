@@ -11,11 +11,52 @@ function applyIndentation(substring: string, indent: number) {
   return substring.replace(/\n/g, `\n${" ".repeat(indent * 4)}`);
 }
 
+function shouldIndent(tree: TreeNode, parent: TreeNode | null, index: number): boolean {
+  if (tree.type !== NodeType.PARENS) {
+    return false;
+  }
+  if (tree.children && tree.children.length > 1) {
+    return true;
+  }
+  const depth = getTreeDepth(tree);
+  if (depth > 3) {
+    return true;
+  }
+  return false;
+}
+
+function getTreeDepth(node: TreeNode): number {
+  if (!node.children || node.children.length === 0) {
+    return 1;
+  }
+
+  let maxDepth = 0;
+  for (const child of node.children) {
+    const childDepth = getTreeDepth(child);
+    if (childDepth > maxDepth) {
+      maxDepth = childDepth;
+    }
+  }
+
+  return maxDepth + 1;
+}
+
+function getNeighbor(parent: TreeNode | null, index: number): null | TreeNode {
+  if (!parent) {
+    return null;
+  }
+  if (parent.children && index > 0 && index < parent.children.length) {
+    return parent.children[index];
+  }
+  return null;
+}
+
 export default function replaceTree(tree: TreeNode, parent: TreeNode | null = null, index: number = -1, indent = 0): string {
   let str = "";
   let opener = "";
   let closer = "";
   let formatter = (x: string) => x;
+  const indentTest = shouldIndent(tree, parent, index);
   switch (tree.type) {
     case NodeType.COMMENT:
       // formatter = (x: string) => `\n${x}\n`;
@@ -34,11 +75,23 @@ export default function replaceTree(tree: TreeNode, parent: TreeNode | null = nu
       closer = "}";
       break;
     case NodeType.PARENS:
-      opener = "(\n";
-      closer = "\n)";
-      indent++;
+      const leftNode = getNeighbor(parent, index - 1);
+      if (leftNode && leftNode.type === NodeType.EXPRESSION && !leftNode.substring!.match(/(?<!@)\w+\s*$/)) {
+        opener += " ";
+      }
+      if (indentTest) {
+        opener += "(\n";
+        closer += "\n)";
+        indent++;
+      } else {
+        opener += "(";
+        closer += ")";
+      }
       break;
     case NodeType.SYMBOL:
+      if (index > 0) {
+        opener = " ";
+      }
       if (tree.substring?.startsWith("`")) {
         closer = " ";
       }
@@ -49,7 +102,7 @@ export default function replaceTree(tree: TreeNode, parent: TreeNode | null = nu
   } else if (tree.children) {
     tree.children.forEach((child, index) => (str += replaceTree(child, tree, index, indent)));
   }
-  if (tree.type === NodeType.PARENS) {
+  if (indentTest) {
     indent--;
   }
   str += applyIndentation(closer, indent);
