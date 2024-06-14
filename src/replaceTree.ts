@@ -41,6 +41,13 @@ function shouldIndent(tree: TreeNode, parent: TreeNode | null, index: number): b
   if (depth > 3) {
     return true;
   }
+  if (tree.children) {
+    for (let i = 0; i < tree.children.length; i++) {
+      if (tree.children[i].type === NodeType.EXPRESSION && tree.children[i].substring!.match(/;/)) {
+        return true;
+      }
+    }
+  }
   return false;
 }
 
