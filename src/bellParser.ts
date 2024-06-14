@@ -133,7 +133,7 @@ export default function parseSubstrings(input: string): TreeNode {
 
   function findEnd(startIndex: number, regex: RegExp) {
     const match = input.slice(startIndex).match(regex);
-    if (!match?.index) {
+    if (!(match && match.index !== undefined)) {
       return input.length - 1;
     }
     return match.index + startIndex + match[0].length - 1;
