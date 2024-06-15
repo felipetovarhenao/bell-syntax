@@ -17,6 +17,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Handle `@` attributes separately in tree parser and include indentation rules based on them.
+
 ### Removed
 
 
