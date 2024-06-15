@@ -4,6 +4,7 @@ node_modules
 **/*.js.map
 .*
 !.gitignore
+!.github
 !.vscode
 !.gitattributes
 !.eslintrc.js
