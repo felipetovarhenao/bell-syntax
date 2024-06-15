@@ -15,6 +15,10 @@
   "categories": [
     "Programming Languages"
   ],
+  "pricing": "Free",
+  "sponsor": {
+    "url": "https://github.com/sponsors/felipetovarhenao"
+  },
   "main": "./out/extension.js",
   "scripts": {
     "vscode:prepublish": "npm run compile",
