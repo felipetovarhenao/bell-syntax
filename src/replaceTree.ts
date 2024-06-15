@@ -31,10 +31,24 @@ function isLastExpression(tree: TreeNode, parent: TreeNode | null, index: number
 }
 
 function shouldIndent(tree: TreeNode, parent: TreeNode | null, index: number): boolean {
+  if (tree.type === NodeType.ATTR && parent?.type === NodeType.PARENS) {
+    let attrCount = 0;
+    parent.children?.forEach((x, i) => {
+      if (attrCount === 0 && index === i) {
+        return false;
+      } else if (x.type === NodeType.ATTR) {
+        attrCount++;
+      }
+    });
+    if (attrCount > 2) {
+      return true;
+    }
+    return false;
+  }
   if (tree.type !== NodeType.PARENS && tree.type !== NodeType.BRACKET) {
     return false;
   }
-  if (tree.children && tree.children.length > 3) {
+  if (tree.children && tree.children.length > 4) {
     return true;
   }
   const depth = getTreeDepth(tree);
@@ -131,7 +145,7 @@ export default function replaceTree(tree: TreeNode, parent: TreeNode | null = nu
       break;
     case NodeType.PARENS:
       opener = " ";
-      if (replaced.match(concatenables) || replaced.match(closers)) {
+      if (replaced.match(/\s$/) || replaced.match(concatenables) || replaced.match(closers)) {
         opener = "";
       } else {
         ending = replaced.match(/\b(?<!@)\w+\s*$/);
@@ -156,6 +170,18 @@ export default function replaceTree(tree: TreeNode, parent: TreeNode | null = nu
       if (tree.substring?.startsWith("`")) {
         closer = " ";
       }
+      break;
+    case NodeType.ATTR:
+      ending = replaced.match(/\S$/);
+      if (indentTest && ending) {
+        opener = "\n";
+      } else {
+        if (ending && !ending[0].match(/(\()$/)) {
+          opener = " ";
+        }
+      }
+      closer = " ";
+      break;
   }
   str += applyIndentation(opener, level);
   if (tree.substring) {

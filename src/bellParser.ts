@@ -6,6 +6,7 @@ export enum NodeType {
   EXPRESSION = "EXPRESSION",
   ROOT = "ROOT",
   COMMENT = "COMMENT",
+  ATTR = "ATTR",
 }
 
 export interface TreeNode {
@@ -24,7 +25,7 @@ export default function parseSubstrings(input: string): TreeNode {
     let i = start;
 
     // regex for node openers
-    const openingPattern = /\{|\[|\(|"|'|#|`/;
+    const openingPattern = /\{|\[|\(|"|'|#|`|@/;
 
     while (i <= end) {
       // unscanned substring
@@ -108,7 +109,13 @@ export default function parseSubstrings(input: string): TreeNode {
             isDead = true;
             closeRegex = /.(?=(\s|$))/m;
             break;
+          case "@":
+            type = NodeType.ATTR;
+            isDead = true;
+            closeRegex = /.(?=(\s|$))/m;
+            break;
         }
+
         let closeIndex = isDead ? findEnd(i + 1, closeRegex) : findMatchingBracket(i, closeChar);
 
         if (closeIndex !== -1) {
