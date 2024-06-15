@@ -78,6 +78,9 @@ function getNeighbor(parent: TreeNode | null, index: number): null | TreeNode {
 }
 
 export default function replaceTree(tree: TreeNode, parent: TreeNode | null = null, index: number = -1, indent = 0, replaced: string = ""): string {
+  if (tree.type === NodeType.PARENS && tree.children!.length === 1 && tree.children![0].type === tree.type) {
+    return replaceTree(tree.children![0], parent, index, indent, replaced);
+  }
   let str = "";
   let opener = "";
   let closer = "";
