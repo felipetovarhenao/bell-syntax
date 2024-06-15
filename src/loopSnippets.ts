@@ -3,7 +3,7 @@ import * as vscode from "vscode";
 const forLoopExamples = [
   "## for...collect loop\nfor $var in $llll collect (\n\t## body\n)",
   "## for...do loop with address loop\nfor $var $addr in $llll do (\n\t## body\n)",
-  "## for...collect loop with parallel iteration loop\nfor $var1 in $llll1, $var2 in $lll1 collect (\n\t## body\n)",
+  "## for...collect loop with parallel iteration loop\nfor $var1 in $llll1, $var2 in $llll2 collect (\n\t## body\n)",
   "## for...do loop with 'with' clause\nfor $var in $llll with @unwrap 1 @maxdepth 1 do (\n\t## body\n)",
   "## for...collect loop with 'as' clause\nfor $var in $llll as $boolcondition collect (\n\t## body\n)",
 ].join(";\n\n");
