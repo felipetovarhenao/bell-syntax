@@ -135,6 +135,9 @@ export default function replaceTree(tree: TreeNode, parent: TreeNode | null = nu
       if (ending && !ending[0].match(concatenables) && !tree.substring!.match(/^\s*(;|\.|:|,)/)) {
         opener = " ";
       }
+      if (tree.substring?.match(/\s$/) && getNeighbor(parent, index + 1)?.type === NodeType.PARENS) {
+        closer = " ";
+      }
       formatter = (x: string) => cleanSubstring(x, isLastExpression(tree, parent, index));
       break;
     case NodeType.CURLY:
