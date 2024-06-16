@@ -99,7 +99,7 @@
 				},
 				{
 					"name": "support.constant.bell",
-					"match": "\\$d?o(\\d)"
+					"match": "\\$(d?o|l|i|f|p|r|l|x)\\d+"
 				},
 				{
 					"name": "support.constant.bell",
