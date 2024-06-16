@@ -11,6 +11,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+### Changed
+
+### Removed
+
+## [0.1.3] - 15-06-2024
+
+### Added
+
+### Fixed
+
 - Fix formatting bug in which pre-parens spaces are eliminated, forcing unwanted function call syntax.
 
 ### Changed
