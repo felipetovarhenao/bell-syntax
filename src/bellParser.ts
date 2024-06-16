@@ -116,7 +116,7 @@ export default function parseSubstrings(input: string): TreeNode {
             break;
         }
 
-        let closeIndex = isDead ? findEnd(i + 1, closeRegex) : findMatchingBracket(i, closeChar);
+        let closeIndex = isDead ? findClosure(i + 1, closeRegex) : findNestableClosure(i, closeChar);
 
         if (closeIndex !== -1) {
           let children = undefined;
@@ -143,7 +143,7 @@ export default function parseSubstrings(input: string): TreeNode {
     return nodes;
   }
 
-  function findEnd(startIndex: number, regex: RegExp) {
+  function findClosure(startIndex: number, regex: RegExp) {
     const match = input.slice(startIndex).match(regex);
     if (!(match && match.index !== undefined)) {
       return input.length - 1;
@@ -151,7 +151,7 @@ export default function parseSubstrings(input: string): TreeNode {
     return match.index + startIndex + match[0].length - 1;
   }
 
-  function findMatchingBracket(startIndex: number, closeChar: string): number {
+  function findNestableClosure(startIndex: number, closeChar: string): number {
     const openChar = input[startIndex];
     let depth = 1;
 

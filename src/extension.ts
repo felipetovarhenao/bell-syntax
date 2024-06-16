@@ -7,7 +7,7 @@ import { nativeFunctionsCompletions, nativeFunctionsLookup } from "./nativeFunct
 import { loopSnippets, loopSnippetLookup } from "./loopSnippets";
 import { withClauseAttrCompletions } from "./withClauseAttributes";
 import parseCode from "./bellParser";
-import replaceTree from "./replaceTree";
+import formatTree from "./formatTree";
 
 export function activate(context: vscode.ExtensionContext) {
   const hoverProvider = vscode.languages.registerHoverProvider("bell", {
@@ -113,7 +113,7 @@ export function activate(context: vscode.ExtensionContext) {
       const start = new vscode.Position(0, 0);
       const end = new vscode.Position(document.lineCount, document.lineAt(document.lineCount - 1).range.end.character);
       const range = new vscode.Range(start, end);
-      const replace = replaceTree(tree).trim();
+      const replace = formatTree(tree).trim();
       return [vscode.TextEdit.replace(range, replace)];
     },
   });

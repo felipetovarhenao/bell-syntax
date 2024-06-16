@@ -91,9 +91,9 @@ function getNeighbor(parent: TreeNode | null, index: number): null | TreeNode {
   return null;
 }
 
-export default function replaceTree(tree: TreeNode, parent: TreeNode | null = null, index: number = -1, indent = 0, replaced: string = ""): string {
+export default function formatTree(tree: TreeNode, parent: TreeNode | null = null, index: number = -1, indent = 0, replaced: string = ""): string {
   if (tree.type === NodeType.PARENS && tree.children!.length === 1 && tree.children![0].type === tree.type) {
-    return replaceTree(tree.children![0], parent, index, indent, replaced);
+    return formatTree(tree.children![0], parent, index, indent, replaced);
   }
   let str = "";
   let opener = "";
@@ -190,7 +190,7 @@ export default function replaceTree(tree: TreeNode, parent: TreeNode | null = nu
   if (tree.substring) {
     str += applyIndentation(formatter(tree.substring), level);
   } else if (tree.children) {
-    tree.children.forEach((child, index) => (str += replaceTree(child, tree, index, level, str)));
+    tree.children.forEach((child, index) => (str += formatTree(child, tree, index, level, str)));
   }
   if (indentTest) {
     level--;

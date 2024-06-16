@@ -15,6 +15,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Change names of callback functions:
+  - `replaceTree` -> `formatTree`
+  - `findMatchingBracket` -> `findNestableClosure`
+  - `findEnd` -> `findClosure`.
+
 ### Removed
 
 ## [0.1.2] - 15-06-2024
