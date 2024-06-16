@@ -9,7 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Add GIF preview in README.md
+
 ### Fixed
+
+- Fix snippet placeholder bug in `for` loop.
 
 ### Changed
 

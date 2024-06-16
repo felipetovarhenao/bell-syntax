@@ -2,20 +2,23 @@
 
 <img height="90px" src="./images/logo.png"/>
 
-## Description 
+## Description
 
-This is a basic extension for `bell` syntax highligthing in Visual Studio Code. 
+`bell-syntax` is a Visual Studio Code extension that provides basic intellisense, formatting, and syntax highlighting support for the `bell` programming language.
 
-`bell` (_bach evaluation language for lllls_) is a text-based programming language developed by Andrea Agostini and Jean-Louis Giavitto for the bach library in MaxMSP. To learn more, please read its introductory publication:
+<img src="./preview.gif"/>
+
+> `bell` (_bach evaluation language for lllls_) is a text-based programming language developed by Andrea Agostini and Jean-Louis Giavitto for the bach library in MaxMSP. To learn more, please read its introductory publication:
 
 > Jean-Louis Giavitto, Andrea Agostini. Bell, a textual language for the bach library. ICMC 2019 -
-International Computer Music Conference, Jun 2019, New York, United States. ffhal-02348176f
+> International Computer Music Conference, Jun 2019, New York, United States. ffhal-02348176f
 
 ## Installation
 
 To install:
-1. Open VS Code and go to `View/Extensions` in the main menu. 
-2. Search for `bell syntax` and you should see the extension at, or near the top of the search results. 
+
+1. Open VS Code and go to `View/Extensions` in the main menu.
+2. Search for `bell syntax` and you should see the extension at, or near the top of the search results.
 3. Click on the `install` button. Once the installation is complete, you may need to reload the window to see the extension take effect.
 
 ## License
