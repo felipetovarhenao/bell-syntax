@@ -23,7 +23,8 @@ function isLastExpression(tree: TreeNode, parent: TreeNode | null, index: number
     return false;
   }
   for (let i = index + 1; i < parent.children.length; i++) {
-    if (parent.children[i].type === NodeType.EXPRESSION) {
+    const child = parent.children[i];
+    if (child.type !== NodeType.COMMENT && !(child.type == NodeType.EXPRESSION && child.substring!.trim() === "")) {
       return false;
     }
   }
