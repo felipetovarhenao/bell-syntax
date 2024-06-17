@@ -2,7 +2,7 @@
   "name": "bell-syntax",
   "displayName": "bell syntax",
   "description": "syntax highlighting support for bell, the bach evaluation language for lllls",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "icon": "./images/logo.png",
   "publisher": "tovarhenao",
   "repository": {
@@ -10,7 +10,7 @@
     "url": "https://github.com/felipetovarhenao/bell-syntax/"
   },
   "engines": {
-    "vscode": "^1.87.0"
+    "vscode": "^1.83.0"
   },
   "categories": [
     "Programming Languages"
