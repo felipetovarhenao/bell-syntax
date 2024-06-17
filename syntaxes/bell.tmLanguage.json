@@ -115,7 +115,7 @@
 			"patterns": [
 				{
 					"name": "string.quoted.other",
-					"match": "`\\w+"
+					"match": "`\\S+"
 				}
 			]
 		},
