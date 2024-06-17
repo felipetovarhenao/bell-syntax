@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Fix snippet placeholder bug in `for` loop.
+- Fixed parens removal bug when parens contains a lambda function.
 
 ### Changed
 
