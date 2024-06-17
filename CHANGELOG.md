@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Improve regex for function definitions.
+
 ### Removed
 
 ## [0.1.4] - 17-06-2024
