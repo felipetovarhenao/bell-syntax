@@ -1,0 +1,46 @@
+## this is a comment
+
+#( 
+    multi-line comment
+)#
+
+for $i in 0...10 collect (
+    $i *= 3
+);
+
+$list1 = null;
+$list2 = nil;
+
+for $x in 0...10, $y in 0...10 as $y < 4 with @maxdepth 1 do  (
+    $list1 _= $x;
+    $list2 !_= $y
+);
+
+$numbers = (
+    [1 12 123]
+    [1. 12. 123.]
+    [.1 .12 .123]
+    [1.1 12.12 123.123]
+    [1e1 12e12 123e123]
+    [1e-1 12e-12 123e-123]
+);
+
+$inputs = [ $x1 $l1 $r1 $p1 $i1 $f1 ];
+
+MY_CONSTANT = "this is a symbol #(123)#" 'this is a symbol #(123)#' `this `is `a `symbol `#(123)# ;
+$csharp = C#2 c#2;
+$bflat = Bb4 bb4;
+
+$fun = $x -> $x ** 2;
+
+$foo = ($x, <...> -> $x * $x);
+
+$var = $fun(30...10);
+
+$var = $var.rev().sort(@function ($a, $b -> $a <= $b));
+
+$var = $var.reduce(#u-).reduce(#%);
+
+$pi = pi * 2;
+
+#var = 3;
