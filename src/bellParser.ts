@@ -92,7 +92,12 @@ export default function parseSubstrings(input: string): TreeNode {
             break;
           case "(":
             type = NodeType.PARENS;
-            closeChar = ")";
+            if (input.slice(start, i).match(/include$/)) {
+              closeRegex = /\)/;
+              isDead = true;
+            } else {
+              closeChar = ")";
+            }
             break;
           case '"':
             type = NodeType.SYMBOL;
