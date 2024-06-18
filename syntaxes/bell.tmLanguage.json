@@ -31,16 +31,16 @@
 		"comments": {
 			"patterns": [
 				{
-					"name": "comment.line.number-sign.bell",
+					"name": "comment.line",
 					"match": "##.*"
 				},
 				{
-					"name": "comment.block.bell",
+					"name": "comment.block",
 					"begin": "#\\(",
 					"end": "\\)#"
 				},
 				{
-					"name": "comment.bell",
+					"name": "comment",
 					"match": ";"
 				}
 			]
@@ -48,37 +48,37 @@
 		"keywords": {
 			"patterns": [
 				{
-					"name": "keyword.control.bell",
+					"name": "keyword",
 					"match": "\\b(?<!\\$|#)(for|in|do|collect|if|while|then|else|init|keep|unkeep|with|as)\\b"
 				},
 				{
-					"match": "<\\.\\.\\.>|-\\^",
-					"name": "keyword.other.bell"
+					"name": "keyword.operator",
+					"match": "<\\.\\.\\.>|-\\^"
 				},
 				{
-					"name": "support.type.bell",
+					"name": "support.type.property-name",
 					"match": "(?<!\\w+)(?<!@)@[a-zA-Z]\\w*(?=\\s)"
 				}
 			]
 		},
 		"strings": {
-			"name": "string.quoted.double.bell",
+			"name": "string",
 			"begin": "\"",
 			"end": "\"",
 			"patterns": [
 				{
-					"name": "constant.character.escape.bell",
+					"name": "constant.character.escape",
 					"match": "\\\\."
 				}
 			]
 		},
 		"literals": {
-			"name": "string.quoted.single.bell",
+			"name": "string.quoted.single",
 			"begin": "'",
 			"end": "'",
 			"patterns": [
 				{
-					"name": "constant.character.escape.bell",
+					"name": "constant.character.escape",
 					"match": "\\\\."
 				}
 			]
@@ -86,27 +86,27 @@
 		"variables": {
 			"patterns": [
 				{
-					"name": "support.constant.bell",
+					"name": "support.constant",
 					"match": "(?<=include\\().*(?=\\))"
 				},
 				{
-					"name": "keyword.operator.bell",
+					"name": "keyword.operator",
 					"match": "\\+=|-=|->|\\+|-|\\*=|\\*|\\*\\*=|\\*\\*|/=|/|//=|//|%=|%|=|==|!|~|!=|<|>|<=|>=|&=|&|\\^=|\\^|\\|=|\\||&&=|&&|&&&=|&&&|\\^\\^=|\\^\\^|\\|\\|=|\\|\\||\\|\\|\\|=|\\|\\|\\|<<=|<<|>>=|>>|:=|::|:|\\.=|_=|!_=|\\.\\.\\.|:\\*|\\.(?!\\.)"
 				},
 				{
-					"name": "constant.other.bell",
-					"match": "\\b(null|nil)"
+					"name": "constant.other",
+					"match": "\\b(null|nil)\\b"
 				},
 				{
-					"name": "support.constant.bell",
+					"name": "support.constant",
 					"match": "\\$(d?o|l|i|f|p|r|l|x)\\d+"
 				},
 				{
-					"name": "support.constant.bell",
+					"name": "support.constant",
 					"match": "(?<!\\$)\\b[A-Z_]+\\b"
 				},
 				{
-					"name": "variable.parameter.bell",
+					"name": "variable.parameter",
 					"match": "(?<![a-zA-Z$])(\\$|#)(?!(\\$|#))(?=\\w+)\\b"
 				}
 			]
@@ -123,19 +123,14 @@
 			"patterns": [
 				{
 					"match": "#(\\+|-|u-|\\*|/{1,2}|%|==|!=|<=|>=|<{1,2}|>{1,2}|&{1,3}|(\\^){1,2}|(\\|){1,3})",
-					"name": "entity.name.function.bell"
+					"name": "support.function"
 				},
 				{
-					"name": "entity.name.function.bell",
-					"begins": "\\w+\\(",
-					"ends": "\\)"
-				},
-				{
-					"name": "entity.name.function.bell",
+					"name": "support.function",
 					"match": "\\w+\\("
 				},
 				{
-					"name": "entity.name.function.bell",
+					"name": "support.function",
 					"match": "(?<!=[^=]*)(\\w+)(?=\\s*=\\s*(\\$\\w\\s*(=\\s*[^=]+),?)*[^->]*->)"
 				}
 			]
@@ -143,19 +138,19 @@
 		"numeric": {
 			"patterns": [
 				{
-					"name": "entity.name.function.bell",
+					"name": "support.function",
 					"match": "(?<=\\{)\\s*\\w+(\\.\\w+)?\\b(?=([^}]*\\}))"
 				},
 				{
-					"name": "entity.name.function.bell",
+					"name": "support.function",
 					"match": "\\$?[A-Za-z]\\w*(?=\\s*=\\s*\\{\\s*\\S)"
 				},
 				{
-					"name": "constant.numeric.bell",
+					"name": "constant.numeric",
 					"match": "\\bpi\\b"
 				},
 				{
-					"name": "constant.numeric.bell",
+					"name": "constant.numeric",
 					"match": "(?<=\\s|\\b)[+\\-]?(\\d+\\.\\d*|\\d*\\.\\d+|\\d+)([eE][+\\-]?\\d+)?(?=[^\\w.]|$)"
 				}
 			]

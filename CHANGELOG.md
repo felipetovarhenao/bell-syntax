@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Improve regex for numeric values (handling scientific notation better).
+- Clean semantic names in TextMate grammars.
 
 ### Removed
 
