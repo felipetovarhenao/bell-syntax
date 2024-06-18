@@ -49,7 +49,7 @@
 			"patterns": [
 				{
 					"name": "keyword.control.bell",
-					"match": "\\b(for|in|do|collect|if|while|then|else|init|keep|unkeep|with|as)\\b"
+					"match": "\\b(?<!\\$|#)(for|in|do|collect|if|while|then|else|init|keep|unkeep|with|as)\\b"
 				},
 				{
 					"match": "<\\.\\.\\.>|-\\^",
