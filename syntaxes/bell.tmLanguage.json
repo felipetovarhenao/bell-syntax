@@ -57,7 +57,7 @@
 				},
 				{
 					"name": "support.type.bell",
-					"match": "(?<!\\w+)(?<!@)@[a-zA-Z]+(?=\\s)"
+					"match": "(?<!\\w+)(?<!@)@[a-zA-Z]\\w*(?=\\s)"
 				}
 			]
 		},
