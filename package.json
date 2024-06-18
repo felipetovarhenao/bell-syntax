@@ -80,7 +80,8 @@
         ],
         "extensions": [
           ".maxpat",
-          ".maxproj"
+          ".maxproj",
+          ".maxhelp"
         ]
       },
       {
