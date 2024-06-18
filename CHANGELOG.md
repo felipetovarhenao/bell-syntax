@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Add basic syntax highlighting for max files.
+- Add regex for variables assigned a max object instance.
 
 ### Fixed
 
@@ -20,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Improve regex for function definitions.
+- Improve regex for max object syntax.
 
 ### Removed
 

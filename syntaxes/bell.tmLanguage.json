@@ -144,7 +144,11 @@
 			"patterns": [
 				{
 					"name": "entity.name.function.bell",
-					"match": "\\{\\w+(\\.\\w+)?\\}"
+					"match": "(?<=\\{)\\s*\\w+(\\.\\w+)?\\b(?=([^}]*\\}))"
+				},
+				{
+					"name": "entity.name.function.bell",
+					"match": "\\$?[A-Za-z]\\w*(?=\\s*=\\s*\\{\\s*\\S)"
 				},
 				{
 					"name": "constant.numeric.bell",
