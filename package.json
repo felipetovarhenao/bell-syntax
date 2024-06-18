@@ -106,7 +106,7 @@
       },
       {
         "language": "max",
-        "scopeName": "source.bell",
+        "scopeName": "source.max",
         "path": "./syntaxes/max.tmLanguage.json"
       }
     ]
