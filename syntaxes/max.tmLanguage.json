@@ -15,5 +15,5 @@
             "match": "(\\d+(\\.\\d*)?|\\d*\\.?\\d+)"
         }
     ],
-    "scopeName": "source.bell"
+    "scopeName": "source.max"
 }
