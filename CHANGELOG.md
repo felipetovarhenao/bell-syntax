@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Add basic syntax highlighting for max files.
+
 ### Fixed
 
 - Fix semicolon removal bug — previously based on expression being last, now based on being the last non-comment or non-empty string.

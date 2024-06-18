@@ -1,0 +1,19 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "max",
+    "patterns": [
+        {
+            "name": "support.type.property-name",
+            "match": "\".+\"(?=\\s*:)"
+        },
+        {
+            "name": "string",
+            "match": "\".+\""
+        },
+        {
+            "name": "constant.numeric",
+            "match": "(\\d+(\\.\\d*)?|\\d*\\.?\\d+)"
+        }
+    ],
+    "scopeName": "source.bell"
+}

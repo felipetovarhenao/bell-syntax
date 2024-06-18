@@ -103,6 +103,11 @@
         "language": "bell",
         "scopeName": "source.bell",
         "path": "./syntaxes/bell.tmLanguage.json"
+      },
+      {
+        "language": "max",
+        "scopeName": "source.bell",
+        "path": "./syntaxes/max.tmLanguage.json"
       }
     ]
   }
