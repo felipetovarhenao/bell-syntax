@@ -156,15 +156,7 @@
 				},
 				{
 					"name": "constant.numeric.bell",
-					"match": "\\b\\d+\\.\\d+"
-				},
-				{
-					"name": "constant.numeric.bell",
-					"match": "\\b\\.\\d+"
-				},
-				{
-					"name": "constant.numeric.bell",
-					"match": "\\b\\d+(\\.(?!\\.))?"
+					"match": "(?<=\\s|\\b)[+\\-]?(\\d+\\.\\d*|\\d*\\.\\d+|\\d+)([eE][+\\-]?\\d+)?(?=[^\\w.]|$)"
 				}
 			]
 		}
