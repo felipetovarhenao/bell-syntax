@@ -5,11 +5,13 @@ All notable changes to this project, starting with v0.1.1, are documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [0.1.6] - 19-06-2024
 
 ### Added
 
 - Automatically open sample files when using development host, for quick checks and tests.
+- Support `#!` comment syntax for both formatting and highlighting.
+- Support pitch syntax highlighting and formatting.
 
 ### Fixed
 
@@ -21,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Improve regex for numeric values (handling scientific notation better).
 - Clean semantic names in TextMate grammars.
+- Remove unary operators from functional form regex.
 
 ### Removed
 
@@ -49,8 +52,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Add GIF preview in README.md
-- Support `#!` comment syntax for both formatting and highlighting.
-- Support pitch syntax highlighting and formatting.
 
 ### Fixed
 
@@ -61,7 +62,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Add highlighting rules to support reserved numbered variables, such as `i`, `f`, `l`, `p`, `r`, and `x`.
-- Remove unary operators from functional form regex.
 
 ### Removed
 
