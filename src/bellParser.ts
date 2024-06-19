@@ -26,7 +26,7 @@ export default function parseSubstrings(input: string): TreeNode {
     let i = start;
 
     // regex for node openers
-    const openingPattern = /\{|\[|\(|"|'|#(?=(#|\!)|\()|`|@|\b[A-Ga-g][#bxdq\\^v]*[0-9]+([+-]\d+\/\d+t)?\s?/;
+    const openingPattern = /\{|\[|\(|"|'|#(?=(#|\!)|\()|`|@|\b(?<!\$)[A-Ga-g][#bxdq\\^v]*[0-9]+([+-]\d+\/\d+t)?\s?/;
 
     while (i <= end) {
       // unscanned substring
