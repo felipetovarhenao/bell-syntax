@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Fix merging parens bug and pre-format sample files.
+- Fix bug in which `#!=` operator is parsed and highlighted as comment.
 
 ### Changed
 
