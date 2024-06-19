@@ -25,7 +25,7 @@ export default function parseSubstrings(input: string): TreeNode {
     let i = start;
 
     // regex for node openers
-    const openingPattern = /\{|\[|\(|"|'|#|`|@/;
+    const openingPattern = /\{|\[|\(|"|'|#(?=#|\()|`|@/;
 
     while (i <= end) {
       // unscanned substring
@@ -62,23 +62,17 @@ export default function parseSubstrings(input: string): TreeNode {
         const openIndex = i;
         switch (match[0]) {
           case "#":
-            if (input[i + 1] === "(" || input[i + 1] === "#") {
-              isDead = true;
-              closeChar = "";
-              type = NodeType.COMMENT;
-              i++;
-              switch (input[i]) {
-                case "(":
-                  closeRegex = /\)#/m;
-                  break;
-                case "#":
-                  closeRegex = /.$/m;
-                  break;
-              }
-            } else {
-              type = NodeType.EXPRESSION;
-              isDead = true;
-              closeRegex = /(!|~|u-|-|!=|\*|\/{1,2}|&{1,2}|\^{1,2}|\+|<=|==|>=|>{1,2}|<{1,2}|\|{1,3}|.)/;
+            isDead = true;
+            closeChar = "";
+            type = NodeType.COMMENT;
+            i++;
+            switch (input[i]) {
+              case "(":
+                closeRegex = /\)#/m;
+                break;
+              case "#":
+                closeRegex = /.$/m;
+                break;
             }
             break;
           case "{":
