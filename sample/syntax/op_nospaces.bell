@@ -3,7 +3,6 @@
 )#
 
 ## unary
-! ~ u-
 !$hello ~$hello u-$hello
 !hello ~hello u-hello
 !1 ~1 u-1

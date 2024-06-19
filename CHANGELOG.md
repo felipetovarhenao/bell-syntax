@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Fix scope name in max files.
 - Fix comment regex bug, which was breaking up #-type variables.
+- Fix syntax highlighting conflict in regex for operators and numeric values.
 
 ### Changed
 
