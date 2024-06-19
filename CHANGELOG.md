@@ -50,6 +50,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add GIF preview in README.md
 - Support `#!` comment syntax for both formatting and highlighting.
+- Support pitch syntax highlighting. Pending parser.
 
 ### Fixed
 

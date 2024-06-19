@@ -9,6 +9,9 @@
 			"include": "#keywords"
 		},
 		{
+			"include": "#pitch"
+		},
+		{
 			"include": "#strings"
 		},
 		{
@@ -58,6 +61,14 @@
 				{
 					"name": "support.type.property-name",
 					"match": "(?<!\\w+)(?<!@)@[a-zA-Z]\\w*(?=\\s)"
+				}
+			]
+		},
+		"pitch": {
+			"patterns": [
+				{
+					"name": "constant.other",
+					"match": "[A-Ga-g][#bxdq\\^v]*[0-9]+([+-]\\d+/\\d+t)?"
 				}
 			]
 		},
@@ -151,7 +162,7 @@
 				},
 				{
 					"name": "constant.numeric",
-					"match": "\\bpi\\b"
+					"match": "\\b(?<!\\$|#)pi\\b"
 				},
 				{
 					"name": "constant.numeric",
