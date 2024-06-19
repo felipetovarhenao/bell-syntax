@@ -7,6 +7,7 @@ export enum NodeType {
   ROOT = "ROOT",
   COMMENT = "COMMENT",
   ATTR = "ATTR",
+  PITCH = "PITCH",
 }
 
 export interface TreeNode {
@@ -25,7 +26,7 @@ export default function parseSubstrings(input: string): TreeNode {
     let i = start;
 
     // regex for node openers
-    const openingPattern = /\{|\[|\(|"|'|#(?=(#|\!)|\()|`|@/;
+    const openingPattern = /\{|\[|\(|"|'|#(?=(#|\!)|\()|`|@|[A-Ga-g][#bxdq\\^v]*[0-9]+([+-]\d+\/\d+t)?\s?/;
 
     while (i <= end) {
       // unscanned substring
@@ -112,6 +113,14 @@ export default function parseSubstrings(input: string): TreeNode {
             type = NodeType.ATTR;
             isDead = true;
             closeRegex = /.(?=(\s|$))/m;
+            break;
+          default:
+            if (match[0].match(/[A-Ga-g][#bxdq\\^v]*[0-9]+([+-]\d+\/\d+t)?\s?/)) {
+              type = NodeType.PITCH;
+              i += match[0].length - 2;
+              isDead = true;
+              closeRegex = /./;
+            }
             break;
         }
 

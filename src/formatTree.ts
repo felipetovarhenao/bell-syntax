@@ -131,6 +131,7 @@ export default function formatTree(tree: TreeNode, parent: TreeNode | null = nul
         closer += "]";
       }
       break;
+    case NodeType.PITCH:
     case NodeType.EXPRESSION:
       if (tree.substring?.trim() === "") {
         return "";

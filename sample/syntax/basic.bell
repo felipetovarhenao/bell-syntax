@@ -27,7 +27,7 @@ $numbers = (
     [1e-1 12e-12 123e-123]
 );
 
-$pitches = c1 c#2 Fb3 Ab+1/12t;
+$pitches = c1 c#2 Fb3 (Ab3+1/12t f###2) fx^5+1/2t;
 
 init $obj = {max.random @seed 12};
 

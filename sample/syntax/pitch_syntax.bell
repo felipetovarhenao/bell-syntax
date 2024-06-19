@@ -1,4 +1,4 @@
-$pitches= (
+$pitches = (
     (a0 b1 c2 b3 c4 d5 f6 g7);
      (A0 B1 C2 B3 C4 D5 F6 G7);
      (a#0 b#1 c#2 b#3 c#4 d#5 f#6 g#7);
