@@ -22,7 +22,7 @@ init $obj = {max.random @seed 12};
 keep $obj("bang");
 unkeep $obj;
 if $numbers:1 == 1 then (print('this')) else (print('that'));
-$inputs = [$x1 $l1 $r1 $p1 $i1 $f1];
+$inputs = [$x1 $l1 $r1 $p1 $i1 $f1 $do1 $o1 $dx1 ];
 $do1 = 1;
 $o1 = 2;
 $do2 = 4;

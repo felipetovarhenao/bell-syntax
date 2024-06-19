@@ -114,7 +114,7 @@
 				},
 				{
 					"name": "support.constant",
-					"match": "\\$(d?o|l|i|f|p|r|l|x)\\d+\\b"
+					"match": "\\$(d?o|l|i|f|p|r|l|d?x)\\d+\\b"
 				},
 				{
 					"name": "support.constant",
