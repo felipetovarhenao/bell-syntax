@@ -68,7 +68,7 @@
 			"patterns": [
 				{
 					"name": "constant.other",
-					"match": "[A-Ga-g][#bxdq\\^v]*[0-9]+([+-]\\d+/\\d+t)?"
+					"match": "[A-Ga-g][#bxdq\\^v]*[0-9]+([+-]\\d+/\\d+t)?\\b"
 				}
 			]
 		},
@@ -114,7 +114,7 @@
 				},
 				{
 					"name": "support.constant",
-					"match": "\\$(d?o|l|i|f|p|r|l|x)\\d+"
+					"match": "\\$(d?o|l|i|f|p|r|l|x)\\d+\\b"
 				},
 				{
 					"name": "support.constant",

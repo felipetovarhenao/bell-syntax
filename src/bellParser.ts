@@ -26,7 +26,7 @@ export default function parseSubstrings(input: string): TreeNode {
     let i = start;
 
     // regex for node openers
-    const openingPattern = /\{|\[|\(|"|'|#(?=(#|\!)|\()|`|@|\b(?<!\$)[A-Ga-g][#bxdq\\^v]*[0-9]+([+-]\d+\/\d+t)?\s?/;
+    const openingPattern = /\{|\[|\(|"|'|#(?=(#|\!)|\()|`|@|\b(?<!\$)[A-Ga-g][#bxdq\\^v]*[0-9]+([+-]\d+\/\d+t)?\b\s?/;
 
     while (i <= end) {
       // unscanned substring
@@ -115,7 +115,7 @@ export default function parseSubstrings(input: string): TreeNode {
             closeRegex = /.(?=(\s|$))/m;
             break;
           default:
-            if (match[0].match(/[A-Ga-g][#bxdq\\^v]*[0-9]+([+-]\d+\/\d+t)?\s?/)) {
+            if (match[0].match(/[A-Ga-g][#bxdq\\^v]*[0-9]+([+-]\d+\/\d+t)?\b\s?/)) {
               type = NodeType.PITCH;
               i += match[0].length - 2;
               isDead = true;
