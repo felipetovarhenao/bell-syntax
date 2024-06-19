@@ -25,7 +25,7 @@ export default function parseSubstrings(input: string): TreeNode {
     let i = start;
 
     // regex for node openers
-    const openingPattern = /\{|\[|\(|"|'|#(?=#|\()|`|@/;
+    const openingPattern = /\{|\[|\(|"|'|#(?=(#|\!)|\()|`|@/;
 
     while (i <= end) {
       // unscanned substring
@@ -70,7 +70,7 @@ export default function parseSubstrings(input: string): TreeNode {
               case "(":
                 closeRegex = /\)#/m;
                 break;
-              case "#":
+              default:
                 closeRegex = /.$/m;
                 break;
             }

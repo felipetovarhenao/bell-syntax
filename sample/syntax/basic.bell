@@ -1,5 +1,4 @@
 ## this is a comment
-
 #( 
     multi-line comment
 )#
@@ -8,6 +7,7 @@
 $list1 = null;
 $list2 = nil;
 
+#! another comment
 for $x in 0...10, $y in 0...10 as $y < 4 with @maxdepth 1 do  (
     $list1 _= $x;
     $list2 !_= $y
@@ -17,7 +17,7 @@ $i = 0;
 while $i < 10 do (
     $i += 1  
 );
-
+#! hello
 $numbers = (
     [1 12 123]
     [1. 12. 123.]
