@@ -133,15 +133,18 @@ export default function formatTree(tree: TreeNode, parent: TreeNode | null = nul
       break;
     case NodeType.PITCH:
     case NodeType.EXPRESSION:
-      if (tree.substring?.trim() === "") {
-        return "";
-      }
       ending = replaced.match(/\S$/);
+      if (tree.substring!.trim() === "") {
+        return ending ? " " : "";
+      }
       if (ending && !ending[0].match(concatenables) && !tree.substring!.match(/^\s*(;|\.|:|,)/)) {
         opener = " ";
       }
-      if (tree.substring?.match(/\s$/) && getNeighbor(parent, index + 1)?.type === NodeType.PARENS) {
-        closer = " ";
+      ending = tree.substring!.match(/.\s+$/);
+      if (ending && getNeighbor(parent, index + 1)?.type === NodeType.PARENS) {
+        if (!ending[0].match(/;/)) {
+          closer = " ";
+        }
       }
       formatter = (x: string) => cleanSubstring(x, isLastExpression(tree, parent, index));
       break;

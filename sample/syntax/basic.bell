@@ -12,17 +12,31 @@ for $x in 0...10, $y in 0...10 as $y < 4 with @maxdepth 1 do (
 );
 $i = 0;
 while $i < 10 do ($i += 1);
+for $i in 0...10 collect (
+    for $x in 0...10 collect (
+        for $j in 0...10 collect (
+            $x = $y;
+            (
+                (1 2 3);
+                (4 5 6)
+            );
+            $y = $x;
+            $z = $y
+        ) 
+    ) 
+);
+$hello = (1...10).reduce(#!=);
 
 #! hello
 $numbers = (
-    [1 12 123] [1. 12. 123.] [.1 .12 .123] [1.1 12.12 123.123] [1e1 12e12 123e123] [1e-1 12e-12 123e-123]
+    [1 12 123] [1. 12. 123.] [.1 .12 .123] [1.1 12.12 123.123] [1e1 12e12 123e123] [1e-1 12e-12 123e-123] 
 );
 $pitches = c1 c#2 Fb3 (Ab3+1/12t f###2) fx^5+1/2t;
 init $obj = {max.random @seed 12};
 keep $obj("bang");
 unkeep $obj;
 if $numbers:1 == 1 then (print('this')) else (print('that'));
-$inputs = [$x1 $l1 $r1 $p1 $i1 $f1 $do1 $o1 $dx1 ];
+$inputs = [$x1 $l1 $r1 $p1 $i1 $f1 $do1 $o1 $dx1];
 $do1 = 1;
 $o1 = 2;
 $do2 = 4;

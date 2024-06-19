@@ -1,24 +1,68 @@
 $pitches = (
-    (a0 b1 c2 b3 c4 d5 f6 g7);
-     (A0 B1 C2 B3 C4 D5 F6 G7);
-     (a#0 b#1 c#2 b#3 c#4 d#5 f#6 g#7);
-     (A#0 B#1 C#2 B#3 C#4 D#5 F#5 G#7);
-     (a#0 b#1 c#2 b#3 c#4 d#5 f#6 g#7);
-     (A##0 B##1 C##2 B##3 C##4 D##5 F##5 G##7);
-     (ab0 bb1 cb2 bb3 cb4 db5 fb6 gb7);
-     (Ab0 Bb1 Cb2 Bb3 Cb4 Db5 Fb5 Gb7);
-     (a^0 b^1 c^2 b^3 c^4 d^5 f^6 g^7);
-     (A^0 B^1 C^2 B^3 C^4 D^5 F^5 G^7);
-     (ad0 bd1 cd2 bd3 cd4 dd5 fd6 gd7);
-     (Ad0 Bd1 Cd2 Bd3 Cd4 Dd5 Fd5 Gd7);
-     (aq0 bq1 cq2 bq3 cq4 dq5 fq6 gq7);
-     (Aq0 Bq1 Cq2 Bq3 Cq4 Dq5 Fq5 Gq7);
-     (ax0 bx1 cx2 bx3 cx4 dx5 fx6 gx7);
-     (Ax0 Bx1 Cx2 Bx3 Cx4 Dx5 Fx5 Gx7);
-     (av0 bv1 cv2 bv3 cv4 dv5 fv6 gv7);
-     (Av0 Bv1 Cv2 Bv3 Cv4 Dv5 Fv5 Gv7);
-     (av0+3/12t bv1+3/12t cv2+3/12t bv3+3/12t cv4+3/12t dv5+3/12t fv6+3/12t gv7+3/12t);
-     (Av0+3/12t Bv1+3/12t Cv2+3/12t Bv3+3/12t Cv4+3/12t Dv5+3/12t Fv5+3/12t Gv7+3/12t);
-     (ab0+3/12t bb1+3/12t cb2+3/12t bb3+3/12t cb4+3/12t db5+3/12t fb6+3/12t gb7+3/12t);
-     (Ab0-3/12t Bb1-3/12t Cb2-3/12t Bb3-3/12t Cb4-3/12t Db5-3/12t Fb5-3/12t Gb7-3/12t)
+    (
+        a0 b1 c2 b3 c4 d5 f6 g7
+    );
+    (
+        A0 B1 C2 B3 C4 D5 F6 G7
+    );
+    (
+        a#0 b#1 c#2 b#3 c#4 d#5 f#6 g#7
+    );
+    (
+        A#0 B#1 C#2 B#3 C#4 D#5 F#5 G#7
+    );
+    (
+        a#0 b#1 c#2 b#3 c#4 d#5 f#6 g#7
+    );
+    (
+        A##0 B##1 C##2 B##3 C##4 D##5 F##5 G##7
+    );
+    (
+        ab0 bb1 cb2 bb3 cb4 db5 fb6 gb7
+    );
+    (
+        Ab0 Bb1 Cb2 Bb3 Cb4 Db5 Fb5 Gb7
+    );
+    (
+        a^0 b^1 c^2 b^3 c^4 d^5 f^6 g^7
+    );
+    (
+        A^0 B^1 C^2 B^3 C^4 D^5 F^5 G^7
+    );
+    (
+        ad0 bd1 cd2 bd3 cd4 dd5 fd6 gd7
+    );
+    (
+        Ad0 Bd1 Cd2 Bd3 Cd4 Dd5 Fd5 Gd7
+    );
+    (
+        aq0 bq1 cq2 bq3 cq4 dq5 fq6 gq7
+    );
+    (
+        Aq0 Bq1 Cq2 Bq3 Cq4 Dq5 Fq5 Gq7
+    );
+    (
+        ax0 bx1 cx2 bx3 cx4 dx5 fx6 gx7
+    );
+    (
+        Ax0 Bx1 Cx2 Bx3 Cx4 Dx5 Fx5 Gx7
+    );
+    (
+        av0 bv1 cv2 bv3 cv4 dv5 fv6 gv7
+    );
+    (
+        Av0 Bv1 Cv2 Bv3 Cv4 Dv5 Fv5 Gv7
+    );
+    (
+        av0+3/12t bv1+3/12t cv2+3/12t bv3+3/12t cv4+3/12t dv5+3/12t fv6+3/12t gv7+3/12t
+    );
+    (
+        Av0+3/12t Bv1+3/12t Cv2+3/12t Bv3+3/12t Cv4+3/12t Dv5+3/12t Fv5+3/12t Gv7+3/12t
+    );
+    (
+        ab0+3/12t bb1+3/12t cb2+3/12t bb3+3/12t cb4+3/12t db5+3/12t fb6+3/12t gb7+3/12t
+    );
+    (
+        Ab0-3/12t Bb1-3/12t Cb2-3/12t Bb3-3/12t Cb4-3/12t Db5-3/12t Fb5-3/12t Gb7-3/12t
+    ) 
 )
