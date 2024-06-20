@@ -27,6 +27,23 @@ for $i in 0...10 collect (
 );
 $hello = (1...10).reduce(#!=);
 
+## a function with multiple arguments
+$foo = ($x, $y, $z, $w -> $x $y $z $w);
+
+## arguments should be indented
+$foo(
+    @x "hello" 
+    @y random(1,2) 
+    @z 2 2 3 4
+    @w 3
+);
+$foo = ($x, $y-> $x $y);
+
+## arguments should NOT be indented
+$foo(
+    @y random(1,2) @z 2 2 3 4
+);
+
 #! hello
 $numbers = (
     [1 12 123] [1. 12. 123.] [.1 .12 .123] [1.1 12.12 123.123] [1e1 12e12 123e123] [1e-1 12e-12 123e-123] 

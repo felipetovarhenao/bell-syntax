@@ -184,7 +184,7 @@ export default function formatTree(tree: TreeNode, parent: TreeNode | null = nul
       break;
     case NodeType.ATTR:
       ending = replaced.match(/\S$/);
-      if (indentTest && ending) {
+      if (indentTest && (ending || !replaced.match(/\n\s*$/))) {
         opener = "\n";
       } else {
         if (ending && !ending[0].match(/(\()$/)) {
