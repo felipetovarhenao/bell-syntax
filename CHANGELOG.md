@@ -11,6 +11,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+### Changed
+
+### Removed
+
+## [0.1.8] - 21-06-2024
+
+### Added
+
+### Fixed
+
 - Fix attribute indenting bug and include more examples in `basic.bell` sample.
 
 ### Changed
