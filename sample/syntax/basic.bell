@@ -65,6 +65,8 @@ $bflat = Bb4 bb4;
 $fun = $x -> $x ** 2;
 $foo = ($x, <...> -^ $fun -> $x * $fun($x));
 $var = $fun(30...10);
+$buf1 = null;
+$g2 = null;
 $var = $var.rev().sort(@function ($a, $b -> $a <= $b));
 $var = $var.reduce(#u-).reduce(#%);
 $pi = pi * 2;
