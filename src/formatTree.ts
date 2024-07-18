@@ -104,7 +104,7 @@ export default function formatTree(tree: TreeNode, parent: TreeNode | null = nul
   let closer = "";
   let level = indent;
   let ending = null;
-  const concatenables = /(\(|\[|\{|:|\.|;)\s*$/;
+  const concatenables = /(\(|\[|\{|:(?!\*)|\.|;)\s*$/;
   const closers = /(\}|\]|\))\s*$/;
   let formatter = (x: string) => x;
   const indentTest = shouldIndent(tree, parent, index);
@@ -137,7 +137,7 @@ export default function formatTree(tree: TreeNode, parent: TreeNode | null = nul
       if (tree.substring!.trim() === "") {
         return ending ? " " : "";
       }
-      if (ending && !ending[0].match(concatenables) && !tree.substring!.match(/^\s*(;|\.|:|,)/)) {
+      if (ending && !ending[0].match(concatenables) && !tree.substring!.match(/^\s*(;|\.|:(?!\*)|,)/)) {
         opener = " ";
       }
       ending = tree.substring!.match(/.\s+$/);

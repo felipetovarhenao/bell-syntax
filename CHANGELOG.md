@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Fix formatting for `:*` operator when preceded by parens.
 - Include missing `%` operator in grammar rules.
 - Prevent pitch highlighting at the end of variables — e.g., `buf1`, `$g2`, etc.
 
