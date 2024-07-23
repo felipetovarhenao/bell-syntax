@@ -1,9 +1,13 @@
 import { TreeNode, NodeType } from "./bellParser";
 
 function cleanSubstring(substring: string, isLast: boolean = false): string {
-  let clean = substring.trim().replace(/\s+/g, " ").replace(/;+\s*/g, ";\n");
+  let clean = substring
+    .trim()
+    .replace(/\s+/g, " ")
+    .replace(/;+\s*/g, ";\n")
+    .replace(/(?<=,)\s*/g, " ");
   if (isLast) {
-    return clean.replace(/;+\s*$/, "");
+    return clean.replace(/((;|,)\s*)+$/, "");
   }
   return clean;
 }
