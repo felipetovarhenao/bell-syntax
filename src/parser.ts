@@ -32,7 +32,7 @@ enum TokenType {
 interface Token {
   type: TokenType;
   regexOpen: RegExp;
-  regexClose: RegExp;
+  regexClose?: RegExp;
   readonly: boolean;
 }
 interface SemanticNode {
@@ -56,7 +56,6 @@ const TOKENS: Token[] = [
   {
     type: TokenType.VARIABLE,
     regexOpen: new RegExp(/(\$?[A-Za-z]\w*)/),
-    regexClose: new RegExp(/\b/),
     readonly: true,
   },
   //   {
@@ -82,22 +81,27 @@ export default function parseSubstrings(input: string): SemanticNode[] {
       if (!match) {
         break;
       }
-
+      const matchLength = match[0].length;
       const tokenIndex = match.splice(1).findIndex((element) => element !== undefined);
       const token = TOKENS[tokenIndex];
-      const tokenEnd = token.regexClose;
       const startIndex = match.index;
-      const remains = slice.slice(startIndex);
-      const endMatch = tokenEnd.exec(remains);
-      if (!endMatch) {
-        break;
+      const remains = slice.slice(startIndex + matchLength);
+      let endIndex = matchLength;
+      if (token.regexClose) {
+        const endMatch = token.regexClose.exec(remains);
+        if (!endMatch) {
+          break;
+        }
+        endIndex += endMatch.index + endMatch[0].length;
       }
-      const endIndex = endMatch.index + endMatch[0].length;
-      substrings.push(remains.slice(0, endIndex));
+      const substr = slice.slice(startIndex, startIndex + endIndex);
+      console.log("\n-----");
+      console.log(substr);
+      substrings.push(substr);
       i += startIndex + endIndex;
       count++;
     }
-    console.log(substrings);
+
     return nodes;
   }
 

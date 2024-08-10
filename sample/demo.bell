@@ -1,6 +1,12 @@
-10234
-#( hi )#
-## hello world
+10234;
+#! comment type 1
+$foo1 = $boo
+#( 
+    multiline 
+    comment
+)#
+## comment type 2
+$h
 #( 
     hello 
     world
