@@ -7,6 +7,7 @@ import { nativeFunctionsCompletions, nativeFunctionsLookup } from "./nativeFunct
 import { loopSnippets, loopSnippetLookup } from "./loopSnippets";
 import { withClauseAttrCompletions } from "./withClauseAttributes";
 import parseCode from "./bellParser";
+import newParser from "./parser";
 import formatTree from "./formatTree";
 
 export function activate(context: vscode.ExtensionContext) {
@@ -110,6 +111,7 @@ export function activate(context: vscode.ExtensionContext) {
     provideDocumentFormattingEdits(document: vscode.TextDocument): vscode.TextEdit[] {
       const rawText = document.getText().trim();
       const tree = parseCode(rawText);
+      console.log(newParser(rawText));
       const start = new vscode.Position(0, 0);
       const end = new vscode.Position(document.lineCount, document.lineAt(document.lineCount - 1).range.end.character);
       const range = new vscode.Range(start, end);
