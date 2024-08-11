@@ -30,6 +30,7 @@ enum TokenType {
   FUNCTION = "FUNCTION",
   UNKNOWN = "UNKNOWN",
   INTEGER = "INTEGER",
+  FLOAT = "FLOAT",
   BINARY_OPERATOR = "BINARY_OPERATOR",
   UNARY_OPERATOR = "UNARY_OPERATOR",
   ASSIGNMENT_OPERATOR = "ASSIGNMENT_OPERATOR",
@@ -151,6 +152,11 @@ const TOKENS: Token[] = [
   {
     type: TokenType.ARGUMENT,
     regexOpen: new RegExp(/(?<!(?:@|\w)+)(@[A-Za-z]\w*(?=\s))/),
+    nestable: false,
+  },
+  {
+    type: TokenType.FLOAT,
+    regexOpen: new RegExp(/([+-]?(?:\d*\.\d+|\d+\.?)(?:[eE][+-]?\d+)?)/),
     nestable: false,
   },
   {
