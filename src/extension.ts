@@ -9,6 +9,7 @@ import { withClauseAttrCompletions } from "./withClauseAttributes";
 import parseCode from "./bellParser";
 import newParser from "./parser";
 import formatTree from "./formatTree";
+import format from "./formatter";
 
 export function activate(context: vscode.ExtensionContext) {
   const hoverProvider = vscode.languages.registerHoverProvider("bell", {
@@ -110,13 +111,15 @@ export function activate(context: vscode.ExtensionContext) {
   const formatter = vscode.languages.registerDocumentFormattingEditProvider("bell", {
     provideDocumentFormattingEdits(document: vscode.TextDocument): vscode.TextEdit[] {
       const rawText = document.getText().trim();
-      const tree = parseCode(rawText);
-      console.log(newParser(rawText));
+      // const tree = parseCode(rawText);
+      const tree = newParser(rawText);
       const start = new vscode.Position(0, 0);
       const end = new vscode.Position(document.lineCount, document.lineAt(document.lineCount - 1).range.end.character);
       const range = new vscode.Range(start, end);
-      const replace = formatTree(tree).trim();
+      // const replace = formatTree(tree).trim();
+      const replace = format(tree);
       return [vscode.TextEdit.replace(range, replace)];
+      // return [vscode.TextEdit.replace(range, JSON.stringify(tree, null, 2))];
     },
   });
 

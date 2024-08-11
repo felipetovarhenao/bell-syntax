@@ -31,6 +31,7 @@ enum TokenType {
   UNKNOWN = "UNKNOWN",
   INTEGER = "INTEGER",
   BINARY_OPERATOR = "BINARY_OPERATOR",
+  ASSIGNMENT_OPERATOR = "ASSIGNMENT_OPERATOR",
   KEYWORD = "KEYWORD",
   FUNCTIONAL_OPERATOR = "FUNCTIONAL_OPERATOR",
   NULLIFIER = "NULLIFIER",
@@ -38,13 +39,15 @@ enum TokenType {
   PITCH = "PITCH",
   CONSTANT = "CONSTANT",
 }
-interface Token {
+export interface Token {
   type: TokenType;
   regexOpen: RegExp;
   regexClose?: RegExp;
   nestable: boolean;
+  begins?: string;
+  ends?: string;
 }
-interface SemanticNode {
+export interface SemanticNode {
   token: Token;
   start: number;
   end: number;
@@ -55,7 +58,7 @@ const TOKENS: Token[] = [
   {
     type: TokenType.COMMENT,
     regexOpen: new RegExp(/(#[#!](?!=))/),
-    regexClose: new RegExp(/\n|\r|$/),
+    regexClose: new RegExp(/.(?=\n|\r|$)/),
     nestable: false,
   },
   {
@@ -66,7 +69,7 @@ const TOKENS: Token[] = [
   },
   {
     type: TokenType.SYMBOL,
-    regexOpen: new RegExp(/(`\S+)/),
+    regexOpen: new RegExp(/(`\S+\s)/),
     nestable: false,
   },
   {
@@ -83,12 +86,16 @@ const TOKENS: Token[] = [
     type: TokenType.PARENS,
     regexOpen: new RegExp(/(\()/),
     regexClose: new RegExp(/\)/),
+    begins: "(",
+    ends: ")",
     nestable: true,
   },
   {
     type: TokenType.BRACKET,
     regexOpen: new RegExp(/(\[)/),
     regexClose: new RegExp(/\]/),
+    begins: "[",
+    ends: "]",
     nestable: true,
   },
   {
@@ -114,7 +121,7 @@ const TOKENS: Token[] = [
   },
   {
     type: TokenType.CONSTANT,
-    regexOpen: new RegExp(/(?<=\b)(?<!\$|#)(null|nil)(?=\b)/),
+    regexOpen: new RegExp(/(?<=\b)(?<!\$|#)(null|nil|pi)(?=\b)/),
     nestable: false,
   },
   {
@@ -124,7 +131,7 @@ const TOKENS: Token[] = [
   },
   {
     type: TokenType.VARIABLE,
-    regexOpen: new RegExp(/(\$?[A-Za-z]\w*)/),
+    regexOpen: new RegExp(/((?:\$|#)?[A-Za-z]\w*)/),
     nestable: false,
   },
   {
@@ -137,7 +144,11 @@ const TOKENS: Token[] = [
     regexOpen: new RegExp(/((?:(?<=\s)[+-])?\d+)/),
     nestable: false,
   },
-
+  {
+    type: TokenType.ASSIGNMENT_OPERATOR,
+    regexOpen: new RegExp(/((?:\+|-|\*{1,2}|\/{1,2}|%|\^{2}|>{2}|<{2}|&{1,3}|\|{1,3})?=)/),
+    nestable: false,
+  },
   {
     type: TokenType.BINARY_OPERATOR,
     // basic version of regex
