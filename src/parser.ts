@@ -156,7 +156,7 @@ const TOKENS: Token[] = [
   },
   {
     type: TokenType.FLOAT,
-    regexOpen: new RegExp(/([+-]?(?:\d*\.\d+|\d+\.?)(?:[eE][+-]?\d+)?)/),
+    regexOpen: new RegExp(/(?<=\b|^)([+-]?(?:\d*\.\d+|\d+\.?)(?:[eE][+-]?\d+)?)(?!\.)(?=\b|$)/),
     nestable: false,
   },
   {
