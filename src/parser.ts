@@ -32,6 +32,10 @@ enum TokenType {
   INTEGER = "INTEGER",
   BINARY_OPERATOR = "BINARY_OPERATOR",
   KEYWORD = "KEYWORD",
+  FUNCTIONAL_OPERATOR = "FUNCTIONAL_OPERATOR",
+  NULLIFIER = "NULLIFIER",
+  ARGUMENT = "ARGUMENT",
+  PITCH = "PITCH",
 }
 interface Token {
   type: TokenType;
@@ -49,7 +53,7 @@ interface SemanticNode {
 const TOKENS: Token[] = [
   {
     type: TokenType.COMMENT,
-    regexOpen: new RegExp(/(#[#!])/),
+    regexOpen: new RegExp(/(#[#!](?!=))/),
     regexClose: new RegExp(/\n|\r|$/),
     nestable: false,
   },
@@ -103,8 +107,18 @@ const TOKENS: Token[] = [
     nestable: false,
   },
   {
+    type: TokenType.PITCH,
+    regexOpen: new RegExp(/((?<!\$|#)(?<=\b)[A-Ga-g][#bxdq\^v]*[0-9]+(?:[+-]\d+\/\d+t)?(?=\b))/),
+    nestable: false,
+  },
+  {
     type: TokenType.VARIABLE,
     regexOpen: new RegExp(/(\$?[A-Za-z]\w*)/),
+    nestable: false,
+  },
+  {
+    type: TokenType.ARGUMENT,
+    regexOpen: new RegExp(/(?<!(?:@|\w)+)(@[A-Za-z]\w*(?=\s))/),
     nestable: false,
   },
   {
@@ -112,10 +126,21 @@ const TOKENS: Token[] = [
     regexOpen: new RegExp(/((?:(?<=\s)[+-])?\d+)/),
     nestable: false,
   },
+
   {
     type: TokenType.BINARY_OPERATOR,
     // basic version of regex
     regexOpen: new RegExp(/(\+|-|\*{1,2}|\/{2})/),
+    nestable: false,
+  },
+  {
+    type: TokenType.FUNCTIONAL_OPERATOR,
+    regexOpen: new RegExp(/(#(?:\+|-|u-|\*|\/{1,2}|%|==|!=|<=|>=|<{1,2}|>{1,2}|&{1,3}|\^{1,2}|\|{1,3}))/),
+    nestable: false,
+  },
+  {
+    type: TokenType.NULLIFIER,
+    regexOpen: new RegExp(/(;)/),
     nestable: false,
   },
 

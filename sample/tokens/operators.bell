@@ -1,4 +1,1 @@
-for $i in 1 2 3 -4 do (
-    init $for = 1;
-    $hello()
-)
+myfunction(@argument $hello)
