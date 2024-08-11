@@ -31,9 +31,12 @@ enum TokenType {
   UNKNOWN = "UNKNOWN",
   INTEGER = "INTEGER",
   BINARY_OPERATOR = "BINARY_OPERATOR",
+  UNARY_OPERATOR = "UNARY_OPERATOR",
   ASSIGNMENT_OPERATOR = "ASSIGNMENT_OPERATOR",
   KEYWORD = "KEYWORD",
   FUNCTIONAL_OPERATOR = "FUNCTIONAL_OPERATOR",
+  SPECIAL_OPERATOR = "SPECIAL_OPERATOR",
+  DIRECTIVE = "DIRECTIVE",
   NULLIFIER = "NULLIFIER",
   ARGUMENT = "ARGUMENT",
   PITCH = "PITCH",
@@ -83,6 +86,12 @@ const TOKENS: Token[] = [
     nestable: false,
   },
   {
+    type: TokenType.DIRECTIVE,
+    regexOpen: new RegExp(/((?<=\b|^)(?<!\$|#)include(?=\())/),
+    regexClose: new RegExp(/\)/),
+    nestable: false,
+  },
+  {
     type: TokenType.PARENS,
     regexOpen: new RegExp(/(\()/),
     regexClose: new RegExp(/\)/),
@@ -106,7 +115,7 @@ const TOKENS: Token[] = [
   },
   {
     type: TokenType.KEYWORD,
-    regexOpen: new RegExp(/((?<=\b)(?<!\$|#)for|in|do|collect|if|while|then|else|init|keep|unkeep|with|as(?=\b))/),
+    regexOpen: new RegExp(/((?<=\b)(?<!\$|#)for|init|do|collect|if|while|then|else|in|keep|unkeep|with|as(?=\b))/),
     nestable: false,
   },
   {
@@ -126,12 +135,17 @@ const TOKENS: Token[] = [
   },
   {
     type: TokenType.CONSTANT,
-    regexOpen: new RegExp(/(?<=\b|^)(\$(?:d?o|l|i|f|p|r|d?x)\d+)(?=\b|$)/),
+    regexOpen: new RegExp(/((?<!\w)\$(?:args|argcount)(?=\b|$))/),
     nestable: false,
   },
   {
-    type: TokenType.VARIABLE,
-    regexOpen: new RegExp(/((?:\$|#)?[A-Za-z]\w*)/),
+    type: TokenType.SPECIAL_OPERATOR,
+    regexOpen: new RegExp(/(<\.{3}>|\.{3}|-[\^>])/),
+    nestable: false,
+  },
+  {
+    type: TokenType.CONSTANT,
+    regexOpen: new RegExp(/((?<!\w)\$(?:[lipfr]|d?[xo])\d+(?=\b|$))/),
     nestable: false,
   },
   {
@@ -150,9 +164,14 @@ const TOKENS: Token[] = [
     nestable: false,
   },
   {
+    type: TokenType.UNARY_OPERATOR,
+    regexOpen: new RegExp(/((?<!#)!|~|u?-|\+(?=[\[\(]|(?:[$|#]?[A-Za-z0-9])))/),
+    nestable: false,
+  },
+  {
     type: TokenType.BINARY_OPERATOR,
     // basic version of regex
-    regexOpen: new RegExp(/(\+|-|\*{1,2}|\/{2})/),
+    regexOpen: new RegExp(/(\+|-|\*{1,2}|\/{2}|%|\^{1,2}|>{1,2}|<{1,2}|&{1,3}|\|{1,3})/),
     nestable: false,
   },
   {
@@ -163,6 +182,11 @@ const TOKENS: Token[] = [
   {
     type: TokenType.NULLIFIER,
     regexOpen: new RegExp(/(;)/),
+    nestable: false,
+  },
+  {
+    type: TokenType.VARIABLE,
+    regexOpen: new RegExp(/((?:\$|#)?[A-Za-z]\w*)/),
     nestable: false,
   },
 
