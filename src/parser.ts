@@ -27,9 +27,11 @@ enum TokenType {
   COMMENT = "COMMENT",
   MULTI_COMMENT = "MULTI_COMMENT",
   VARIABLE = "VARIABLE",
+  FUNCTION = "FUNCTION",
   UNKNOWN = "UNKNOWN",
   INTEGER = "INTEGER",
   BINARY_OPERATOR = "BINARY_OPERATOR",
+  KEYWORD = "KEYWORD",
 }
 interface Token {
   type: TokenType;
@@ -91,6 +93,16 @@ const TOKENS: Token[] = [
     nestable: false,
   },
   {
+    type: TokenType.KEYWORD,
+    regexOpen: new RegExp(/((?<=\b)(?<!\$|#)for|in|do|collect|if|while|then|else|init|keep|unkeep|with|as(?=\b))/),
+    nestable: false,
+  },
+  {
+    type: TokenType.FUNCTION,
+    regexOpen: new RegExp(/(\$?[A-Za-z]\w*)(?=\()/),
+    nestable: false,
+  },
+  {
     type: TokenType.VARIABLE,
     regexOpen: new RegExp(/(\$?[A-Za-z]\w*)/),
     nestable: false,
@@ -106,7 +118,7 @@ const TOKENS: Token[] = [
     regexOpen: new RegExp(/(\+|-|\*{1,2}|\/{2})/),
     nestable: false,
   },
-  
+
   //   {
   //     type: TokenType.UNKNOWN,
   //     regexOpen: new RegExp(/./),
