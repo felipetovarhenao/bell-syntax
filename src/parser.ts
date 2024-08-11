@@ -88,7 +88,7 @@ const TOKENS: Token[] = [
     type: TokenType.CURLY,
     regexOpen: new RegExp(/(\{)/),
     regexClose: new RegExp(/\}/),
-    nestable: true,
+    nestable: false,
   },
   {
     type: TokenType.VARIABLE,
