@@ -120,19 +120,28 @@ export default function parseSubstrings(input: string): SemanticNode[] {
       // we look for any openers
       const match = tokenOpen.exec(slice);
 
-      if (!match) {
+      // we also check for closures, if there's a parent token
+      const closingMatch = parent?.token.regexClose!.exec(slice);
+
+      // if neither, just stop looking
+      if (!match && !closingMatch) {
         // no recognizable patterns left
         break;
       }
-      // check for closures
-      const closingMatch = parent?.token.regexClose!.exec(slice);
 
-      // if there's a pending token to close and the match starts after the closer, stop loop
-      if (closingMatch && closingMatch?.index <= match.index) {
+      // if there's a pending token to close and there's either no match or match starts after the closer, mutate parent's end and stop loop
+      if (closingMatch && (!match || closingMatch.index <= match.index)) {
         // mutate end value in parent node
         parent!.end = i + closingMatch.index + closingMatch[0].length;
         break;
       }
+
+      // ensure we don't have any matches
+      if (!match) {
+        break;
+      }
+      
+      // get length of match
       const matchLength = match[0].length;
 
       // after the first item in match, the first non undefined value is the capture group index corresponding to the token
@@ -165,7 +174,7 @@ export default function parseSubstrings(input: string): SemanticNode[] {
 
         // offset cursor to match end of nested node
         i = node.end;
-        
+
         // push nested node
         nodes.push(node);
       } else {
