@@ -19,15 +19,16 @@ export interface TreeNode {
 }
 
 enum TokenType {
-  PARENS,
-  BRACKET,
-  CURLY,
-  SYMBOL,
-  ROOT,
-  COMMENT,
-  MULTI_COMMENT,
-  VARIABLE,
-  UNKNOWN,
+  PARENS = "PARENS",
+  BRACKET = "BRACKET",
+  CURLY = "CURLY",
+  SYMBOL = "SYMBOL",
+  ROOT = "ROOT",
+  COMMENT = "COMMENT",
+  MULTI_COMMENT = "MULTI_COMMENT",
+  VARIABLE = "VARIABLE",
+  UNKNOWN = "UNKNOWN",
+  INTEGER = "INTEGER",
 }
 interface Token {
   type: TokenType;
@@ -58,6 +59,11 @@ const TOKENS: Token[] = [
     regexOpen: new RegExp(/(\$?[A-Za-z]\w*)/),
     readonly: true,
   },
+  {
+    type: TokenType.INTEGER,
+    regexOpen: new RegExp(/((\+|-)?\d+)/),
+    readonly: true,
+  },
   //   {
   //     type: TokenType.UNKNOWN,
   //     regexOpen: new RegExp(/./),
@@ -67,37 +73,68 @@ const TOKENS: Token[] = [
 ];
 
 export default function parseSubstrings(input: string): SemanticNode[] {
+  // array with all opening patterns, useful for using findIndex on, to later match corresponding token
   const openers = TOKENS.map((x) => String(x.regexOpen.source));
-  const tokenOpen = new RegExp(openers.join("|"));
-  function parse(start: number, end: number): SemanticNode[] {
-    const nodes: SemanticNode[] = [];
-    const substrings: string[] = [];
 
+  // regex pattern with all openers in one. Careful attention must be given to order of tokens to ensure proper precedence
+  const tokenOpen = new RegExp(openers.join("|"));
+
+  // main recursive parsing callback
+  function parse(start: number, end: number): SemanticNode[] {
+    // we initialize nodes
+    const nodes: SemanticNode[] = [];
+    // copy start index of input subtring
     let i = start;
+
+    // we use a temporary count variable to prevent infinite loops, just in case. Should be removed at some point
     let count = 0;
+
+    // we scan through the input string until we're done
     while (i <= end || count > 100) {
+      // the subtring to find patterns in
       const slice = input.slice(i, end + 1);
+
+      // we look for any openers
       const match = tokenOpen.exec(slice);
       if (!match) {
+        // no recognizable patterns left
         break;
       }
       const matchLength = match[0].length;
+
+      // after the first item in match, the first non undefined value is the capture group index corresponding to the token
       const tokenIndex = match.splice(1).findIndex((element) => element !== undefined);
+
+      // get token from master token list
       const token = TOKENS[tokenIndex];
+
+      // start index for token
       const startIndex = match.index;
+
+      // we get the slice after the pattern opener (not just the first character)
       const remains = slice.slice(startIndex + matchLength);
+
+      // assuming the token doesn't use closing patterns, we initialize the end index with the match length
       let endIndex = matchLength;
       if (token.regexClose) {
+        // find the regex closer
         const endMatch = token.regexClose.exec(remains);
         if (!endMatch) {
+          // if there's no closure, stop looking
           break;
         }
+        // increment token end index
         endIndex += endMatch.index + endMatch[0].length;
       }
+      // get token substring
       const substr = slice.slice(startIndex, startIndex + endIndex);
-      console.log("\n-----");
-      console.log(substr);
-      substrings.push(substr);
+
+      // push to semantic tree
+      nodes.push({
+        token: token,
+        substring: substr,
+      });
+      // offset starting point
       i += startIndex + endIndex;
       count++;
     }
