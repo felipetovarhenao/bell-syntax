@@ -160,7 +160,7 @@ const TOKENS: Token[] = [
   },
   {
     type: TokenType.ASSIGNMENT_OPERATOR,
-    regexOpen: new RegExp(/((?:\+|-|\*{1,2}|\/{1,2}|%|\^{2}|>{2}|<{2}|&{1,3}|\|{1,3})?=)/),
+    regexOpen: new RegExp(/((?:\.|!?_|\+|-|\*{1,2}|\/{1,2}|%|\^{2}|>{2}|<{2}|&{1,3}|\|{1,3})?=)/),
     nestable: false,
   },
   {
