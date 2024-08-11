@@ -29,6 +29,7 @@ enum TokenType {
   VARIABLE = "VARIABLE",
   UNKNOWN = "UNKNOWN",
   INTEGER = "INTEGER",
+  BINARY_OPERATOR = "BINARY_OPERATOR",
 }
 interface Token {
   type: TokenType;
@@ -78,15 +79,34 @@ const TOKENS: Token[] = [
     nestable: true,
   },
   {
+    type: TokenType.BRACKET,
+    regexOpen: new RegExp(/(\[)/),
+    regexClose: new RegExp(/\]/),
+    nestable: true,
+  },
+  {
+    type: TokenType.CURLY,
+    regexOpen: new RegExp(/(\{)/),
+    regexClose: new RegExp(/\}/),
+    nestable: true,
+  },
+  {
     type: TokenType.VARIABLE,
     regexOpen: new RegExp(/(\$?[A-Za-z]\w*)/),
     nestable: false,
   },
   {
     type: TokenType.INTEGER,
-    regexOpen: new RegExp(/([+-]?\d+)/),
+    regexOpen: new RegExp(/((?:(?<=\s)[+-])?\d+)/),
     nestable: false,
   },
+  {
+    type: TokenType.BINARY_OPERATOR,
+    // basic version of regex
+    regexOpen: new RegExp(/(\+|-|\*{1,2}|\/{2})/),
+    nestable: false,
+  },
+  
   //   {
   //     type: TokenType.UNKNOWN,
   //     regexOpen: new RegExp(/./),
@@ -140,7 +160,7 @@ export default function parseSubstrings(input: string): SemanticNode[] {
       if (!match) {
         break;
       }
-      
+
       // get length of match
       const matchLength = match[0].length;
 
