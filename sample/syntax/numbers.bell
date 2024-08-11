@@ -1,3 +1,14 @@
 $numbers = (
-    [1 12 123] [1. 12. 123.] [.1 .12 .123] [1.1 12.12 123.123] [1e1 12e12 123e123] [1e-1 12e-12 123e-123] 
+    ## integers
+    [1 12 123] 
+    ## trailing floats 
+    [1. 12. 123.] 
+    ## leading floats
+    [.1 .12 .123] 
+    ## full floats
+    [1.1 12.12 123.123] 
+    ## unsigned scientific
+    [1e1 12e12 123e123] 
+    ## signed scientific
+    [1e-1 -12e+12 123e-123] 
 );
