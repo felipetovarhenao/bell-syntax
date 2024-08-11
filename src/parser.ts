@@ -34,35 +34,58 @@ interface Token {
   type: TokenType;
   regexOpen: RegExp;
   regexClose?: RegExp;
-  readonly: boolean;
+  nestable: boolean;
 }
 interface SemanticNode {
   token: Token;
+  start: number;
+  end: number;
   children?: SemanticNode[];
   substring?: string;
 }
 const TOKENS: Token[] = [
   {
     type: TokenType.COMMENT,
-    regexOpen: new RegExp(/(##|#!)/),
-    regexClose: new RegExp(/\n|\r/),
-    readonly: true,
+    regexOpen: new RegExp(/(#[#!])/),
+    regexClose: new RegExp(/\n|\r|$/),
+    nestable: false,
   },
   {
     type: TokenType.MULTI_COMMENT,
     regexOpen: new RegExp(/(#\()/),
     regexClose: new RegExp(/\)#/),
-    readonly: true,
+    nestable: false,
+  },
+  {
+    type: TokenType.SYMBOL,
+    regexOpen: new RegExp(/(`\S+)/),
+    nestable: false,
+  },
+  {
+    type: TokenType.SYMBOL,
+    regexOpen: new RegExp(/("[^"]*")/),
+    nestable: false,
+  },
+  {
+    type: TokenType.SYMBOL,
+    regexOpen: new RegExp(/('[^']*')/),
+    nestable: false,
+  },
+  {
+    type: TokenType.PARENS,
+    regexOpen: new RegExp(/(\()/),
+    regexClose: new RegExp(/\)/),
+    nestable: true,
   },
   {
     type: TokenType.VARIABLE,
     regexOpen: new RegExp(/(\$?[A-Za-z]\w*)/),
-    readonly: true,
+    nestable: false,
   },
   {
     type: TokenType.INTEGER,
-    regexOpen: new RegExp(/((\+|-)?\d+)/),
-    readonly: true,
+    regexOpen: new RegExp(/([+-]?\d+)/),
+    nestable: false,
   },
   //   {
   //     type: TokenType.UNKNOWN,
@@ -80,7 +103,7 @@ export default function parseSubstrings(input: string): SemanticNode[] {
   const tokenOpen = new RegExp(openers.join("|"));
 
   // main recursive parsing callback
-  function parse(start: number, end: number): SemanticNode[] {
+  function parse(start: number, end: number, parent?: SemanticNode): SemanticNode[] {
     // we initialize nodes
     const nodes: SemanticNode[] = [];
     // copy start index of input subtring
@@ -90,14 +113,24 @@ export default function parseSubstrings(input: string): SemanticNode[] {
     let count = 0;
 
     // we scan through the input string until we're done
-    while (i <= end || count > 100) {
+    while (i <= end || count > 100000) {
       // the subtring to find patterns in
       const slice = input.slice(i, end + 1);
 
       // we look for any openers
       const match = tokenOpen.exec(slice);
+
       if (!match) {
         // no recognizable patterns left
+        break;
+      }
+      // check for closures
+      const closingMatch = parent?.token.regexClose!.exec(slice);
+
+      // if there's a pending token to close and the match starts after the closer, stop loop
+      if (closingMatch && closingMatch?.index <= match.index) {
+        // mutate end value in parent node
+        parent!.end = i + closingMatch.index + closingMatch[0].length;
         break;
       }
       const matchLength = match[0].length;
@@ -112,30 +145,54 @@ export default function parseSubstrings(input: string): SemanticNode[] {
       const startIndex = match.index;
 
       // we get the slice after the pattern opener (not just the first character)
-      const remains = slice.slice(startIndex + matchLength);
+      let remains = slice.slice(startIndex + matchLength);
 
-      // assuming the token doesn't use closing patterns, we initialize the end index with the match length
+      // we initialize the end index with the matched pattern's length
       let endIndex = matchLength;
-      if (token.regexClose) {
-        // find the regex closer
-        const endMatch = token.regexClose.exec(remains);
-        if (!endMatch) {
-          // if there's no closure, stop looking
-          break;
-        }
-        // increment token end index
-        endIndex += endMatch.index + endMatch[0].length;
-      }
-      // get token substring
-      const substr = slice.slice(startIndex, startIndex + endIndex);
 
-      // push to semantic tree
-      nodes.push({
-        token: token,
-        substring: substr,
-      });
-      // offset starting point
-      i += startIndex + endIndex;
+      // handle nestable tokens
+      if (token.nestable) {
+        // look for children tokens
+        const node: SemanticNode = {
+          token: token,
+          start: i + startIndex,
+          end: i + startIndex + endIndex,
+        };
+        const children = parse(i + startIndex + matchLength, end, node);
+
+        // assign children
+        node.children = children;
+
+        // offset cursor to match end of nested node
+        i = node.end;
+        
+        // push nested node
+        nodes.push(node);
+      } else {
+        if (token.regexClose) {
+          // find the regex closer
+          const endMatch = token.regexClose.exec(remains);
+          if (!endMatch) {
+            // if there's no closure, stop looking
+            break;
+          }
+          // increment token end index
+          endIndex += endMatch.index + endMatch[0].length;
+        }
+        // get token substring
+        const substr = slice.slice(startIndex, startIndex + endIndex);
+
+        // push to semantic tree
+        nodes.push({
+          token: token,
+          substring: substr,
+          start: startIndex + i,
+          end: startIndex + endIndex + i,
+        });
+        // offset starting point
+        i += startIndex + endIndex;
+      }
+
       count++;
     }
 
