@@ -36,6 +36,7 @@ enum TokenType {
   NULLIFIER = "NULLIFIER",
   ARGUMENT = "ARGUMENT",
   PITCH = "PITCH",
+  CONSTANT = "CONSTANT",
 }
 interface Token {
   type: TokenType;
@@ -109,6 +110,16 @@ const TOKENS: Token[] = [
   {
     type: TokenType.PITCH,
     regexOpen: new RegExp(/((?<!\$|#)(?<=\b)[A-Ga-g][#bxdq\^v]*[0-9]+(?:[+-]\d+\/\d+t)?(?=\b))/),
+    nestable: false,
+  },
+  {
+    type: TokenType.CONSTANT,
+    regexOpen: new RegExp(/(?<=\b)(?<!\$|#)(null|nil)(?=\b)/),
+    nestable: false,
+  },
+  {
+    type: TokenType.CONSTANT,
+    regexOpen: new RegExp(/(?<=\b|^)(\$(?:d?o|l|i|f|p|r|d?x)\d+)(?=\b|$)/),
     nestable: false,
   },
   {
