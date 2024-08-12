@@ -5,12 +5,6 @@ All notable changes to this project, starting with v0.1.1, are documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-# Known bugs
-
-- Formatting:
-  - Indentation is applied to multiline comments after nesting threshold is reached.
-  - Consecutive comments are still separated by inner line break.
-
 ## [Unreleased]
 
 ### Added
@@ -18,6 +12,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add single space after comma when formatting.
 
 ### Fixed
+
+- Spaces are no longer added in between comments.
+- Indentation no longer applies to symbols, multi-line comments, and curly brackets.
 
 ### Changed
 

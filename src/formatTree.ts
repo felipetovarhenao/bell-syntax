@@ -114,8 +114,8 @@ export default function formatTree(tree: TreeNode, parent: TreeNode | null = nul
   const indentTest = shouldIndent(tree, parent, index);
   switch (tree.type) {
     case NodeType.COMMENT:
-      const last = getNeighbor(parent, index - 1);
-      if (!replaced.match(/(\n|\r|\r\n)\s*$/) || (last?.type === NodeType.EXPRESSION && last.substring !== "\n")) {
+      const lineBreak = /(\n|\r)+\s*$/g;
+      if (!replaced.match(lineBreak)) {
         opener = "\n";
       }
       closer = "\n";
@@ -200,7 +200,11 @@ export default function formatTree(tree: TreeNode, parent: TreeNode | null = nul
   }
   str += applyIndentation(opener, level);
   if (tree.substring) {
-    str += applyIndentation(formatter(tree.substring), level);
+    let formatted = formatter(tree.substring);
+    if (![NodeType.SYMBOL, NodeType.COMMENT, NodeType.CURLY].includes(tree.type)) {
+      formatted = applyIndentation(formatted, level);
+    }
+    str += formatted;
   } else if (tree.children) {
     tree.children.forEach((child, index) => (str += formatTree(child, tree, index, level, str)));
   }
