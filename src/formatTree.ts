@@ -178,6 +178,7 @@ export default function formatTree(tree: TreeNode, parent: TreeNode | null = nul
       }
       break;
     case NodeType.SYMBOL:
+      formatter = formatSymbol;
       ending = replaced.match(/\S$/);
       if (ending && !ending[0].match(concatenables)) {
         opener = " ";
@@ -214,4 +215,11 @@ export default function formatTree(tree: TreeNode, parent: TreeNode | null = nul
   str += applyIndentation(closer, level);
 
   return str;
+}
+
+function formatSymbol(symbol: string) {
+  if (symbol.startsWith('"') && symbol.match(/"[^']*"/)) {
+    return symbol.replace(/(?<!\\)"/g, "'").replace(/\\(?=")/g, "");
+  }
+  return symbol;
 }

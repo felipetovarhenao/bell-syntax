@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- symbol formatting default to single-quotes unless necessary.
+
 ### Removed
 
 ## [0.1.10] - 12-08-2024
