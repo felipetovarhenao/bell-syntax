@@ -74,7 +74,7 @@ const TOKENS: Token[] = [
   },
   {
     type: TokenType.SYMBOL,
-    regexOpen: new RegExp(/(`\S+\s)/),
+    regexOpen: new RegExp(/(`\S+(?:\s|$))/),
     nestable: false,
   },
   {
