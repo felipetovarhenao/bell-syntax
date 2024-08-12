@@ -43,6 +43,7 @@ export enum TokenType {
   ARGUMENT = "ARGUMENT",
   PITCH = "PITCH",
   CONSTANT = "CONSTANT",
+  COMMA = "COMMA",
 }
 export interface Token {
   type: TokenType;
@@ -194,6 +195,11 @@ const TOKENS: Token[] = [
   {
     type: TokenType.NULLIFIER,
     regexOpen: new RegExp(/(;)/),
+    nestable: false,
+  },
+  {
+    type: TokenType.COMMA,
+    regexOpen: new RegExp(/(,)/),
     nestable: false,
   },
   {
