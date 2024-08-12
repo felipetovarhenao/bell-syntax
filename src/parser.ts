@@ -18,7 +18,7 @@ export interface TreeNode {
   substring?: string;
 }
 
-enum TokenType {
+export enum TokenType {
   PARENS = "PARENS",
   BRACKET = "BRACKET",
   CURLY = "CURLY",
