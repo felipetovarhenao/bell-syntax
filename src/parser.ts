@@ -37,6 +37,7 @@ export enum TokenType {
   KEYWORD = "KEYWORD",
   FUNCTIONAL_OPERATOR = "FUNCTIONAL_OPERATOR",
   SPECIAL_OPERATOR = "SPECIAL_OPERATOR",
+  COMPARISON_OPERATOR = "COMPARISON_OPERATOR",
   DIRECTIVE = "DIRECTIVE",
   NULLIFIER = "NULLIFIER",
   ARGUMENT = "ARGUMENT",
@@ -165,8 +166,13 @@ const TOKENS: Token[] = [
     nestable: false,
   },
   {
+    type: TokenType.COMPARISON_OPERATOR,
+    regexOpen: new RegExp(/((?:!|=|<|>)=)/),
+    nestable: false,
+  },
+  {
     type: TokenType.ASSIGNMENT_OPERATOR,
-    regexOpen: new RegExp(/((?:\.|!?_|:|\+|-|\*{1,2}|\/{1,2}|%|\^{2}|>{2}|<{2}|&{1,3}|\|{1,3})?=)/),
+    regexOpen: new RegExp(/((?:\.|!?_|:|\+|-|\*{1,2}|\/{1,2}|%|\^{1,2}|>{1,2}|<{1,2}|&{1,3}|\|{1,3})?=)/),
     nestable: false,
   },
   {
@@ -177,7 +183,7 @@ const TOKENS: Token[] = [
   {
     type: TokenType.BINARY_OPERATOR,
     // basic version of regex
-    regexOpen: new RegExp(/(\+|-|\*{1,2}|:{1,2}|\.|\/{2}|%|\^{1,2}|>{1,2}|<{1,2}|&{1,3}|\|{1,3})/),
+    regexOpen: new RegExp(/(\+|-|\*{1,2}|:{1,2}|\.|\/{1,2}|%|\^{1,2}|>{1,2}|<{1,2}|&{1,3}|\|{1,3})/),
     nestable: false,
   },
   {
