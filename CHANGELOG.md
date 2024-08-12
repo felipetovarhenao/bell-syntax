@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+### Fixed
+
+### Changed
+
+### Removed
+
+## [0.1.10] - 12-08-2024
+
+### Added
+
 - Add single space after comma when formatting.
 
 ### Fixed
