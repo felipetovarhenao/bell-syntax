@@ -9,7 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Include rational number token for highlighting.
+
 ### Fixed
+
 - Minor improvement in number token highlighting.
 
 ### Changed
