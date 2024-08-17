@@ -4,7 +4,6 @@
 )#
 $list1 = null;
 $list2 = nil;
-
 #! another comment
 for $x in 0...10, $y in 0...10 as $y < 4 with @maxdepth 1 do (
     $list1 _= $x;
@@ -26,31 +25,28 @@ for $i in 0...10 collect (
     ) 
 );
 $hello = (1...10).reduce(#!=);
-
 ## a function with multiple arguments
 $foo = ($x, $y, $z, $w -> $x $y $z $w);
-
 ## arguments should be indented
 $foo(
-    @x "hello" 
-    @y random(1,2) 
+    @x 'hello' 
+    @y random(1, 2) 
     @z 2 2 3 4
     @w 3
 );
 $foo = ($x, $y-> $x $y);
-
 ## arguments should NOT be indented
 $foo(
-    @y random(1,2) @z 2 2 3 4
+    @y random(1, 2) @z 2 2 3 4
 );
-
+(1+2) (1 + +2) 
 #! hello
 $numbers = (
-    [1 12 123] [1. 12. 123.] [.1 .12 .123] [1.1 12.12 123.123] [1e1 12e12 123e123] [1e-1 12e-12 123e-123] 
+    [1 -12 123] [1. -12. 123.] [.1 -.12 .123] [1.1 -12.12 123.123] [1e1 -12e12 123e123] [1e-1 -12e-12 -123e-123] 
 );
 $pitches = c1 c#2 Fb3 (Ab3+1/12t f###2) fx^5+1/2t;
 init $obj = {max.random @seed 12};
-keep $obj("bang");
+keep $obj('bang');
 unkeep $obj;
 if $numbers:1 == 1 then (print('this')) else (print('that'));
 $inputs = [$x1 $l1 $r1 $p1 $i1 $f1 $do1 $o1 $dx1];
@@ -59,7 +55,7 @@ $o1 = 2;
 $do2 = 4;
 $inputs:[1 2 3];
 $inputs:[[1 3]];
-MY_CONSTANT = "this is a symbol #(123)#" 'this is a symbol #(123)#' `this `is `a `symbol `#(123)# ;
+MY_CONSTANT = 'this is a symbol #(123)#' 'this is a symbol #(123)#' `this `is `a `symbol `#(123)# ;
 $csharp = C#2 c#2;
 $bflat = Bb4 bb4;
 $fun = $x -> $x ** 2;
@@ -79,5 +75,9 @@ $var = $var.rev().sort(@function ($a, $b -> $a <= $b));
 $var = $var.reduce(#u-).reduce(#%);
 $pi = pi * 2;
 #pi = pi;
+$null = null;
+$nil = nil;
+#null = null;
+#nil = nil;
 #var = 3;
 #refvariable = 1

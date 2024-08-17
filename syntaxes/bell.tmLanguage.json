@@ -24,10 +24,10 @@
 			"include": "#functions"
 		},
 		{
-			"include": "#variables"
+			"include": "#numeric"
 		},
 		{
-			"include": "#numeric"
+			"include": "#variables"
 		}
 	],
 	"repository": {
@@ -166,7 +166,7 @@
 				},
 				{
 					"name": "constant.numeric",
-					"match": "(?<![A-Za-z_])[+\\-]?(\\d+(\\.(?!\\.\\.))\\d*|\\d*\\.\\d+|\\d+)([eE][+\\-]?\\d+)?"
+					"match": "(?<![A-Za-z_0-9])[+\\-]?(\\d+(\\.(?!\\.\\.))\\d*|\\d*\\.\\d+|\\d+)([eE][+\\-]?\\d+)?"
 				}
 			]
 		}

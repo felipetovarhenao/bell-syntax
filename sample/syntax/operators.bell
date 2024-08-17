@@ -1,7 +1,6 @@
 #( 
     valid operators
 )#
-
 ## unary
 ! ~ u-
 ## unary functional
