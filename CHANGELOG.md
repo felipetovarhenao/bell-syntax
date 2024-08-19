@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+### Fixed
+
+### Changed
+
+### Removed
+
+## [0.1.12] - 19-08-2024
+
+### Added
+
 - Include rational number token for highlighting.
 
 ### Fixed
