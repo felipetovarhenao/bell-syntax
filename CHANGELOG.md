@@ -8,10 +8,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Add word regex pattern in `language-configuration.json`.
 
 ### Fixed
 
 ### Changed
+
+- Improve number syntax highlighting.
 
 ### Removed
 
