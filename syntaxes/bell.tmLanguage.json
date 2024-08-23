@@ -99,10 +99,6 @@
             "patterns": [
                 {
                     "name": "constant.numeric",
-                    "match": "((?<!\\$|#)(?<=\\b)[A-Ga-g][#bxdq\\^v]*[0-9]+(?:[+-]\\d+/\\d+t)?(?=\\b))"
-                },
-                {
-                    "name": "constant.numeric",
                     "match": "(?<![A-Za-z_0-9$#@)\\]])[+\\-]?\\d+\/\\d+"
                 },
                 {
@@ -118,6 +114,10 @@
                     "match": "(?<=\\b)(?<!\\$|#)(null|nil|pi)(?=\\b)"
                 },
                 {
+                    "name": "constant.numeric",
+                    "match": "((?<!\\$|#)(?<=\\b)[A-Ga-g][#bxdq\\^v]*[0-9]+(?:[+-]\\d+/\\d+t)?(?=\\b))"
+                },
+                {
                     "name": "constant.other",
                     "match": "((?<!\\w)\\$(?:args|argcount)(?=\\b|$))"
                 },
@@ -126,9 +126,9 @@
                     "match": "((?<!\\w)\\$(?:[lipfr]|d?[xo])\\d+(?=\\b|$))"
                 },
                 {
-					"name": "support.constant",
-					"match": "(?<!\\$)\\b[A-Z][A-Z_]*?\\b"
-				}
+                    "name": "support.constant",
+                    "match": "(?<!\\$)\\b[A-Z][A-Z_]*?\\b"
+                }
             ]
         },
         "operators": {
