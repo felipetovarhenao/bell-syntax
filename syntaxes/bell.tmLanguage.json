@@ -135,7 +135,7 @@
             "patterns": [
                 {
                     "name": "keyword.operator",
-                    "match": "((?:!|=|<|>)=)"
+                    "match": "([!=<>]=)"
                 },
                 {
                     "name": "keyword.operator",
@@ -148,6 +148,10 @@
                 {
                     "name": "keyword.operator",
                     "match": ";"
+                },
+                {
+                    "name": "keyword.operator",
+                    "match": "-^|<\\.{3}>|\\.{3}"
                 },
                 {
                     "name": "keyword.operator",
