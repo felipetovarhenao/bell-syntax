@@ -1,179 +1,117 @@
 {
-	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
-	"name": "bell",
-	"patterns": [
-		{
-			"include": "#comments"
-		},
-		{
-			"include": "#keywords"
-		},
-		{
-			"include": "#pitch"
-		},
-		{
-			"include": "#strings"
-		},
-		{
-			"include": "#literals"
-		},
-		{
-			"include": "#ticks"
-		},
-		{
-			"include": "#functions"
-		},
-		{
-			"include": "#numeric"
-		},
-		{
-			"include": "#variables"
-		}
-	],
-	"repository": {
-		"comments": {
-			"patterns": [
-				{
-					"name": "comment.line",
-					"match": "#(#|\\!)(?!=).*"
-				},
-				{
-					"name": "comment.block",
-					"begin": "#\\(",
-					"end": "\\)#"
-				},
-				{
-					"name": "comment",
-					"match": ";"
-				}
-			]
-		},
-		"keywords": {
-			"patterns": [
-				{
-					"name": "keyword",
-					"match": "\\b(?<!\\$|#)(for|in|do|collect|if|while|then|else|init|keep|unkeep|with|as)\\b"
-				},
-				{
-					"name": "keyword.operator",
-					"match": "<\\.\\.\\.>|-\\^"
-				},
-				{
-					"name": "support.type.property-name",
-					"match": "(?<!\\w+)(?<!@)@[a-zA-Z]\\w*(?=\\s)"
-				}
-			]
-		},
-		"pitch": {
-			"patterns": [
-				{
-					"name": "constant.other",
-					"match": "(?<!\\$|\\#)\\b[A-Ga-g][#bxdq\\^v]*[0-9]+([+-]\\d+/\\d+t)?\\b"
-				}
-			]
-		},
-		"strings": {
-			"name": "string",
-			"begin": "\"",
-			"end": "\"",
-			"patterns": [
-				{
-					"name": "constant.character.escape",
-					"match": "\\\\."
-				}
-			]
-		},
-		"literals": {
-			"name": "string.quoted.single",
-			"begin": "'",
-			"end": "'",
-			"patterns": [
-				{
-					"name": "constant.character.escape",
-					"match": "\\\\."
-				}
-			]
-		},
-		"variables": {
-			"patterns": [
-				{
-					"name": "support.constant",
-					"match": "(?<=include\\().*(?=\\))"
-				},
-				{
-					"name": "keyword.operator",
-					"match": "(\\.(=|\\.\\.)?|->|\\!?_=|:(:|=)?|:\\*)"
-				},
-				{
-					"name": "keyword.operator",
-					"match": "(?<!#)(\\!|~|u-|-|%|\\*{1,2}|/{1,2}|&{1,3}|\\^{1,2}|\\+|(<|>){1,2}|\\|{1,3}|=)=?"
-				},
-				{
-					"name": "constant.other",
-					"match": "\\b(?<![$#])(null|nil)\\b"
-				},
-				{
-					"name": "support.constant",
-					"match": "\\$(d?o|l|i|f|p|r|l|d?x)\\d+\\b"
-				},
-				{
-					"name": "support.constant",
-					"match": "(?<!\\$)\\b[A-Z][A-Z_]*?\\b"
-				},
-				{
-					"name": "variable.parameter",
-					"match": "(?<![a-zA-Z$#_@])(\\$|#)(?!(\\$|#))(?=[A-Za-z])\\b"
-				}
-			]
-		},
-		"ticks": {
-			"patterns": [
-				{
-					"name": "string.quoted.other",
-					"match": "`\\S+"
-				}
-			]
-		},
-		"functions": {
-			"patterns": [
-				{
-					"match": "#(\\+|-|u-|\\*|/{1,2}|%|==|!=|<=|>=|<{1,2}|>{1,2}|&{1,3}|(\\^){1,2}|(\\|){1,3})",
-					"name": "support.function"
-				},
-				{
-					"name": "support.function",
-					"match": "\\w+\\("
-				},
-				{
-					"name": "support.function",
-					"match": "(?<!=[^=]*)(\\w+)(?=\\s*=\\s*(\\$\\w\\s*(=\\s*[^=]+),?)*[^->]*->)"
-				}
-			]
-		},
-		"numeric": {
-			"patterns": [
-				{
-					"name": "support.function",
-					"match": "(?<=\\{)\\s*\\w+(\\.\\w+)?\\b(?=([^}]*\\}))"
-				},
-				{
-					"name": "support.function",
-					"match": "\\$?[A-Za-z]\\w*(?=\\s*=\\s*\\{\\s*\\S)"
-				},
-				{
-					"name": "constant.numeric",
-					"match": "\\b(?<!\\$|#)pi\\b"
-				},
-				{
-					"name": "constant.numeric",
-					"match": "(?<![A-Za-z_0-9$#@)\\]])[+\\-]?\\d+\/\\d+"
-				},
-				{
-					"name": "constant.numeric",
-					"match": "(?<![A-Za-z_0-9$#@)\\]])[+\\-]?(\\d+(\\.(?!\\.\\.))\\d*|\\d*\\.\\d+|\\d+)([eE][+\\-]?\\d+)?(?!\\w)"
-				}
-			]
-		}
-	},
-	"scopeName": "source.bell"
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "bell",
+    "patterns": [
+        {
+            "include": "#comments"
+        },
+        {
+            "include": "#symbols"
+        },
+        {
+            "include": "#directives"
+        },
+        {
+            "include": "#keywords"
+        },
+        {
+            "include": "#functions"
+        },
+        {
+            "include": "#numeric"
+        },
+        {
+            "include": "#constants"
+        },
+        {
+            "include": "#variables"
+        }
+    ],
+    "repository": {
+        "comments": {
+            "patterns": [
+                {
+                    "name": "comment.line",
+                    "match": "#[#!](?!=).*"
+                },
+                {
+                    "name": "comment.block",
+                    "begin": "#\\(",
+                    "end": "\\)#"
+                }
+            ]
+        },
+        "symbols": {
+            "patterns": [
+                {
+                    "name": "string.quoted.double",
+                    "begin": "\"",
+                    "end": "\""
+                },
+                {
+                    "name": "string.quoted.single",
+                    "begin": "'",
+                    "end": "'"
+                },
+                {
+                    "name": "string.unquoted",
+                    "match": "`\\S+(?:\\s|$)"
+                }
+            ]
+        },
+        "directives": {
+            "patterns": [
+                {
+                    "name": "keyword.other",
+                    "begin": "((?<=\\b|^)(?<!\\$|#)include(?=\\())",
+                    "end": "\\)"
+                }
+            ]
+        },
+        "keywords": {
+            "patterns": [
+                {
+                    "name": "keyword",
+                    "match": "(?<!\\$|#)(for|init|do|collect|if|while|then|else|in|keep|unkeep|with|as)(?=\\b)"
+                }
+            ]
+        },
+        "functions": {
+            "patterns": [
+                {
+                    "name": "support.function",
+                    "match": "(\\$?[A-Za-z]\\w*)(?=\\()"
+                }
+            ]
+        },
+        "numeric": {
+            "patterns": [
+                {
+                    "name": "constant.numeric",
+                    "match": "((?<!\\$|#)(?<=\\b)[A-Ga-g][#bxdq\\^v]*[0-9]+(?:[+-]\\d+/\\d+t)?(?=\\b))"
+                }
+            ]
+        },
+        "constants": {
+            "patterns": [
+                {
+                    "name": "constant.other",
+                    "match": "(?<=\\b)(?<!\\$|#)(null|nil|pi)(?=\\b)"
+                },
+                {
+                    "name": "constant.other",
+                    "match": "((?<!\\w)\\$(?:args|argcount)(?=\\b|$))"
+                }
+            ]
+        },
+        "variables": {
+            "patterns": [
+                {
+                    "name": "variable.parameter",
+                    "match": "(?<![a-zA-Z$#_@])(\\$|#)(?!(\\$|#))(?=[A-Za-z])\\b"
+                }
+            ]
+        }
+    },
+    "scopeName": "source.bell"
 }
