@@ -18,13 +18,16 @@
             "include": "#functions"
         },
         {
-            "include": "#numeric"
-        },
-        {
             "include": "#constants"
         },
         {
             "include": "#variables"
+        },
+        {
+            "include": "#numeric"
+        },
+        {
+            "include": "#operators"
         }
     ],
     "repository": {
@@ -80,7 +83,15 @@
             "patterns": [
                 {
                     "name": "support.function",
-                    "match": "(\\$?[A-Za-z]\\w*)(?=\\()"
+                    "match": "((?<=[$|#]?)[A-Za-z]\\w*)(?=\\()"
+                },
+                {
+                    "name": "support.function",
+                    "match": "(#(?:\\+|-|u-|\\*|/{1,2}|%|==|!=|<=|>=|<{1,2}|>{1,2}|&{1,3}|\\^{1,2}|\\|{1,3}))"
+                },
+                {
+                    "name": "support.function",
+                    "match": "(?<=\\{)\\s*\\w+(\\.\\w+)?\\b(?=([^}]*\\}))"
                 }
             ]
         },
@@ -89,6 +100,14 @@
                 {
                     "name": "constant.numeric",
                     "match": "((?<!\\$|#)(?<=\\b)[A-Ga-g][#bxdq\\^v]*[0-9]+(?:[+-]\\d+/\\d+t)?(?=\\b))"
+                },
+                {
+                    "name": "constant.numeric",
+                    "match": "(?<![A-Za-z_0-9$#@)\\]])[+\\-]?\\d+\/\\d+"
+                },
+                {
+                    "name": "constant.numeric",
+                    "match": "((?<![A-Za-z_0-9$#@)\\]])[+\\-]?(\\d+(\\.(?!\\.\\.))\\d*|\\d*((?<!\\.\\.)\\.)\\d+|\\d+)([eE][+\\-]?\\d+)?(?!\\w))"
                 }
             ]
         },
@@ -101,6 +120,38 @@
                 {
                     "name": "constant.other",
                     "match": "((?<!\\w)\\$(?:args|argcount)(?=\\b|$))"
+                },
+                {
+                    "name": "support.constant",
+                    "match": "((?<!\\w)\\$(?:[lipfr]|d?[xo])\\d+(?=\\b|$))"
+                },
+                {
+					"name": "support.constant",
+					"match": "(?<!\\$)\\b[A-Z][A-Z_]*?\\b"
+				}
+            ]
+        },
+        "operators": {
+            "patterns": [
+                {
+                    "name": "keyword.operator",
+                    "match": "((?:!|=|<|>)=)"
+                },
+                {
+                    "name": "keyword.operator",
+                    "match": "((?:\\.|!?_|:|\\+|-|\\*{1,2}|\/{1,2}|%|\\^{1,2}|>{1,2}|<{1,2}|&{1,3}|\\|{1,3})?=)"
+                },
+                {
+                    "name": "keyword.operator",
+                    "match": "((?<!#)!|~|u?-|\\+(?=[\\[\\(]|(?:[$|#]?[A-Za-z0-9])))"
+                },
+                {
+                    "name": "keyword.operator",
+                    "match": ";"
+                },
+                {
+                    "name": "keyword.operator",
+                    "match": "(\\+|-|\\*{1,2}|:{1,2}|\\.|\/{1,2}|%|\\^{1,2}|>{1,2}|<{1,2}|&{1,3}|\\|{1,3})"
                 }
             ]
         },
@@ -109,6 +160,10 @@
                 {
                     "name": "variable.parameter",
                     "match": "(?<![a-zA-Z$#_@])(\\$|#)(?!(\\$|#))(?=[A-Za-z])\\b"
+                },
+                {
+                    "name": "support.type.property-name",
+                    "match": "(?<!(?:@|\\w)+)(@[A-Za-z]\\w*(?=\\s))"
                 }
             ]
         }
