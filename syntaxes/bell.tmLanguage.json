@@ -65,9 +65,18 @@
         "directives": {
             "patterns": [
                 {
-                    "name": "keyword.other",
-                    "begin": "((?<=\\b|^)(?<!\\$|#)include(?=\\())",
-                    "end": "\\)"
+                    "begin": "(?<=\\b|^)(?<!\\$|#)(include)(?=\\()",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "entity.name.function"
+                        }
+                    },
+                    "endCaptures": {
+                        "1": {
+                            "name": "markup.italic"
+                        }
+                    },
+                    "end": "(.*)\\)"
                 }
             ]
         },
