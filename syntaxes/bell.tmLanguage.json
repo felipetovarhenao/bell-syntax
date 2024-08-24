@@ -126,8 +126,12 @@
                     "match": "((?<!\\w)\\$(?:args|argcount)(?=\\b|$))"
                 },
                 {
-                    "name": "entity.name.type",
+                    "name": "entity.name.class",
                     "match": "((?<!\\w)\\$(?:[lipfr]|d?[xo])\\d+(?=\\b|$))"
+                },
+                {
+                    "name": "entity.name.tag",
+                    "match": "(?<!\\$)\\b[A-Z][A-Z_]*?\\b"
                 }
             ]
         },
