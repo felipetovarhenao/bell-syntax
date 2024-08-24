@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Improve number syntax highlighting.
+- Re-write `bell.tmLanguage.json` and improve edge cases in syntax highlighting.
 
 ### Removed
 
