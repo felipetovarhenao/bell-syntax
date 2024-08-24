@@ -75,7 +75,7 @@
             "patterns": [
                 {
                     "name": "keyword",
-                    "match": "(?<!\\$|#)(for|init|do|collect|if|while|then|else|in|keep|unkeep|with|as)(?=\\b)"
+                    "match": "(?<=\\b)(?<!\\$|#)(for|init|do|collect|if|while|then|else|in|keep|unkeep|with|as)(?=\\b)"
                 }
             ]
         },
