@@ -1,4 +1,5 @@
 ## this is a comment
+include(myscript.bell);
 #( 
     multi-line comment
 )#
