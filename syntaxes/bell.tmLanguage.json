@@ -110,8 +110,12 @@
         "constants": {
             "patterns": [
                 {
-                    "name": "constant.other",
-                    "match": "(?<=\\b)(?<!\\$|#)(null|nil|pi)(?=\\b)"
+                    "name": "support.constant",
+                    "match": "(?<=\\b)(?<!\\$|#)(null|nil)(?=\\b)"
+                },
+                {
+                    "name": "constant.numeric",
+                    "match": "(?<=\\b)(?<!\\$|#)pi(?=\\b)"
                 },
                 {
                     "name": "constant.numeric",
@@ -122,12 +126,8 @@
                     "match": "((?<!\\w)\\$(?:args|argcount)(?=\\b|$))"
                 },
                 {
-                    "name": "support.constant",
+                    "name": "entity.name.type",
                     "match": "((?<!\\w)\\$(?:[lipfr]|d?[xo])\\d+(?=\\b|$))"
-                },
-                {
-                    "name": "support.constant",
-                    "match": "(?<!\\$)\\b[A-Z][A-Z_]*?\\b"
                 }
             ]
         },
