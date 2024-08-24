@@ -2,7 +2,9 @@
     valid operators
 )#
 ## unary
-!$hello ~$hello u-$hello !hello ~hello u-hello !1 ~1 u-1 !.1 ~.1 u-.1
+!$hello ~$hello u-$hello +$hello -$hello;
+!hello ~hello u-hello +hello -hello;
+!1 ~1 u-1 !.1 ~.1 u-.1 +1 -1;
 ## binary (local)
 $x+$x $x-$x $x*$x $x**$x $x/$x $x//$x $x^$x $x^^$x $x>$x $x>>$x $x<<$x $x<$x $x&$x $x&&$x $x&&&$x $x|$x $x||$x $x|||$x
 ## binary (local with num)
