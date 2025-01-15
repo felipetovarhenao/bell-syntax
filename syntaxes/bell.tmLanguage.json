@@ -101,6 +101,10 @@
                 {
                     "name": "entity.name.function",
                     "match": "(?<=\\{)\\s*\\w+(\\.\\w+)?\\b(?=([^}]*\\}))"
+                },
+                {
+                    "name": "entity.name.function",
+                    "match": "(?<=<{3})\\s*\\w+(\\.\\w+)?\\b(?=([^}]*>{3}))"
                 }
             ]
         },
@@ -140,7 +144,7 @@
                 },
                 {
                     "name": "entity.name.tag",
-                    "match": "(?<!\\$)\\b[A-Z][A-Z_]*?\\b"
+                    "match": "(?<!\\$)\\b[A-Z](?:[A-Za-z0-9_]*[A-Za-z0-9])?\\b"
                 }
             ]
         },
