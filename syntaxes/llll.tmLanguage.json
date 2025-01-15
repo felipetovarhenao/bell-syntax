@@ -11,6 +11,14 @@
             "match": "\\d+"
         },
         {
+            "name": "storage.type",
+            "match": "\"_x_x_x_x_bach_float64_x_x_x_x_\""
+        },
+        {
+            "name": "constant.character.escape",
+            "match": "\"(\\[|\\])\""
+        },
+        {
             "name": "keyword.control.bracket.llll",
             "match": "\\[|\\]"
         },
