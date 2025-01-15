@@ -1,0 +1,32 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "llll",
+    "patterns": [
+        {
+            "name": "variable.key.llll",
+            "match": "\"data_\\d{10}\""
+        },
+        {
+            "name": "constant.numeric.llll",
+            "match": "\\d+"
+        },
+        {
+            "name": "keyword.control.bracket.llll",
+            "match": "\\[|\\]"
+        },
+        {
+            "name": "constant.language.type.llll",
+            "match": "\\b(s|i|f)\\b"
+        },
+        {
+            "name": "punctuation.separator.colon.llll",
+            "match": ":"
+        },
+        {
+            "name": "string.quoted.double.llll",
+            "begin": "\"",
+            "end": "\""
+        }
+    ],
+    "scopeName": "source.llll"
+}

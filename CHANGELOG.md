@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `.llll`: Add basic syntax highlighting.
+
 ### Fixed
 
 - `sum`: Fix typo in reference docs (`sums`).

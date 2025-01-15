@@ -35,6 +35,11 @@
     "typescript": "^5.4.2"
   },
   "contributes": {
+    "configurationDefaults": {
+      "[llll]": {
+        "editor.maxTokenizationLineLength": 100000
+      }
+    },
     "languages": [
       {
         "id": "bell",
@@ -109,6 +114,11 @@
         "language": "max",
         "scopeName": "source.max",
         "path": "./syntaxes/max.tmLanguage.json"
+      },
+      {
+        "language": "llll",
+        "scopeName": "source.llll",
+        "path": "./syntaxes/llll.tmLanguage.json"
       }
     ]
   }
