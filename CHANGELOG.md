@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- `sum`: Fix typo in reference docs (`sums`).
+
 ### Changed
 
 ### Removed
@@ -18,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.1.13] - 24-08-2024
 
 ### Added
+
 - Add word regex pattern in `language-configuration.json`.
 
 ### Fixed

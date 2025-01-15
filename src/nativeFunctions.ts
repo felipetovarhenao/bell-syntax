@@ -1256,7 +1256,7 @@ export const nativeFunctions = [
     ],
   },
   {
-    name: "sums",
+    name: "sum",
     description:
       "The `sum()` function computes the sum of the elements in an llll. By default, only the root level is summed. This can be changed with the mindepth and maxdepth arguments.",
     args: [
