@@ -90,7 +90,7 @@ export default function updateDiagnostics(document: vscode.TextDocument, collect
       if (!def.used) {
         // Create a diagnostic that warns about unused variable
         const diagnostic: vscode.Diagnostic = {
-          message: `local variable ${def.variable} is never used.`,
+          message: `local variable '\$${def.variable}' is never used.`,
           severity: vscode.DiagnosticSeverity.Hint,
           range: def.range,
           source: "bell-unused-variable",
