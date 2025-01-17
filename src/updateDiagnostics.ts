@@ -22,7 +22,7 @@ export default function updateDiagnostics(document: vscode.TextDocument, collect
   const definitionsMap = new Map<string, DefinitionInfo[]>();
 
   // Regex patterns for definitions and usages
-  const definitionRegex = /\$([A-Za-z]([A-Za-z0-9_]*)?[A-Za-z0-9]*)\s*(?=(=|[^,;]*\bin\b|[^;]*->))/g;
+  const definitionRegex = /\$([A-Za-z]([A-Za-z0-9_]*)?[A-Za-z0-9]*)\s*(?=(=(?!=)|[^,;]*\bin\b|[^;]*->))/g;
   const usageRegex = /\$([A-Za-z]([A-Za-z0-9_]*)?[A-Za-z0-9]*)/g;
 
   const lines = text.split(/\r?\n/);
