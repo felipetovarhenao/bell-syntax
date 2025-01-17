@@ -11,13 +11,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add support for upcoming `<<<>>>` syntax.
 - Improve syntax highlighting for global variables.
-- Diagnostics: Add support for spotting variables that are defined but never used.
+- Diagnostics: Add support for hinting variables that are defined but never used, and warning about using undefined variables.
 
 ### Fixed
 
 ### Changed
 
-- `extension.ts`: Clean up file by breaking nested function up into separate files.
+- `extension.ts`: Clean up hinting by breaking nested function up into separate files, and warning about using undefined variables.
 - Include `iterationmode` in `for` loop intellisense.
 
 ### Removed
