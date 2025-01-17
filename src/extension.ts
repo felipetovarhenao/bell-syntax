@@ -3,120 +3,22 @@
  *--------------------------------------------------------*/
 
 import * as vscode from "vscode";
-import { nativeFunctionsCompletions, nativeFunctionsLookup } from "./nativeFunctions";
-import { loopSnippets, loopSnippetLookup } from "./loopSnippets";
-import { withClauseAttrCompletions } from "./withClauseAttributes";
-import parseCode from "./bellParser";
-import formatTree from "./formatTree";
+import updateDiagnostics, { diagnosticCollection } from "./updateDiagnostics";
+import hoverProvider from "./hoverProvider";
+import completionProvider from "./completionProvider";
+import attrCompletionProvider from "./attrCompletionProvider";
+import formatter from "./formatter";
 
 export function activate(context: vscode.ExtensionContext) {
-  const hoverProvider = vscode.languages.registerHoverProvider("bell", {
-    provideHover(document: vscode.TextDocument, position: vscode.Position) {
-      const range = document.getWordRangeAtPosition(position);
-      const word = document.getText(range);
-      const result = nativeFunctionsLookup[word] || loopSnippetLookup[word];
-      if (!result) {
-        return undefined;
-      }
-      return {
-        contents: [result.completion.documentation],
-      };
-    },
+  context.subscriptions.push(completionProvider, hoverProvider, attrCompletionProvider, formatter, diagnosticCollection);
+
+  // Listen for events on bell documents
+  vscode.workspace.onDidOpenTextDocument((doc) => updateDiagnostics(doc, diagnosticCollection), null, context.subscriptions);
+  vscode.workspace.onDidChangeTextDocument((event) => updateDiagnostics(event.document, diagnosticCollection), null, context.subscriptions);
+  vscode.workspace.onDidCloseTextDocument((doc) => diagnosticCollection.delete(doc.uri), null, context.subscriptions);
+
+  // Check all documents already open in the workspace (optional convenience)
+  vscode.workspace.textDocuments.forEach((doc) => {
+    updateDiagnostics(doc, diagnosticCollection);
   });
-
-  const completionProvider = vscode.languages.registerCompletionItemProvider(
-    "bell",
-    {
-      provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
-        const range = document.getWordRangeAtPosition(position);
-
-        if (!range) {
-          return undefined;
-        }
-
-        const start = range.start.character;
-        const prefix = document.lineAt(position).text.slice(start - 1, start);
-
-        // stop early if token is not a global variable
-        if (/[$#@]/.test(prefix)) {
-          return undefined;
-        }
-
-        return [...nativeFunctionsCompletions, ...loopSnippets];
-      },
-    },
-    "."
-  );
-
-  const attrCompletionProvider = vscode.languages.registerCompletionItemProvider(
-    "bell",
-    {
-      provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
-        const linePrefix = document.lineAt(position).text.slice(0, position.character);
-
-        // we only want to show completions if @ is preceded by spaces or alpha + parens
-        const cleanAttrPattern = /(?<=(\w+\(|\s+))@$/;
-        const isCleanAttr = cleanAttrPattern.test(linePrefix);
-
-        // stop early
-        if (!isCleanAttr) {
-          return;
-        }
-
-        const withPattern = /(?<=with\s+.*)@$/;
-        const isWithAttr = withPattern.test(linePrefix);
-
-        if (isWithAttr) {
-          // show with clause attributes
-          return withClauseAttrCompletions;
-        }
-
-        /* 
-        if it's not clean, or a with clause attribute we use regex pattern for a reversed function, so as to catch the most recent function.
-        this might cause some issues but in general works well
-        */
-        const regex = /(?<=\()\w+\.?/;
-
-        // reverse line prefix and apply regex
-        const match = linePrefix.split("").reverse().join("").match(regex);
-
-        if (match && match[0]) {
-          // if matched, reverse back
-          let token = match[0].split("").reverse().join("");
-          let isDotted = false;
-
-          // check if function is using dotted syntax and remove dot
-          if (token.startsWith(".")) {
-            token = token.slice(1);
-            isDotted = true;
-          }
-
-          // check if it exists
-          const result = nativeFunctionsLookup[token];
-          if (!result) {
-            return undefined;
-          }
-
-          // remove first argument for dotted syntax
-          return isDotted ? result.args.slice(1) : result.args;
-        }
-        return undefined;
-      },
-    },
-    "@"
-  );
-
-  const formatter = vscode.languages.registerDocumentFormattingEditProvider("bell", {
-    provideDocumentFormattingEdits(document: vscode.TextDocument): vscode.TextEdit[] {
-      const rawText = document.getText().trim();
-      const tree = parseCode(rawText);
-      const start = new vscode.Position(0, 0);
-      const end = new vscode.Position(document.lineCount, document.lineAt(document.lineCount - 1).range.end.character);
-      const range = new vscode.Range(start, end);
-      const replace = formatTree(tree).trim();
-      return [vscode.TextEdit.replace(range, replace)];
-    },
-  });
-
-  context.subscriptions.push(completionProvider, hoverProvider, attrCompletionProvider, formatter);
 }
