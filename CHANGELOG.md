@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Intellisense: Improved formatting for completion strings.
 - `extension.ts`: Clean up hinting by breaking nested function up into separate files, and warning about using undefined variables.
 - Include `iterationmode` in `for` loop intellisense.
 

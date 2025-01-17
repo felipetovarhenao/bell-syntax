@@ -1369,27 +1369,27 @@ const nativeFunctionsLookup: any = {};
 
 const nativeFunctionsCompletions = nativeFunctions.map((x) => {
   // we set code-style function name as a header
-  let description = `\`\`\`c\n${x.name}()\n\`\`\`\n`;
+  let description = `\`\`\`bell\n${x.name}(`;
 
   const argCompletions: vscode.CompletionItem[] = [];
   // parse arguments
   if (x.args.length > 0) {
     // argument list
-    description += `\nArguments:\n`;
+    description += "\n";
     x.args.forEach((arg, index) => {
       // argument as a list item, prepended with @ when not variadic
-      let argname = `\n\t- ${arg.name === "<...>" ? arg.name : `@${arg.name}`}`;
+      let argname = `\t${arg.name === "<...>" ? arg.name : `@${arg.name}`}`;
 
       let defaultValue = undefined;
 
       // append default value, if any
       if (arg.default != undefined || arg.default === null) {
         defaultValue = arg.default === null ? "null" : arg.default;
-        argname += ` ${defaultValue}`;
       }
 
+      argname += ` ${defaultValue || "null"}`;
       // concat to description
-      description += argname;
+      description += `${argname}\n`;
 
       // stop early if arg is variadic
       if (arg.name === "<...>") {
@@ -1408,7 +1408,10 @@ const nativeFunctionsCompletions = nativeFunctions.map((x) => {
       argCompletions.push(argCompletion);
     });
   }
-
+  description += ")\n```\n\n";
+  if (x.name === "include") {
+    description = "\n```bell\ninclude(path/to/script.bell)\n```\n";
+  }
   // include description
   description += `\n${x.description}\n\n`;
 
