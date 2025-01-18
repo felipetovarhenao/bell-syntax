@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+### Fixed
+
+### Changed
+
+### Removed
+
+## [0.1.15] - 18-01-2025
+
+### Added
+
 - Add support for upcoming `<<<>>>` syntax.
 - Improve syntax highlighting for global variables.
 - Diagnostics: Add support for hinting variables that are defined but never used, and warning about using undefined variables.
