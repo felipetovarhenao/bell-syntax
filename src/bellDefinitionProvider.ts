@@ -15,8 +15,8 @@ class BellDefinitionProvider implements vscode.DefinitionProvider {
 
     // Find the first assignment in the document
     const regex = isLocal
-      ? new RegExp(`\\${variableName}\\s*=`, "g") // Local variable assignment
-      : new RegExp(`\\b(?<!\\$)${variableName}\\b\\s*=`, "g"); // Global variable assignment
+      ? new RegExp(`\\${variableName}\\s*(?=(=(?!=)|[^,;=]*\\bin\\b|[^;]*->))`, "g") // Local variable assignment
+      : new RegExp(`\\b(?<!\\$)${variableName}\\b\\s*=(?!=)`, "g"); // Global variable assignment
 
     let match: RegExpExecArray | null;
     while ((match = regex.exec(text))) {
