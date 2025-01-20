@@ -8,9 +8,10 @@ import hoverProvider from "./hoverProvider";
 import completionProvider from "./completionProvider";
 import attrCompletionProvider from "./attrCompletionProvider";
 import formatter from "./formatter";
+import bellDefinitionProvider from "./bellDefinitionProvider";
 
 export function activate(context: vscode.ExtensionContext) {
-  context.subscriptions.push(completionProvider, hoverProvider, attrCompletionProvider, formatter, diagnosticCollection);
+  context.subscriptions.push(completionProvider, hoverProvider, attrCompletionProvider, formatter, diagnosticCollection, bellDefinitionProvider);
 
   // Listen for events on bell documents
   vscode.workspace.onDidOpenTextDocument((doc) => updateDiagnostics(doc, diagnosticCollection), null, context.subscriptions);
