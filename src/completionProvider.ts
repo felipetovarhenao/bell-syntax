@@ -1,6 +1,7 @@
 import * as vscode from "vscode";
 import { nativeFunctionsCompletions } from "./nativeFunctions";
 import { loopSnippets } from "./loopSnippets";
+import { localVariableCompletions } from "./updateDiagnostics";
 
 const completionProvider = vscode.languages.registerCompletionItemProvider(
   "bell",
@@ -13,11 +14,11 @@ const completionProvider = vscode.languages.registerCompletionItemProvider(
       }
 
       const start = range.start.character;
-      const prefix = document.lineAt(position).text.slice(start - 1, start);
-
+      const end = range.end.character;
+      const token = document.lineAt(position).text.slice(start, end);
       // stop early if token is not a global variable
-      if (/[$#@]/.test(prefix)) {
-        return undefined;
+      if (/[\$#@]/.test(token)) {
+        return [...localVariableCompletions];
       }
 
       return [...nativeFunctionsCompletions, ...loopSnippets];
