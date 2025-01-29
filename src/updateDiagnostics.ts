@@ -35,7 +35,7 @@ export default function updateDiagnostics(document: vscode.TextDocument, collect
     globalDefinitionRegex.lastIndex = 0;
     while ((match = globalDefinitionRegex.exec(lineText)) !== null) {
       const varName = match[1];
-      globalVariableCompletions.push(new vscode.CompletionItem(`${varName}`, vscode.CompletionItemKind.Variable));
+      globalVariableCompletions.push(new vscode.CompletionItem(`${varName}`, vscode.CompletionItemKind.Constant));
     }
     definitionRegex.lastIndex = 0;
     while ((match = definitionRegex.exec(lineText)) !== null) {
