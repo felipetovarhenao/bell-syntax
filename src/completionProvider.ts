@@ -1,7 +1,7 @@
 import * as vscode from "vscode";
 import { nativeFunctionsCompletions } from "./nativeFunctions";
 import { loopSnippets } from "./loopSnippets";
-import { localVariableCompletions } from "./updateDiagnostics";
+import { globalVariableCompletions, localVariableCompletions } from "./updateDiagnostics";
 
 const completionProvider = vscode.languages.registerCompletionItemProvider(
   "bell",
@@ -21,7 +21,7 @@ const completionProvider = vscode.languages.registerCompletionItemProvider(
         return [...localVariableCompletions];
       }
 
-      return [...nativeFunctionsCompletions, ...loopSnippets];
+      return [...nativeFunctionsCompletions, ...loopSnippets, ...globalVariableCompletions];
     },
   },
   "."

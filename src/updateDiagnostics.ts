@@ -23,13 +23,20 @@ export default function updateDiagnostics(document: vscode.TextDocument, collect
 
   // Regex patterns for definitions and usages
   const definitionRegex = /\$([A-Za-z]([A-Za-z0-9_]*)?[A-Za-z0-9]*)\s*(?=(=(?!=)|[^,;]*\bin\b|[^;]*->))/g;
+  const globalDefinitionRegex = /(?<![#$])([A-Za-z]([A-Za-z0-9_]*)?[A-Za-z0-9]*)\s*(?=(=[^=]))/g;
   const usageRegex = /\$([A-Za-z]([A-Za-z0-9_]*)?[A-Za-z0-9]*)/g;
 
   const lines = text.split(/\r?\n/);
   localVariableCompletions.length = 0;
+  globalVariableCompletions.length = 0;
   // Step 1: Find all definitions
   lines.forEach((lineText, lineIndex) => {
     let match: RegExpExecArray | null;
+    globalDefinitionRegex.lastIndex = 0;
+    while ((match = globalDefinitionRegex.exec(lineText)) !== null) {
+      const varName = match[1];
+      globalVariableCompletions.push(new vscode.CompletionItem(`${varName}`, vscode.CompletionItemKind.Variable));
+    }
     definitionRegex.lastIndex = 0;
     while ((match = definitionRegex.exec(lineText)) !== null) {
       const varName = match[1];
@@ -121,5 +128,6 @@ export default function updateDiagnostics(document: vscode.TextDocument, collect
 }
 
 const localVariableCompletions: vscode.CompletionItem[] = [];
+const globalVariableCompletions: vscode.CompletionItem[] = [];
 const diagnosticCollection = vscode.languages.createDiagnosticCollection("bell");
-export { localVariableCompletions, diagnosticCollection };
+export { localVariableCompletions, diagnosticCollection, globalVariableCompletions };
