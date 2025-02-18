@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Fix formatting bug with _pitches_.
+
 ### Changed
 
 ### Removed
