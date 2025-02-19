@@ -132,12 +132,15 @@
 			if (typeof value === "object" && value !== null) {
 				const toggle = document.createElement("span");
 				toggle.classList.add("toggle");
-				toggle.textContent = "▼ ";
+				toggle.textContent = depth > 2 ? "▶ " : "▼ ";
 
 				const label = document.createElement("span");
 				label.textContent = Array.isArray(value) ? `[llll (${value.length})]` : key;
 				label.classList.add('monospace', 'key');
 				const children = document.createElement("div");
+				if (depth > 2) {
+					children.style.setProperty("display", "none")
+				}
 				children.classList.add("children");
 
 				if (Array.isArray(value) && value.length > 0 && !Array.isArray(value[0])) {
