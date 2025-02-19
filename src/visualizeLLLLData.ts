@@ -39,7 +39,7 @@ export default function visualizeLLLLData(context: vscode.ExtensionContext) {
   // Create a new webview panel
   const panel = vscode.window.createWebviewPanel(
     "dataVisualizer",
-    path.basename(document.fileName),
+    `${path.basename(document.fileName)} (viewer)`,
     vscode.ViewColumn.One,
     { enableScripts: true, retainContextWhenHidden: true } // Retain context when switching tabs
   );
