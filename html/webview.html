@@ -199,7 +199,7 @@
                 toggle.textContent = depth > 2 ? "▶ " : "▼ ";
 
                 const label = document.createElement("span");
-                label.textContent = `${Array.isArray(value) ? `[ ]` : key}`;
+                label.textContent = `${Array.isArray(value) ? `[...]` : key}`;
                 label.classList.add('monospace', 'key');
                 const length = document.createElement("span");
                 length.textContent = `(${value.length})`;
@@ -216,7 +216,7 @@
 
                 // Extra info container for right side content (you can later fill this)
                 const extraInfo = document.createElement("div");
-                extraInfo.textContent = address.concat(1).join(" ");
+                extraInfo.textContent = (Array.isArray(value) && Array.isArray(value[0]) ? address : address.concat(1)).join(" ");
                 extraInfo.classList.add("extra-info", "monospace");
 
                 // Row container that spaces left and right (simulate space-between)
