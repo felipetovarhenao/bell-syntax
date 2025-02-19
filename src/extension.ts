@@ -9,11 +9,11 @@ import completionProvider from "./completionProvider";
 import attrCompletionProvider from "./attrCompletionProvider";
 import formatter from "./formatter";
 import bellDefinitionProvider from "./bellDefinitionProvider";
-import visualizeData from "./visualizeData";
+import visualizeLLLLData from "./visualizeLLLLData";
 
 export function activate(context: vscode.ExtensionContext) {
-  const llllViewer = vscode.commands.registerCommand("extension.visualizeData", () => {
-    visualizeData(context);
+  const llllViewer = vscode.commands.registerCommand("extension.visualizeLLLLData", () => {
+    visualizeLLLLData(context);
   });
   context.subscriptions.push(
     llllViewer,

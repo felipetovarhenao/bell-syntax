@@ -37,7 +37,7 @@
   "contributes": {
     "commands": [
       {
-        "command": "extension.visualizeData",
+        "command": "extension.visualizeLLLLData",
         "title": "Visualize Structured Data",
         "icon": "$(list-tree)"
       }
@@ -45,7 +45,7 @@
     "menus": {
       "editor/title": [
         {
-          "command": "extension.visualizeData",
+          "command": "extension.visualizeLLLLData",
           "group": "navigation",
           "when": "resourceLangId == llll"
         }
