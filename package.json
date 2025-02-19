@@ -38,7 +38,7 @@
     "commands": [
       {
         "command": "extension.visualizeLLLLData",
-        "title": "Visualize Structured Data",
+        "title": "Open llll viewer",
         "icon": "$(list-tree)"
       }
     ],
