@@ -103,12 +103,51 @@
 			color: #ff4079;
 		}
 
+		#collapse-all-container {
+			display: flex;
+			flex-direction: row;
+			width: 100%;
+			gap: 5px;
+			justify-content: end;
+			padding: 5px;
+			/* Space between buttons */
+		}
+
+		button {
+			background-color: var(--vscode-button-background, #3a3d41);
+			color: var(--vscode-button-foreground, #ffffff);
+			border: 1px solid var(--vscode-button-border, #3c3c3c);
+			padding: 5px 10px;
+			font-size: 12px;
+			font-family: var(--font-family);
+			border-radius: 3px;
+			cursor: pointer;
+			text-transform: lowercase;
+			transition: background 0.2s ease-in-out, border 0.2s ease-in-out;
+		}
+
+		button:hover {
+			background-color: var(--vscode-button-hoverBackground, #505357);
+		}
+
+		button:active {
+			background-color: var(--vscode-button-background, #3a3d41);
+			border-color: var(--vscode-focusBorder, #007acc);
+		}
+
+
 		/* Gold for symbols (strings) */
 	</style>
 </head>
 
 <body>
-	<div id="data-container"></div>
+	<div id="collapse-all-container">
+		<button id="collapse-all-btn">Collapse All</button>
+		<button id="expand-all-btn">Expand All</button>
+	</div>
+
+	<div id="data-container">
+	</div>
 
 	<script>
 		function detectType(value) {
@@ -191,6 +230,26 @@
 				}
 			}
 		}
+		document.getElementById("collapse-all-btn").addEventListener("click", () => {
+			document.querySelectorAll(".toggle").forEach(toggle => {
+				const children = toggle.nextElementSibling.nextElementSibling; // Locate the .children div
+				if (children && children.style.display !== "none") {
+					toggle.click(); // Simulate a click to collapse
+				}
+			});
+		});
+
+		document.getElementById("expand-all-btn").addEventListener("click", () => {
+			document.querySelectorAll(".toggle").forEach(toggle => {
+				const children = toggle.nextElementSibling.nextElementSibling; // Locate the .children div
+				if (children && children.style.display === "none") {
+					toggle.click(); // Simulate a click to expand
+				}
+			});
+		});
+
+
+
 
 		window.addEventListener("message", (event) => {
 			renderData(event.data);
