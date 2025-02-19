@@ -118,6 +118,15 @@
         "extensions": [
           ".llll"
         ]
+      },
+      {
+        "id": "txt",
+        "aliases": [
+          "text"
+        ],
+        "extensions": [
+          ".txt"
+        ]
       }
     ],
     "grammars": [
@@ -135,6 +144,11 @@
         "language": "llll",
         "scopeName": "source.llll",
         "path": "./syntaxes/llll.tmLanguage.json"
+      },
+      {
+        "language": "txt",
+        "scopeName": "source.txt",
+        "path": "./syntaxes/txt.tmLanguage.json"
       }
     ]
   }

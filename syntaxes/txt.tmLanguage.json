@@ -1,0 +1,61 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "txt",
+    "patterns": [
+        {
+            "name": "variable.key.txt",
+            "match": "\"data_\\d{10}\""
+        },
+        {
+            "name": "constant.numeric.txt",
+            "match": "\\s\\d+\\s"
+        },
+        {
+            "name": "constant.character.escape",
+            "match": "\"(\\[|\\])\""
+        },
+        {
+            "name": "constant.numeric",
+            "match": "((?<!\\$|#)(?<=\\s)[A-Ga-g][#bxdq\\^v]*[0-9]+(?:[+-]\\d+/\\d+t)?(?=\\s))"
+        },
+        {
+            "name": "constant.numeric",
+            "match": "(?<![A-Za-z_0-9$#@)\\]])[+\\-]?\\d+\/\\d+"
+        },
+        {
+            "name": "constant.numeric",
+            "match": "((?<![A-Za-z_0-9$#@)\\]])((?<!\\d\\.)[+\\-])?(\\d+(\\.(?!\\.\\.))\\d*|\\d*((?<!\\.\\.)\\.)\\d+|\\d+)([eE][+\\-]?\\d+)?(?!\\w))"
+        },
+        {
+            "name": "keyword.control.bracket.txt",
+            "match": "\\[|\\]"
+        },
+        {
+            "name": "constant.language.type.txt",
+            "match": "\\b(s|i|f)\\b"
+        },
+        {
+            "name": "punctuation.separator.colon.txt",
+            "match": ":"
+        },
+        {
+            "name": "string.quoted.double",
+            "begin": "\"",
+            "end": "\""
+        },
+        {
+            "name": "string.quoted.single",
+            "begin": "'",
+            "end": "'"
+        },
+        {
+            "name": "string.quoted.double.txt",
+            "match": "`\\S+(?:\\s|$)"
+        },
+        {
+            "name": "string.quoted.double.txt",
+            "match": "[^\\s]+"
+        }
+    ],
+    "scopeName": "source.txt"
+}

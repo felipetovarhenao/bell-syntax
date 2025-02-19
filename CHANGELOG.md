@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Add support for `txt` files syntax.
+
 ### Fixed
 
 - Fix formatting bug with _pitches_.
