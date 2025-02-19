@@ -112,7 +112,19 @@
             gap: 5px;
             justify-content: end;
             padding: 5px;
-            /* Space between buttons */
+            position: sticky;
+            /* Keeps the container fixed when scrolling */
+            top: 0;
+            /* Aligns it to the top of the viewport */
+            background-color: var(--bg-color);
+            /* Prevents underlying data from showing through */
+            z-index: 10;
+            /* Ensures it stays above other content */
+        }
+
+        /* Optional: add top padding to the data container if needed */
+        #data-container {
+            padding-top: 10px;
         }
 
         button {
