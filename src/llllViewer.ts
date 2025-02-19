@@ -14,7 +14,7 @@ const llllViewer = vscode.commands.registerCommand("extension.visualizeData", ()
   const parsedData = parser.parse();
 
   // Create the webview panel
-  const panel = vscode.window.createWebviewPanel("dataVisualizer", "Data Visualizer", vscode.ViewColumn.One, {
+  const panel = vscode.window.createWebviewPanel("dataVisualizer", document.fileName, vscode.ViewColumn.One, {
     enableScripts: true,
   });
 

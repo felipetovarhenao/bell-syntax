@@ -13,9 +13,10 @@ export default function visualizeData(context: vscode.ExtensionContext) {
   const parsedData = parser.parse();
 
   // Create the webview panel
-  const panel = vscode.window.createWebviewPanel("dataVisualizer", "Data Visualizer", vscode.ViewColumn.One, {
+  const panel = vscode.window.createWebviewPanel("dataVisualizer", path.basename(document.fileName), vscode.ViewColumn.One, {
     enableScripts: true,
   });
+  panel.iconPath = vscode.Uri.file(path.join(context.extensionPath, "images", "llll.svg"));
 
   // Get the path to the HTML file
   const htmlFilePath = path.join(context.extensionPath, "html", "webview.html");

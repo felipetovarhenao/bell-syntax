@@ -38,9 +38,19 @@
     "commands": [
       {
         "command": "extension.visualizeData",
-        "title": "Visualize Structured Data"
+        "title": "Visualize Structured Data",
+        "icon": "$(list-tree)"
       }
     ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "extension.visualizeData",
+          "group": "navigation",
+          "when": "resourceLangId == llll"
+        }
+      ]
+    },
     "configurationDefaults": {
       "[llll]": {
         "editor.maxTokenizationLineLength": 100000
