@@ -9,9 +9,21 @@ import completionProvider from "./completionProvider";
 import attrCompletionProvider from "./attrCompletionProvider";
 import formatter from "./formatter";
 import bellDefinitionProvider from "./bellDefinitionProvider";
+import visualizeData from "./visualizeData";
 
 export function activate(context: vscode.ExtensionContext) {
-  context.subscriptions.push(completionProvider, hoverProvider, attrCompletionProvider, formatter, diagnosticCollection, bellDefinitionProvider);
+  const llllViewer = vscode.commands.registerCommand("extension.visualizeData", () => {
+    visualizeData(context);
+  });
+  context.subscriptions.push(
+    llllViewer,
+    completionProvider,
+    hoverProvider,
+    attrCompletionProvider,
+    formatter,
+    diagnosticCollection,
+    bellDefinitionProvider
+  );
 
   // Listen for events on bell documents
   vscode.workspace.onDidOpenTextDocument((doc) => updateDiagnostics(doc, diagnosticCollection), null, context.subscriptions);

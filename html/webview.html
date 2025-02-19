@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Data Visualizer</title>
+	<style>
+		:root {
+			--bg-color: var(--vscode-editor-background, #1e1e1e);
+			--text-color: var(--vscode-editor-foreground, #d4d4d4);
+			--hover-color: var(--vscode-list-hoverBackground, rgba(255, 255, 255, 0.1));
+			--border-color: var(--vscode-editorGroup-border, #3c3c3c);
+			--font-family: var(--vscode-font-family, "Segoe UI", Arial, sans-serif);
+		}
+
+		.monospace {
+			font-family: var(--vscode-editor-font-family, monospace);
+		}
+
+		body {
+			background-color: var(--bg-color);
+			color: var(--text-color);
+			font-family: var(--font-family);
+			margin: 10px;
+			padding: 10px;
+			user-select: none;
+		}
+
+		h2 {
+			font-size: 18px;
+			margin-bottom: 10px;
+			border-bottom: 1px solid var(--border-color);
+			padding-bottom: 5px;
+		}
+
+		.node {
+			margin-left: 5px;
+			padding: 5px;
+			border-radius: 0px;
+			cursor: pointer;
+			transition: background 0.2s ease-in-out;
+		}
+
+		.candy-cane:nth-child(odd) {
+			background-color: rgba(255, 250, 255, 0.01);
+			/* Light red */
+		}
+
+		.candy-cane:nth-child(even) {
+			background-color: rgba(255, 250, 250, 0.01);
+			/* Light white */
+		}
+
+
+		.node:hover:not(:has(.node:hover)) {
+			background-color: var(--hover-color);
+		}
+
+		.toggle {
+			font-size: 12px;
+			margin-right: 5px;
+			cursor: pointer;
+		}
+
+		.children {
+			margin-left: 15px;
+			padding-left: 10px;
+			border-left: 1px solid var(--border-color);
+		}
+
+		.leaf {
+			font-size: 14px;
+			margin-left: 15px;
+			padding: 3px;
+		}
+
+		/* Styling based on type */
+		.float {
+			color: #00e5ff;
+		}
+
+		/* Orange for floats */
+		.integer {
+			color: #00e5ff;
+		}
+
+		/* Green for integers */
+		.rational {
+			color: #00e5ff;
+		}
+
+		/* Pink for rationals */
+		.pitch {
+			color: #82e4ff;
+		}
+
+		/* Blue for pitch notation */
+		.symbol {
+			color: #ffca67;
+		}
+
+		.key {
+			font-style: italic;
+			color: #ff4079;
+		}
+
+		/* Gold for symbols (strings) */
+	</style>
+</head>
+
+<body>
+	<div id="data-container"></div>
+
+	<script>
+		function detectType(value) {
+			if (typeof value === "number" && !Number.isInteger(value)) return "float";
+			if (typeof value === "number" && Number.isInteger(value)) return "integer";
+			if (typeof value === "string") {
+				if (/^\d+\/\d+$/.test(value)) return "rational"; // Matches fraction format (e.g., "3/2")
+				if (/^[A-Ga-g][#b]?\d$/.test(value)) return "pitch"; // Matches pitch notation (e.g., "G#5", "Bb3", "f4")
+				return "symbol"; // Default for string-type values
+			}
+			return null;
+		}
+
+		function createNode(key, value, depth = 1) {
+			const node = document.createElement("div");
+			node.classList.add("node", "candy-cane");
+			node.style.fontSize = `${Math.pow(0.9925, depth)}em`; // Decay font size
+
+			if (typeof value === "object" && value !== null) {
+				const toggle = document.createElement("span");
+				toggle.classList.add("toggle");
+				toggle.textContent = "▼ ";
+
+				const label = document.createElement("span");
+				label.textContent = Array.isArray(value) ? `[llll (${value.length})]` : key;
+				label.classList.add('monospace', 'key');
+				const children = document.createElement("div");
+				children.classList.add("children");
+
+				if (Array.isArray(value) && value.length > 0 && !Array.isArray(value[0])) {
+					const type = detectType(value[0]);
+					label.textContent = type === 'symbol' ? `"${value[0]}"` : value[0]; // Use first element as label
+					label.classList.add(type);
+					value.slice(1).forEach((item, index) => {
+						children.appendChild(createNode(index + 2, item, depth + 1)); // Pass depth
+					});
+				} else {
+					value.forEach((item, index) => {
+						children.appendChild(createNode(index + 1, item, depth + 1)); // Pass depth
+					});
+				}
+
+				node.appendChild(toggle);
+				node.appendChild(label);
+				node.appendChild(children);
+				node.onclick = (event) => {
+					event.stopPropagation(); // Prevent event bubbling
+					if (children) {
+						const isCollapsed = children.style.display === "none";
+						children.style.display = isCollapsed ? "block" : "none";
+						toggle.textContent = isCollapsed ? "▼ " : "▶ ";
+					}
+				};
+			} else {
+				const span = document.createElement("span");
+				const type = detectType(value);
+				span.textContent = type === 'symbol' ? `"${value}"` : `${value}`;
+				if (type) span.classList.add(type); // Apply styling class based on type
+				node.appendChild(span);
+				node.classList.remove("node");
+				node.classList.add("leaf", "monospace");
+			}
+			return node;
+		}
+
+		function renderData(data) {
+			const container = document.getElementById("data-container");
+			container.innerHTML = "";
+
+			if (Array.isArray(data)) {
+				data.forEach((item, index) => {
+					container.appendChild(createNode(index + 1, item));
+				});
+			} else {
+				for (let key in data) {
+					container.appendChild(createNode(key, data[key]));
+				}
+			}
+		}
+
+		window.addEventListener("message", (event) => {
+			renderData(event.data);
+		});
+	</script>
+</body>
+
+</html>

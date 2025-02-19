@@ -35,6 +35,12 @@
     "typescript": "^5.4.2"
   },
   "contributes": {
+    "commands": [
+      {
+        "command": "extension.visualizeData",
+        "title": "Visualize Structured Data"
+      }
+    ],
     "configurationDefaults": {
       "[llll]": {
         "editor.maxTokenizationLineLength": 100000
