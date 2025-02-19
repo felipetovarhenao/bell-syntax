@@ -3,6 +3,10 @@
     "name": "txt",
     "patterns": [
         {
+            "name": "support.function",
+            "match": "\\[function:\\dx\\d{9}\\]"
+        },
+        {
             "name": "variable.key.txt",
             "match": "\"data_\\d{10}\""
         },
@@ -31,10 +35,6 @@
             "match": "\\[|\\]"
         },
         {
-            "name": "constant.language.type.txt",
-            "match": "\\b(s|i|f)\\b"
-        },
-        {
             "name": "punctuation.separator.colon.txt",
             "match": ":"
         },
@@ -54,7 +54,7 @@
         },
         {
             "name": "string.quoted.double.txt",
-            "match": "[^\\s]+"
+            "match": "[^\\s\\[\\]]+"
         }
     ],
     "scopeName": "source.txt"
