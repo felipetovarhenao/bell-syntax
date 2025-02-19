@@ -35,11 +35,11 @@
         }
 
         .node {
-            padding-left: 5px;
             padding: 5px;
+            padding-right: 0px;
             border-radius: 0px;
             cursor: pointer;
-            transition: background 0.2s ease-in-out;
+            transition: all 0.2s ease-in-out;
         }
 
         .candy-cane:nth-child(odd) {
@@ -53,6 +53,8 @@
 
         .node:hover:not(:has(.node:hover)) {
             background-color: var(--hover-color);
+            scale: 1.01;
+            transition: all 0.1s ease-in-out;
         }
 
         .toggle {
@@ -69,7 +71,8 @@
         .leaf {
             font-size: 14px;
             margin-left: 15px;
-            padding: 3px;
+            padding: 5px;
+            padding-right: 0px;
         }
 
         /* Styling based on type */
@@ -134,6 +137,11 @@
             border-color: var(--vscode-focusBorder, #007acc);
         }
 
+        .extra-info {
+            color: var(--vscode-debugTokenExpression-value);
+            padding-right: 10px;
+        }
+
 
         /* Gold for symbols (strings) */
     </style>
@@ -160,7 +168,7 @@
             return null;
         }
 
-        function createNode(key, value, depth = 1) {
+        function createNode(key, value, depth = 1, address = [1]) {
             const node = document.createElement("div");
             node.classList.add("node", "candy-cane");
             node.style.fontSize = `${Math.pow(0.9925, depth)}em`; // Decay font size
@@ -173,9 +181,31 @@
                 const label = document.createElement("span");
                 label.textContent = Array.isArray(value) ? `[llll (${value.length})]` : key;
                 label.classList.add('monospace', 'key');
+
+                // Container for toggle and label on the left
+                const leftContainer = document.createElement("div");
+                leftContainer.style.display = "flex";
+                leftContainer.style.alignItems = "center";
+                leftContainer.appendChild(toggle);
+                leftContainer.appendChild(label);
+
+                // Extra info container for right side content (you can later fill this)
+                const extraInfo = document.createElement("div");
+                extraInfo.textContent = address.concat(1).join(" ");
+                extraInfo.classList.add("extra-info", "monospace");
+
+                // Row container that spaces left and right (simulate space-between)
+                const row = document.createElement("div");
+                row.classList.add("node-row");
+                row.style.display = "flex";
+                row.style.justifyContent = "space-between";
+                row.style.alignItems = "center";
+                row.appendChild(leftContainer);
+                row.appendChild(extraInfo);
+
                 const children = document.createElement("div");
                 if (depth > 2) {
-                    children.style.setProperty("display", "none")
+                    children.style.setProperty("display", "none");
                 }
                 children.classList.add("children");
 
@@ -184,18 +214,17 @@
                     label.textContent = type === 'symbol' ? `"${value[0]}"` : value[0]; // Use first element as label
                     label.classList.add(type);
                     value.slice(1).forEach((item, index) => {
-                        children.appendChild(createNode(index + 2, item, depth + 1)); // Pass depth
+                        children.appendChild(createNode(index + 2, item, depth + 1, address.concat(index + 2)));
                     });
                 } else {
                     value.forEach((item, index) => {
-                        children.appendChild(createNode(index + 1, item, depth + 1)); // Pass depth
+                        children.appendChild(createNode(index + 1, item, depth + 1, address.concat(index + 1)));
                     });
                 }
 
-                node.appendChild(toggle);
-                node.appendChild(label);
+                node.appendChild(row);
                 node.appendChild(children);
-                node.onclick = (event) => {
+                row.onclick = (event) => {
                     event.stopPropagation(); // Prevent event bubbling
                     if (children) {
                         const isCollapsed = children.style.display === "none";
@@ -204,14 +233,27 @@
                     }
                 };
             } else {
-                const span = document.createElement("span");
                 const type = detectType(value);
-                span.textContent = type === 'symbol' ? `"${value}"` : `${value}`;
-                if (type) span.classList.add(type); // Apply styling class based on type
-                node.appendChild(span);
+                const leftText = document.createElement("span");
+                leftText.textContent = type === 'symbol' ? `"${value}"` : `${value}`;
+                if (type) leftText.classList.add(type);
+
+                const extraInfo = document.createElement("div");
+                extraInfo.textContent = address.join(" ");
+                extraInfo.classList.add("extra-info");
+
+                const row = document.createElement("div");
+                row.style.display = "flex";
+                row.style.justifyContent = "space-between";
+                row.style.alignItems = "center";
+                row.appendChild(leftText);
+                row.appendChild(extraInfo);
+
+                node.appendChild(row);
                 node.classList.remove("node");
                 node.classList.add("leaf", "monospace", "candy-cane");
             }
+
             return node;
         }
 
@@ -221,31 +263,38 @@
 
             if (Array.isArray(data)) {
                 data.forEach((item, index) => {
-                    container.appendChild(createNode(index + 1, item));
+                    container.appendChild(createNode(index + 1, item, 1, [index + 1]));
                 });
             } else {
+                let index = 1;
                 for (let key in data) {
-                    container.appendChild(createNode(key, data[key]));
+                    container.appendChild(createNode(key, data[key], 1, [index]));
+                    index++
                 }
             }
         }
+        // Collapse All
         document.getElementById("collapse-all-btn").addEventListener("click", () => {
             document.querySelectorAll(".toggle").forEach(toggle => {
-                const children = toggle.nextElementSibling.nextElementSibling; // Locate the .children div
+                const row = toggle.closest('.node-row');
+                const children = row ? row.nextElementSibling : null;
                 if (children && children.style.display !== "none") {
-                    toggle.click(); // Simulate a click to collapse
+                    row.click(); // Simulate a click to collapse
                 }
             });
         });
 
+        // Expand All
         document.getElementById("expand-all-btn").addEventListener("click", () => {
             document.querySelectorAll(".toggle").forEach(toggle => {
-                const children = toggle.nextElementSibling.nextElementSibling; // Locate the .children div
+                const row = toggle.closest('.node-row');
+                const children = row ? row.nextElementSibling : null;
                 if (children && children.style.display === "none") {
-                    toggle.click(); // Simulate a click to expand
+                    row.click(); // Simulate a click to expand
                 }
             });
         });
+
 
         window.addEventListener("message", (event) => {
             renderData(event.data);
