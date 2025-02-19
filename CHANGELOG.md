@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Add support for `txt` files syntax.
+- **llll viewer**: New GUI feature for visualizing native _llll_ files (read-only).
 
 ### Fixed
 

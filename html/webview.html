@@ -37,13 +37,14 @@
         .node {
             padding: 5px;
             padding-right: 0px;
+            padding-bottom: 0px;
             border-radius: 0px;
             cursor: pointer;
             transition: all 0.1s ease-in-out;
         }
 
         .candy-cane:nth-child(odd) {
-            background-color: rgba(240, 248, 255, 0.05);
+            background-color: rgba(240, 248, 255, 0.025);
         }
 
         .candy-cane:nth-child(even) {
@@ -116,18 +117,17 @@
             justify-content: end;
             padding: 5px;
             position: sticky;
-            /* Keeps the container fixed when scrolling */
             top: 0;
-            /* Aligns it to the top of the viewport */
             background-color: var(--bg-color);
-            /* Prevents underlying data from showing through */
             z-index: 10;
-            /* Ensures it stays above other content */
         }
 
-        /* Optional: add top padding to the data container if needed */
         #data-container {
             padding-top: 10px;
+        }
+
+        .node-row {
+            padding: 2px;
         }
 
         button {
