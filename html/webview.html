@@ -104,6 +104,10 @@
             color: var(--vscode-debugTokenExpression-name, #ff4079);
         }
 
+        .left-container {
+            padding-bottom: 2.5px;
+        }
+
         #collapse-all-container {
             display: flex;
             flex-direction: row;
@@ -153,6 +157,11 @@
             padding-right: 10px;
         }
 
+        .length {
+            color: var(--vscode-debugTokenExpression-value);
+            padding-left: 5px;
+        }
+
 
         /* Gold for symbols (strings) */
     </style>
@@ -190,15 +199,20 @@
                 toggle.textContent = depth > 2 ? "▶ " : "▼ ";
 
                 const label = document.createElement("span");
-                label.textContent = Array.isArray(value) ? `[llll (${value.length})]` : key;
+                label.textContent = `${Array.isArray(value) ? `[ ]` : key}`;
                 label.classList.add('monospace', 'key');
+                const length = document.createElement("span");
+                length.textContent = `(${value.length})`;
+                length.classList.add('monospace', 'length')
 
                 // Container for toggle and label on the left
                 const leftContainer = document.createElement("div");
+                leftContainer.classList.add("left-container");
                 leftContainer.style.display = "flex";
                 leftContainer.style.alignItems = "center";
                 leftContainer.appendChild(toggle);
                 leftContainer.appendChild(label);
+                leftContainer.appendChild(length);
 
                 // Extra info container for right side content (you can later fill this)
                 const extraInfo = document.createElement("div");
