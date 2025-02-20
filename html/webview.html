@@ -196,7 +196,7 @@
             if (typeof value === "object" && value !== null) {
                 const toggle = document.createElement("span");
                 toggle.classList.add("toggle");
-                toggle.textContent = depth > 2 ? "▶ " : "▼ ";
+                toggle.textContent = depth > 0 ? "▶ " : "▼ ";
 
                 const label = document.createElement("span");
                 label.textContent = `${Array.isArray(value) ? `[...]` : key}`;
@@ -229,7 +229,7 @@
                 row.appendChild(extraInfo);
 
                 const children = document.createElement("div");
-                if (depth > 2) {
+                if (depth > 0) {
                     children.style.setProperty("display", "none");
                 }
                 children.classList.add("children");
