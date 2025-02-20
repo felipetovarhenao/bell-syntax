@@ -70,7 +70,7 @@
         "extensions": [
           ".bell"
         ],
-        "configuration": "./language-configuration.json"
+        "configuration": "./bell-language-configuration.json"
       },
       {
         "id": "midi",
@@ -126,7 +126,8 @@
         ],
         "extensions": [
           ".txt"
-        ]
+        ],
+        "configuration": "./txt-language-configuration.json"
       }
     ],
     "grammars": [
