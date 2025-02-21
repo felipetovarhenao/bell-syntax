@@ -135,10 +135,10 @@ export default class BreakpointParser {
         </style>
         <line class="axis" x1="${padding}" y1="${height - padding}" x2="${width - padding}" y2="${height - padding}" stroke-width="1"/>
         <line class="axis" x1="${padding}" y1="${padding}" x2="${padding}" y2="${height - padding}" stroke-width="1"/>
-        <text class="label" x="${width / 2}" y="${height - 5}">X (Domain: ${minX} to ${maxX})</text>
+        <text class="label" x="${width / 2}" y="${height - 5}">X (domain: ${minX} to ${maxX})</text>
         <text class="label" x="${padding - 15}" y="${height / 2}" transform="rotate(-90, ${padding - 15}, ${
       height / 2
-    })">Y (Range: ${minY} to ${maxY})</text>
+    })">Y (range: ${minY} to ${maxY})</text>
         <path d="${pathData}" class="curve" fill="none" stroke-width="1"/>
         ${this.parsedPoints.map((p) => `<circle cx="${toSvgX(p.x)}" cy="${toSvgY(p.y)}" r="2" class="point"/>`).join("\n")}
       </svg>
