@@ -3,7 +3,7 @@ import { nativeFunctionsLookup } from "./nativeFunctions";
 import { loopSnippetLookup } from "./loopSnippets";
 import BreakpointParser from "./BreakpointParser";
 
-const regex = /(\[\s*(-?\d+(\.\d+)?(\/-?\d+(\.\d+)?)?\s+-?\d+(\.\d+)?(\/-?\d+(\.\d+)?)?\s+-?\d+(\.\d+)?(\/-?\d+(\.\d+)?)?)\s*\]\s*)+/g;
+const regex = /(\[\s*(-?\d+(\.\d+)?(\/-?\d+(\.\d+)?)?\s+-?\d+(\.\d+)?(\/-?\d+(\.\d+)?)?\s+-?\d+(\.\d+)?(\/-?\d+(\.\d+)?)?)\s*\]\s*){2,}/g;
 
 const hoverProvider = vscode.languages.registerHoverProvider("bell", {
   provideHover(document: vscode.TextDocument, position: vscode.Position) {
