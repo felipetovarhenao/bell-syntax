@@ -9,12 +9,14 @@
 export default class BreakpointParser {
   private bpf: string;
   private parsedPoints: { x: number; y: number; slope: number }[];
+  private samplingResolution: number;
 
   /**
    * Initializes the parser with a BPF string and parses the content.
    * @param bpf - A string containing breakpoint function data formatted as "x y slope ..."
    */
-  constructor(bpf: string) {
+  constructor(bpf: string, samplingResolution = 50) {
+    this.samplingResolution = samplingResolution;
     this.bpf = bpf;
     this.parsedPoints = this.parse();
   }
@@ -99,8 +101,12 @@ export default class BreakpointParser {
     for (let i = 1; i < this.parsedPoints.length; i++) {
       const p0 = this.parsedPoints[i - 1];
       const p1 = this.parsedPoints[i];
-      const segments = Math.max(2, Math.round((50 * (p1.x - p0.x)) / domain));
-      console.log(segments);
+
+      // Determine the number of segments for smooth interpolation between points.
+      // The number of segments is proportional to the x-distance between points,
+      // scaled by a factor to maintain visual smoothness. It ensures at least
+      // 2 segments per transition to avoid discontinuities.
+      const segments = Math.max(2, Math.round((this.samplingResolution * (p1.x - p0.x)) / domain));
 
       for (let j = 1; j <= segments; j++) {
         const t = j / segments;
