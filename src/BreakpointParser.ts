@@ -66,8 +66,7 @@ export default class BreakpointParser {
     // Determine the minimum and maximum values for scaling
     const minX = Math.min(...this.parsedPoints.map((p) => p.x));
     const maxX = Math.max(...this.parsedPoints.map((p) => p.x));
-    let minY = Math.min(...this.parsedPoints.map((p) => p.y));
-    minY = Math.min(Math.abs(minY), 0) * Math.sign(minY);
+    const minY = Math.min(...this.parsedPoints.map((p) => p.y));
     const maxY = Math.max(...this.parsedPoints.map((p) => p.y));
 
     // Define SVG dimensions and padding
