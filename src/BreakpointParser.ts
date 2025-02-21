@@ -52,7 +52,7 @@ export default class BreakpointParser {
     return Array.from({ length: points.length / 3 }, (_, i) => ({
       x: points[i * 3],
       y: points[i * 3 + 1],
-      slope: points[i * 3 + 2],
+      slope: Math.max(-1, Math.min(1, points[i * 3 + 2])),
     })).sort((a, b) => a.x - b.x);
   }
 
