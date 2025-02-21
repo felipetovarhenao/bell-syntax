@@ -64,10 +64,11 @@ export default class BreakpointParser {
     if (this.parsedPoints.length === 0) return "";
 
     // Determine the minimum and maximum values for scaling
-    const minX = Math.min(...this.parsedPoints.map((p) => p.x));
-    const maxX = Math.max(...this.parsedPoints.map((p) => p.x));
-    const minY = Math.min(...this.parsedPoints.map((p) => p.y));
-    const maxY = Math.max(...this.parsedPoints.map((p) => p.y));
+    // Ensure axes always include 0, even if all values are positive or negative
+    const minX = Math.min(0, ...this.parsedPoints.map((p) => p.x));
+    const maxX = Math.max(0, ...this.parsedPoints.map((p) => p.x));
+    const minY = Math.min(0, ...this.parsedPoints.map((p) => p.y));
+    const maxY = Math.max(0, ...this.parsedPoints.map((p) => p.y));
 
     // Define SVG dimensions and padding
     const width = 300,
@@ -117,32 +118,45 @@ export default class BreakpointParser {
       }
     }
 
-    // Return full SVG string including axes and labels
+    // Calculate dynamic axis positions
+    const xAxisY = toSvgY(0); // Always position X-axis at y=0 in SVG space
+    const yAxisX = toSvgX(0); // Always position Y-axis at x=0 in SVG space
+
     return `
-      <svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
-        <style>
-          @media (prefers-color-scheme: dark) {
-            .axis, .label { stroke: #808080; fill: #CCCCCC; }
-            .curve { stroke: #569CD6; }
-            .point { fill: #D4D4D4; }
-          }
-          @media (prefers-color-scheme: light) {
-            .axis, .label { stroke: #404040; fill: #333333; }
-            .curve { stroke: #007ACC; }
-            .point { fill: #000000; }
-          }
-          text { font-family: monospace; font-size: 10px; text-anchor: middle; overflow: visible; }
-        </style>
-        <line class="axis" x1="${padding}" y1="${height - padding}" x2="${width - padding}" y2="${height - padding}" stroke-width="1"/>
-        <line class="axis" x1="${padding}" y1="${padding}" x2="${padding}" y2="${height - padding}" stroke-width="1"/>
-        <text class="label" x="${width / 2}" y="${height - 5}">X (domain: ${minX} to ${maxX})</text>
-        <text class="label" x="${padding - 15}" y="${height / 2}" transform="rotate(-90, ${padding - 15}, ${
-      height / 2
-    })">Y (range: ${minY} to ${maxY})</text>
-        <path d="${pathData}" class="curve" fill="none" stroke-width="1"/>
-        ${this.parsedPoints.map((p) => `<circle cx="${toSvgX(p.x)}" cy="${toSvgY(p.y)}" r="2" class="point"/>`).join("\n")}
-      </svg>
-    `;
+  <svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
+    <style>
+      @media (prefers-color-scheme: dark) {
+        .axis, .label { stroke: #808080; fill: #CCCCCC; }
+        .curve { stroke: #569CD6; }
+        .point { fill: #D4D4D4; }
+      }
+      @media (prefers-color-scheme: light) {
+        .axis, .label { stroke: #404040; fill: #333333; }
+        .curve { stroke: #007ACC; }
+        .point { fill: #000000; }
+      }
+      text { font-family: monospace; font-size: 10px; text-anchor: middle; overflow: visible; }
+    </style>
+
+    <!-- X-axis (always ensuring 0 is visible) -->
+    <line class="axis" x1="${padding}" y1="${xAxisY}" x2="${width - padding}" y2="${xAxisY}" stroke-width="1"/>
+
+    <!-- Y-axis (always ensuring 0 is visible) -->
+    <line class="axis" x1="${yAxisX}" y1="${padding}" x2="${yAxisX}" y2="${height - padding}" stroke-width="1"/>
+
+    <!-- Labels -->
+    <text class="label" x="${width / 2}" y="${height - 5}">X (domain: ${minX} to ${maxX})</text>
+    <text class="label" x="${padding - 15}" y="${height / 2}" transform="rotate(-90, ${padding - 15}, ${height / 2})">
+      Y (range: ${minY} to ${maxY})
+    </text>
+
+    <!-- Curve path -->
+    <path d="${pathData}" class="curve" fill="none" stroke-width="1"/>
+
+    <!-- Points -->
+    ${this.parsedPoints.map((p) => `<circle cx="${toSvgX(p.x)}" cy="${toSvgY(p.y)}" r="2" class="point"/>`).join("\n")}
+  </svg>
+`;
   }
 
   /**
