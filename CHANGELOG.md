@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+### Fixed
+
+### Changed
+
+### Removed
+
+## [0.1.18] - 23-02-2025
+
+### Added
+
 - `BPF viewer`: New feature to visualize static bpfs via the `hoverProvider` API.
 
 ### Fixed
