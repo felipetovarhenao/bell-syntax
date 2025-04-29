@@ -11,6 +11,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+### Changed
+
+### Removed
+
+## [0.1.19] - 29-04-2025
+
+### Added
+
+### Fixed
+
 - Pseudovariables are now ignored in variable-related diagnostics.
 
 ### Changed
