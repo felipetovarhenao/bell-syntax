@@ -1,3 +1,4 @@
 $myvar = 1;
 $hello ;
-$x1 
+$x1 ;
+$do1 =2

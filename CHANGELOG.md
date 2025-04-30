@@ -11,9 +11,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Pseudo-variables correctly ignored by diagnostics.
+
 ### Changed
 
 ### Removed
+
+## [0.1.19]
+
+_changes reversed in git due to bug_
 
 ## [0.1.18] - 23-02-2025
 
