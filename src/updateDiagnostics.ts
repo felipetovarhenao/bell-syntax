@@ -51,7 +51,7 @@ export default function updateDiagnostics(document: vscode.TextDocument, collect
     while ((match = definitionRegex.exec(lineText)) !== null) {
       const varName = match[1];
       // Skip reserved/special variable names
-      if (/^(?:[lipfr]|d?[xo])\d+$/.test(varName)) {
+      if (/^(?:(([lipfr]|d?[xo])\d+)|args|argcount)$/.test(varName)) {
         continue;
       }
 
@@ -119,7 +119,7 @@ export default function updateDiagnostics(document: vscode.TextDocument, collect
   // Step 4: Warn about variables that are used but never defined
   for (const varName of usedVariables) {
     // Skip if it's a special/reserved variable
-    if (!definitionsMap.has(varName) && !/\$(?:[lipfr]|d?[xo])\d+\b/.test(`$${varName}`)) {
+    if (!definitionsMap.has(varName) && !/\$(?:(([lipfr]|d?[xo])\d+)|args|argcount)\b/.test(`$${varName}`)) {
       lines.forEach((lineText, lineIndex) => {
         let match: RegExpExecArray | null;
         usageRegex.lastIndex = 0;
