@@ -28,7 +28,6 @@ export default function updateDiagnostics(document: vscode.TextDocument, collect
   const definitionRegex = /\$([A-Za-z]([A-Za-z0-9_]*)?[A-Za-z0-9]*)\s*(?=(=(?!=)|[^,;]*\bin\b|[^;]*->))/g;
   const globalDefinitionRegex = /(?<![#$])([A-Za-z]([A-Za-z0-9_]*)?[A-Za-z0-9]*)\s*(?=(=[^=]))/g;
   const usageRegex = /\$([A-Za-z]([A-Za-z0-9_]*)?[A-Za-z0-9]*)/g;
-  const reservedKeywordRegex = /\$(d?[xo]|f|l|i|r|p)[0-9]+/;
 
   const lines = text.split(/\r?\n/);
 
@@ -85,10 +84,6 @@ export default function updateDiagnostics(document: vscode.TextDocument, collect
     usageRegex.lastIndex = 0;
     while ((match = usageRegex.exec(lineText)) !== null) {
       const varName = match[1];
-      if (!varName.match(reservedKeywordRegex)) {
-        continue;
-      }
-
       usedVariables.add(varName);
 
       // If the variable is defined, mark the correct definition as used
