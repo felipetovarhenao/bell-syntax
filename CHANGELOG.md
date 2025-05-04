@@ -5,27 +5,22 @@ All notable changes to this project, starting with v0.1.1, are documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [0.1.20] - 04-04-2025
 
 ### Added
 
 ### Fixed
 
-### Changed
-
-### Removed
-
-## [0.1.19] - 29-04-2025
-
-### Added
-
-### Fixed
-
-- Pseudovariables are now ignored in variable-related diagnostics.
+- Pseudo-variables correctly ignored by diagnostics.
+- No duplicates in auto-complete suggestions.
 
 ### Changed
 
 ### Removed
+
+## [0.1.19]
+
+_changes reversed in git due to bug_
 
 ## [0.1.18] - 23-02-2025
 

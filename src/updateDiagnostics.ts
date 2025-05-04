@@ -21,32 +21,46 @@ export default function updateDiagnostics(document: vscode.TextDocument, collect
   }
   const definitionsMap = new Map<string, DefinitionInfo[]>();
 
-  // Regex patterns for definitions and usages
+  // Regex patterns:
+  // - `definitionRegex`: matches local variable definitions (starting with $)
+  // - `globalDefinitionRegex`: matches global variable definitions (no prefix)
+  // - `usageRegex`: matches variable usages (starting with $)
   const definitionRegex = /\$([A-Za-z]([A-Za-z0-9_]*)?[A-Za-z0-9]*)\s*(?=(=(?!=)|[^,;]*\bin\b|[^;]*->))/g;
   const globalDefinitionRegex = /(?<![#$])([A-Za-z]([A-Za-z0-9_]*)?[A-Za-z0-9]*)\s*(?=(=[^=]))/g;
   const usageRegex = /\$([A-Za-z]([A-Za-z0-9_]*)?[A-Za-z0-9]*)/g;
   const reservedKeywordRegex = /\$(d?[xo]|f|l|i|r|p)[0-9]+/;
 
   const lines = text.split(/\r?\n/);
+
+  // Reset completion arrays
   localVariableCompletions.length = 0;
   globalVariableCompletions.length = 0;
-  // Step 1: Find all definitions
+
+  // Step 1: Find all variable definitions in the document
   lines.forEach((lineText, lineIndex) => {
     let match: RegExpExecArray | null;
+
+    // Match global definitions and populate completions
     globalDefinitionRegex.lastIndex = 0;
     while ((match = globalDefinitionRegex.exec(lineText)) !== null) {
       const varName = match[1];
       globalVariableCompletions.push(new vscode.CompletionItem(`${varName}`, vscode.CompletionItemKind.Constant));
     }
+
+    // Match local definitions and track them in the definitions map
     definitionRegex.lastIndex = 0;
     while ((match = definitionRegex.exec(lineText)) !== null) {
       const varName = match[1];
-      if (!varName.match(reservedKeywordRegex)) {
+      // Skip reserved/special variable names
+      if (/^(?:(([lipfr]|d?[xo])\d+)|args|argcount)$/.test(varName)) {
         continue;
       }
+
       const startPos = match.index;
       const endPos = startPos + match[0].length - 1;
+
       localVariableCompletions.push(new vscode.CompletionItem(`$${varName}`, vscode.CompletionItemKind.Variable));
+
       const range = new vscode.Range(new vscode.Position(lineIndex, startPos), new vscode.Position(lineIndex, endPos));
 
       if (!definitionsMap.has(varName)) {
@@ -62,9 +76,9 @@ export default function updateDiagnostics(document: vscode.TextDocument, collect
     }
   });
 
-  // Step 2: Find all usages and mark definitions as used
+  // Step 2: Find all variable usages and mark corresponding definitions as used
   const diagnostics: vscode.Diagnostic[] = [];
-  const usedVariables = new Set<string>(); // Track all used variable names
+  const usedVariables = new Set<string>();
 
   lines.forEach((lineText, lineIndex) => {
     let match: RegExpExecArray | null;
@@ -77,6 +91,7 @@ export default function updateDiagnostics(document: vscode.TextDocument, collect
 
       usedVariables.add(varName);
 
+      // If the variable is defined, mark the correct definition as used
       if (definitionsMap.has(varName)) {
         const definitionArray = definitionsMap.get(varName)!;
 
@@ -91,7 +106,7 @@ export default function updateDiagnostics(document: vscode.TextDocument, collect
     }
   });
 
-  // Step 3: Warn about unused definitions
+  // Step 3: Create diagnostics for unused variables
   for (const [_, definitionArray] of definitionsMap.entries()) {
     for (const def of definitionArray) {
       if (!def.used) {
@@ -106,9 +121,10 @@ export default function updateDiagnostics(document: vscode.TextDocument, collect
     }
   }
 
-  // Step 4: Warn about used variables not in definitionsMap
+  // Step 4: Warn about variables that are used but never defined
   for (const varName of usedVariables) {
-    if (!definitionsMap.has(varName)) {
+    // Skip if it's a special/reserved variable
+    if (!definitionsMap.has(varName) && !/\$(?:(([lipfr]|d?[xo])\d+)|args|argcount)\b/.test(`$${varName}`)) {
       lines.forEach((lineText, lineIndex) => {
         let match: RegExpExecArray | null;
         usageRegex.lastIndex = 0;
@@ -131,11 +147,16 @@ export default function updateDiagnostics(document: vscode.TextDocument, collect
     }
   }
 
-  // Step 5: Update the diagnostic collection
+  // Step 5: Update the diagnostic collection with generated diagnostics
   collection.set(document.uri, diagnostics);
 }
 
+// Completion items for local and global variables, exposed for use in other parts of the extension
 const localVariableCompletions: vscode.CompletionItem[] = [];
 const globalVariableCompletions: vscode.CompletionItem[] = [];
+
+// Diagnostic collection for "bell" language diagnostics
 const diagnosticCollection = vscode.languages.createDiagnosticCollection("bell");
+
+// Exported symbols
 export { localVariableCompletions, diagnosticCollection, globalVariableCompletions };
