@@ -143,7 +143,7 @@
                     "match": "((?<!\\w)\\$(?:[lipfr]|d?[xo])\\d+(?=\\b|$))"
                 },
                 {
-                    "name": "entity.name.tag",
+                    "name": "variable.name",
                     "match": "(?<!\\$)\\b[A-Z](?:[A-Za-z0-9_]*[A-Za-z0-9])?\\b"
                 }
             ]
