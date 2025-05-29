@@ -10,6 +10,7 @@ import attrCompletionProvider from "./attrCompletionProvider";
 import formatter from "./formatter";
 import bellDefinitionProvider from "./bellDefinitionProvider";
 import visualizeLLLLData from "./visualizeLLLLData";
+import findDocString from "./findDocString";
 
 export function activate(context: vscode.ExtensionContext) {
   const llllViewer = vscode.commands.registerCommand("extension.visualizeLLLLData", () => {
@@ -34,4 +35,8 @@ export function activate(context: vscode.ExtensionContext) {
   vscode.workspace.textDocuments.forEach((doc) => {
     updateDiagnostics(doc, diagnosticCollection);
   });
+
+  return {
+    findDocString,
+  };
 }

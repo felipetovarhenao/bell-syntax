@@ -3,7 +3,7 @@ import * as vscode from "vscode";
 export default function findDocString(document: vscode.TextDocument, word: string, maxLines: number = 20): vscode.Hover | null {
   // Check if the word is defined elsewhere in the document
   const docText = document.getText();
-  const defRegex = new RegExp(`^\\s*#?\\s*${word}\\s*=`, "m");
+  const defRegex = new RegExp(`\)#\\s*${word}\\s*=`, "m");
 
   const defMatch = docText.match(defRegex);
   if (defMatch) {

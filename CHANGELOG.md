@@ -18,6 +18,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Expose API to other extensions.
+
 ### Removed
 
 ## [0.1.19]
