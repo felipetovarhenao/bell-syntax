@@ -1,0 +1,21 @@
+for $i in 1...10 do (
+    $x = 1;
+    $y = $x * $i;
+    print($y $x $i) 
+);
+#(
+Hi there!
+)#
+SomeFunction = (
+    -> (
+        #(
+            wrong docstring
+        )#
+        print('hi there');
+        print('nevermind');
+        null
+    ) 
+);
+
+
+SomeFunction()
