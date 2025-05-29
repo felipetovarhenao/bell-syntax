@@ -2,6 +2,7 @@ import * as vscode from "vscode";
 import { nativeFunctionsLookup } from "./nativeFunctions";
 import { loopSnippetLookup } from "./loopSnippets";
 import BreakpointParser from "./BreakpointParser";
+import findDocString from "./findDocString";
 
 const regex = /(\[\s*(-?\d+(\.\d+)?(\/-?\d+(\.\d+)?)?\s+-?\d+(\.\d+)?(\/-?\d+(\.\d+)?)?\s+-?\d+(\.\d+)?(\/-?\d+(\.\d+)?)?)\s*\]\s*){2,}/g;
 
@@ -14,6 +15,11 @@ const hoverProvider = vscode.languages.registerHoverProvider("bell", {
     const result = nativeFunctionsLookup[word] || loopSnippetLookup[word];
     if (result) {
       return new vscode.Hover(result.completion.documentation);
+    } else {
+      const docString = findDocString(document, word);
+      if (docString) {
+        return docString;
+      }
     }
 
     // Extract the entire line where the cursor is located
